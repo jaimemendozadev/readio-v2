@@ -1,7 +1,8 @@
-const express = require('express');
+import DB from './DB';
+import express from 'express';
 const app = express();
-const bodyParser = require('body-parser');
-const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
+import bodyParser from 'body-parser';
+import {graphqlExpress, graphiqlExpress} from 'apollo-server-express';
 
 
 app.use(bodyParser.json());
@@ -12,4 +13,6 @@ app.get('*', (req, res) => {
   res.status(200).send('hit the api');
 });
 
-module.exports = app;
+
+
+export default app;
