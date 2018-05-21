@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+import {Schema, model} from 'mongoose';
 
 const SongSchema = new Schema({
   title: String,
@@ -9,4 +9,4 @@ const SongSchema = new Schema({
 
 const SongModel = model('song', SongSchema);
 
-module.exports = SongModel;
+export default SongModel;

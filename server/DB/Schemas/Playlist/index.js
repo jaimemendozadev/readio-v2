@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+import {Schema, model} from 'mongoose';
 
 const PlaylistSchema = new Schema({
   name: String,
@@ -9,4 +9,4 @@ const PlaylistSchema = new Schema({
 
 const PlaylistModel = model('playlist', PlaylistSchema);
 
-module.exports = PlaylistModel;
+export default PlaylistModel;

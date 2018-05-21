@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const DB_URL = process.env.DB_URL;
+import mongoose from 'mongoose';
 
-console.log("the DB_URL is ", DB_URL);
+const DB_URL = process.env.DB_URL;
 
 mongoose.connect(DB_URL);
 
 const DB = mongoose.connection;
+
 mongoose.Promise = global.Promise;
 
 DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
