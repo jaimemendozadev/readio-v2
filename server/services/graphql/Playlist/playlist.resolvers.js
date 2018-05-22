@@ -1,18 +1,13 @@
 import {getPlaylist} from './queries';
-import {} from './mutations';
+import {createPlaylist} from './mutations';
 
 
 export default {
   Query: {
-
     getPlaylist
   },
 
   Mutation: {
-
-  },
-
-  User: {
-  
+    createPlaylist
   }
 }

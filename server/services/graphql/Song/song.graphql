@@ -1,0 +1,19 @@
+type Song {
+  title: String!
+  permalink_url: String!
+  artwork_url: String
+}
+
+input CreateSong {
+  title: String!
+  permalink_url: String!
+  artwork_url: String
+}
+
+extend type Query {
+  findSong(title: String): [Song]!
+}
+
+extend type Mutation {
+  createSong(input: CreateSong): Song!
+}

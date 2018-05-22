@@ -1,4 +1,14 @@
 const {makeExecutableSchema} = require('graphql-tools');
+import merge from 'lodash.merge';
+
+import {userSchema} from './User/user.graphql';
+import {userResolvers} from './User/user.resolvers';
+
+import {songSchema} from './Song/song.graphql';
+import {songResolvers} from './Song/song.resolvers';
+
+import {playlistSchema} from './Playlist/playlist.graphql';
+import {playlistResolvers} from './Playlist/playlist.resolvers';
 
 
 
@@ -12,8 +22,18 @@ const baseSchema = `
 `
 
 const schema = makeExecutableSchema({
-  typeDefs: [baseSchema],
-  resolvers: {}
+  typeDefs: [
+    baseSchema,
+    userSchema,
+    songSchema,
+    playlistSchema
+  ],
+  resolvers: merge(
+    {},
+    userResolvers,
+    songResolvers,
+    playlistResolvers
+  )
 });
 
-module.exports = schema;
+export default schema;
