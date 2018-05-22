@@ -4,7 +4,7 @@ import User from '../../../../DB/Schemas';
 
 export const createUser = async(_, {input}) => {
   //create User in DB  
-  const newUser = await new User(input);  
+  const newUser = await User.create(input).exec();  
   return newUser;
 }
 

@@ -1,0 +1,19 @@
+type Playlist {
+  name: String!
+  user: ID!
+  songs: [Song]!      
+}
+
+input CreatePlaylist {
+  name: String!
+  user: ID!
+  songs: [Song]! 
+}
+
+extend type Query {
+  getPlaylist(id: ID!): [Playlist]!
+}
+
+extend type Mutation {
+  createPlaylist(input: CreatePlaylist): Playlist!
+}

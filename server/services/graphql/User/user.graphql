@@ -21,8 +21,6 @@ input UpdateUser {
 
 type Query {
   getUser(id: ID!): User
-  getPlaylist(id: ID!): [Playlist]!
-
 }
 
 type Mutation {

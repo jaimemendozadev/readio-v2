@@ -1,6 +1,4 @@
 import User from '../../../../DB/Schemas';
-import Playlist from '../../../../DB/Schemas';
-
 
 export const playlists = async(object) => {
   const {id} = object;
@@ -13,14 +11,6 @@ export const playlists = async(object) => {
   return playlists;
 
 
-}
-
-
-
-export const getPlaylist = async(_, {id}) => {
-  const foundPlaylist = Playlist.findById(id);
-
-  return foundPlaylist;
 }
 
 export const getUser = async(_, {id}) => {

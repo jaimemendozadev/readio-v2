@@ -4,8 +4,7 @@ import {createUser, deleteUser, updateUser} from './mutations';
 
 export default {
   Query: {
-    getUser,
-    getPlaylist
+    getUser
   },
 
   Mutation: {
