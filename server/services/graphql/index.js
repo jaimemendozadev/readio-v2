@@ -1,6 +1,9 @@
 const {makeExecutableSchema} = require('graphql-tools');
 
-//create baseSchema
+
+
+//we need to tell the server which types represent the root query
+//and root mutation types. We call them RootQuery and RootMutation by convention.
 const baseSchema = `
   schema {
     query: Query,
@@ -9,7 +12,7 @@ const baseSchema = `
 `
 
 const schema = makeExecutableSchema({
-  typeDefs: [],
+  typeDefs: [baseSchema],
   resolvers: {}
 });
 

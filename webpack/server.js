@@ -18,7 +18,8 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.js?x$/, exclude: /node_modules/, loader: 'babel-loader'}
+      { test: /\.js?x$/, exclude: /node_modules/, loader: 'babel-loader'},
+      { test: /\.(graphql|gql)$/, exclude: /node_modules/, loader: 'raw-loader'}
     ]
   },
   plugins: [
