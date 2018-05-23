@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev:start": "nodemon index.js",
-    "dev:build": "webpack --mode development -w",
+    "clean:build": "rm -rfv dist && yarn run dev:build",
+    "dev:build": "webpack --mode development",
     "start": "node ./dist/server.js"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import User from '../../../../DB/Schemas';
+import User from '../../../../DB/Schemas/User';
 
 export const playlists = async(object) => {
   const {id} = object;

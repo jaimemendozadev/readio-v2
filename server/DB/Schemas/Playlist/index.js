@@ -1,12 +1,12 @@
-import {Schema, model} from 'mongoose';
+import mongoose from 'mongoose';
 
-const PlaylistSchema = new Schema({
+const PlaylistSchema = new mongoose.Schema({
   name: {type: String, required: true},
-  user: {type: Schema.Types.ObjectId, ref: 'user'},
-  songs: []
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+  songs: [{type: mongoose.Schema.Types.ObjectId, ref: 'song'}]
 });
 
 
-const PlaylistModel = model('playlist', PlaylistSchema);
+const PlaylistModel = mongoose.model('playlist', PlaylistSchema);
 
 export default PlaylistModel;

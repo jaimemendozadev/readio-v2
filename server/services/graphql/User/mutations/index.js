@@ -1,4 +1,4 @@
-import User from '../../../../DB/Schemas';
+import User from '../../../../DB/Schemas/User';
 
 
 
@@ -16,6 +16,17 @@ export const deleteUser = async(_, {id}) => {
   const deletedUser = await User.findByIdAndRemove(id);
 
   return deletedUser;
+}
+
+
+export const updateUser = async(_, {input}) => {
+  const {id, ...updates} = input;
+  const updatedUser = await User.findByIdAndUpdate(id, updates).exec();
+
+  console.log('the updatedUser is ', updatedUser);
+
+  return updatedUser;
+
 }
 
 

@@ -1,12 +1,12 @@
-import {Schema, model} from 'mongoose';
+import mongoose from 'mongoose';
 
-const SongSchema = new Schema({
+const SongSchema = new mongoose.Schema({
   title: String,
   permalink_url: String,
   artwork_url: String
 });
 
 
-const SongModel = model('song', SongSchema);
+const SongModel = mongoose.model('song', SongSchema);
 
 export default SongModel;

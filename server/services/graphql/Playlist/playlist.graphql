@@ -1,13 +1,16 @@
 type Playlist {
+  id: ID!
   name: String!
   user: ID!
   songs: [Song]!      
 }
 
+#Reminder: can't use a Type in an input, you will get this message:
+#Error: Schema must contain unique named types but contains multiple types named '...'
 input CreatePlaylist {
   name: String!
   user: ID!
-  songs: [Song]! 
+  songs: [CreateSong]! 
 }
 
 extend type Query {
@@ -16,4 +19,5 @@ extend type Query {
 
 extend type Mutation {
   createPlaylist(input: CreatePlaylist): Playlist!
+  addSongToPlaylist(input: CreateSong): Playlist!
 }

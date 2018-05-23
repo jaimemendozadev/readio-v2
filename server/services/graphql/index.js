@@ -1,14 +1,14 @@
 const {makeExecutableSchema} = require('graphql-tools');
-import merge from 'lodash.merge';
+import {merge} from 'lodash';
 
-import {userSchema} from './User/user.graphql';
-import {userResolvers} from './User/user.resolvers';
+import userSchema from './User/user.graphql';
+import userResolvers from './User/user.resolvers';
 
-import {songSchema} from './Song/song.graphql';
-import {songResolvers} from './Song/song.resolvers';
+import songSchema from './Song/song.graphql';
+import songResolvers from './Song/song.resolvers';
 
-import {playlistSchema} from './Playlist/playlist.graphql';
-import {playlistResolvers} from './Playlist/playlist.resolvers';
+import playlistSchema from './Playlist/playlist.graphql';
+import playlistResolvers from './Playlist/playlist.resolvers';
 
 
 

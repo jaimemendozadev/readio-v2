@@ -1,4 +1,4 @@
-import Song from '../../../../DB/Schemas';
+import Song from '../../../../DB/Schemas/Song';
 
 
 export const findSong = async(_, {title}) => {

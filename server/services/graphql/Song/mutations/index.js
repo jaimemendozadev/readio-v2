@@ -1,4 +1,4 @@
-import Song from '../../../../DB/Schemas';
+import Song from '../../../../DB/Schemas/Song';
 
 export const createSong = async(_, {input}) => {
   const createdSong = await Song.create(input).exec();
