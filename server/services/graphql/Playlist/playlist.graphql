@@ -12,7 +12,7 @@ input CreatePlaylist {
 }
 
 extend type Query {
-  getPlaylist(playlistID: ID!): [Playlist]!
+  getPlaylist(playlistID: ID!): Playlist!
 }
 
 extend type Mutation {
