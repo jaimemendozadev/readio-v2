@@ -1,7 +1,7 @@
-import {findSong} from './queries';
-import {createSong} from './mutations';
+const {findSong} = require('./queries');
+const {createSong} = require('./mutations');
 
-export default {
+module.exports = {
   Query: {
     findSong    
   },

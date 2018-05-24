@@ -1,20 +1,20 @@
-import User from '../../../../DB/Schemas/User';
+const User = require('../../../../DB/Schemas/User');
 
-export const createUser = async(_, {input}) => {
+const createUser = async(_, {input}) => {
   
   const newUser = await User.create(input);  
   
   return newUser;
 }
 
-export const deleteUser = async(_, {userID}) => {
+const deleteUser = async(_, {userID}) => {
 
   const deletedUser = await User.findByIdAndRemove(userID);
 
   return deletedUser;
 }
 
-export const updateUser = async(_, {input}) => {
+const updateUser = async(_, {input}) => {
   const {id, ...updates} = input; 
 
   const updatedUser = await User.findByIdAndUpdate(id, updates);
@@ -23,4 +23,8 @@ export const updateUser = async(_, {input}) => {
 
 }
 
-
+module.exports = {
+  createUser,
+  deleteUser,
+  updateUser
+}

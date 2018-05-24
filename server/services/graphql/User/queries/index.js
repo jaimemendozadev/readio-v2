@@ -1,6 +1,6 @@
-import User from '../../../../DB/Schemas/User';
+const User = require('../../../../DB/Schemas/User');
 
-export const playlists = async(object) => {
+const playlists = async(object) => {
   const {id} = object;
   console.log(`the object is ${object}`);
 
@@ -13,11 +13,16 @@ export const playlists = async(object) => {
 
 }
 
-export const getUser = async(_, {id}) => {
+const getUser = async(_, {id}) => {
   //get User from DB
   
   const foundUser = await User.findById(id);
   
   return foundUser;
   
+}
+
+module.exports = {
+  playlists,
+  getUser
 }

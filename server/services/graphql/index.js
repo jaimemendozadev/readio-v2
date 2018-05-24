@@ -1,15 +1,16 @@
 const {makeExecutableSchema} = require('graphql-tools');
-import {merge} from 'lodash';
+const {readFileSync} = require('fs');
+const {merge} = require('lodash');
+const path = require('path');
 
-import userSchema from './User/user.graphql';
-import userResolvers from './User/user.resolvers';
+const userSchemaPath = path.resolve(__dirname, './User/user.graphql');
+const songSchemaPath = path.resolve(__dirname, './Song/song.graphql');
+const playlistSchemaPath = path.resolve(__dirname, './Playlist/playlist.graphql');
 
-import songSchema from './Song/song.graphql';
-import songResolvers from './Song/song.resolvers';
 
-import playlistSchema from './Playlist/playlist.graphql';
-import playlistResolvers from './Playlist/playlist.resolvers';
-
+const userResolvers = require('./User/user.resolvers');
+const songResolvers = require('./Song/song.resolvers');
+const playlistResolvers = require('./Playlist/playlist.resolvers');
 
 
 //we need to tell the server which types represent the root query
@@ -21,12 +22,12 @@ const baseSchema = `
   }
 `
 
-const schema = makeExecutableSchema({
+let schema = makeExecutableSchema({
   typeDefs: [
     baseSchema,
-    userSchema,
-    songSchema,
-    playlistSchema
+    readFileSync(userSchemaPath, 'utf-8'),
+    readFileSync(songSchemaPath, 'utf-8'),
+    readFileSync(playlistSchemaPath, 'utf-8')
   ],
   resolvers: merge(
     {},
@@ -34,6 +35,7 @@ const schema = makeExecutableSchema({
     songResolvers,
     playlistResolvers
   )
-});
+}); 
 
-export default schema;
+
+module.exports = schema;

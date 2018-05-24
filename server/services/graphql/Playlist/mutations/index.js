@@ -1,8 +1,8 @@
-import Playlist from '../../../../DB/Schemas/Playlist';
-import User from '../../../../DB/Schemas/User';
+const Playlist = require('../../../../DB/Schemas/Playlist');
+const User = require('../../../../DB/Schemas/User');
 
 
-export const createPlaylist = async(_, {userID, input}) => {
+const createPlaylist = async(_, {userID, input}) => {
 
   const newPlaylist = await Playlist.create(input);
   
@@ -22,7 +22,7 @@ export const createPlaylist = async(_, {userID, input}) => {
   return newPlaylist;
 }
 
-export const addSongToPlaylist = async(_, {playlistID, input}) => {
+const addSongToPlaylist = async(_, {playlistID, input}) => {
   const updatedPlaylist = await Playlist.findById(playlistID, (err, playlist) => {
 
     if (err) {
@@ -40,7 +40,7 @@ export const addSongToPlaylist = async(_, {playlistID, input}) => {
 }
 
 
-export const deleteSongFromPlaylist = async(_, {playlistID, songID}) => {
+const deleteSongFromPlaylist = async(_, {playlistID, songID}) => {
 
   const deletedSong = await Playlist.findById(playlistID, (err, playlist) => {
   
@@ -67,4 +67,10 @@ export const deleteSongFromPlaylist = async(_, {playlistID, songID}) => {
 
   return deletedSong;
   
+}
+
+module.exports = {
+  createPlaylist,
+  addSongToPlaylist,
+  deleteSongFromPlaylist
 }

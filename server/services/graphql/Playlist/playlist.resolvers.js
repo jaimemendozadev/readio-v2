@@ -1,8 +1,8 @@
-import {getPlaylist} from './queries';
-import {createPlaylist, addSongToPlaylist, deleteSongFromPlaylist} from './mutations';
+const {getPlaylist} = require('./queries');
+const {createPlaylist, addSongToPlaylist, deleteSongFromPlaylist} = require('./mutations');
 
 
-export default {
+module.exports = {
   Query: {
     getPlaylist
   },

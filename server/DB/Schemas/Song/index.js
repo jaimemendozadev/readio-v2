@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const SongSchema = new mongoose.Schema({
   title: String,
@@ -9,4 +9,4 @@ const SongSchema = new mongoose.Schema({
 
 const SongModel = mongoose.model('song', SongSchema);
 
-export default SongModel;
+module.exports = SongModel;

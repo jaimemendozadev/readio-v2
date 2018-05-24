@@ -62,3 +62,6 @@ typings/
 
 # dist folder
 dist
+
+# bundle.js file
+bundle.js

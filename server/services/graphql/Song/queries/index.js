@@ -1,7 +1,7 @@
-import Song from '../../../../DB/Schemas/Song';
+const Song = require ('../../../../DB/Schemas/Song');
 
 
-export const findSong = async(_, {title}) => {
+const findSong = async(_, {title}) => {
   const foundSong = await Song.find(title);
   
   console.log('foundSong ', foundSong);
@@ -11,4 +11,8 @@ export const findSong = async(_, {title}) => {
   } else {
     return [];
   }
+}
+
+module.exports = {
+  findSong
 }

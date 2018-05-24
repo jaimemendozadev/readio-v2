@@ -1,9 +1,9 @@
-import DB from './DB';
-import express from 'express';
+const DB = require('./DB');
+const express = require('express');
 const app = express();
-import bodyParser from 'body-parser';
-import schema from './services/graphql';
-import {graphqlExpress, graphiqlExpress} from 'apollo-server-express';
+const bodyParser = require('body-parser');
+const schema = require('./services/graphql');
+const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 
 
 app.use(bodyParser.json());
@@ -26,4 +26,4 @@ app.get('*', (req, res) => {
 
 
 
-export default app;
+module.exports = app;

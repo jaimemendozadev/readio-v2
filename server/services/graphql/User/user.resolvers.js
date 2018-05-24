@@ -1,8 +1,8 @@
-import {getUser, playlists} from './queries';
-import {createUser, deleteUser, updateUser} from './mutations';
+const {getUser, playlists} = require('./queries');
+const {createUser, deleteUser, updateUser} = require('./mutations');
 
 
-export default {
+module.exports = {
   Query: {
     getUser
   },
