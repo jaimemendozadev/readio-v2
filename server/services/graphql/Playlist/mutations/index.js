@@ -4,11 +4,14 @@ import User from '../../../../DB/Schemas/User';
 
 export const createPlaylist = async(_, {userID, input}) => {
 
-  const newPlaylist = await Playlist.create(input).exec();
+  const newPlaylist = await Playlist.create(input);
+  
+  console.log('newPlaylist inside createPlaylist ', newPlaylist);
+
 
   const playlistID = newPlaylist.id;
 
-  await User.findById(id, (err, user) => {
+  await User.findById(userID, (err, user) => {
     if (err) {
       console.log('err inside createPlaylist resolver ', err)
     }

@@ -2,7 +2,7 @@ import User from '../../../../DB/Schemas/User';
 
 export const createUser = async(_, {input}) => {
   
-  const newUser = await User.create(input).exec();  
+  const newUser = await User.create(input);  
   
   return newUser;
 }
@@ -17,7 +17,7 @@ export const deleteUser = async(_, {userID}) => {
 export const updateUser = async(_, {input}) => {
   const {id, ...updates} = input; 
 
-  const updatedUser = await User.findByIdAndUpdate(id, updates).exec();
+  const updatedUser = await User.findByIdAndUpdate(id, updates);
 
   return updatedUser;
 
