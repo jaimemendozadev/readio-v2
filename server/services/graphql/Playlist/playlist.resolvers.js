@@ -9,6 +9,7 @@ export default {
 
   Mutation: {
     createPlaylist,
-    addSongToPlaylist
+    addSongToPlaylist,
+    deleteSongFromPlaylist
   }
 }
