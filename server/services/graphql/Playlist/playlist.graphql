@@ -1,7 +1,6 @@
 type Playlist {
   id: ID!
   name: String!
-  user: ID!
   songs: [Song]!      
 }
 
@@ -9,15 +8,18 @@ type Playlist {
 #Error: Schema must contain unique named types but contains multiple types named '...'
 input CreatePlaylist {
   name: String!
-  user: ID!
   songs: [CreateSong]! 
 }
 
 extend type Query {
-  getPlaylist(id: ID!): [Playlist]!
+  getPlaylist(playlistID: ID!): [Playlist]!
 }
 
 extend type Mutation {
-  createPlaylist(input: CreatePlaylist): Playlist!
-  addSongToPlaylist(input: CreateSong): Playlist!
+  createPlaylist(userID: ID!, input: CreatePlaylist): Playlist!
+  
+  addSongToPlaylist(playlistID: ID!, input: CreateSong): Playlist!
+
+  deleteSongFromPlaylist(playlistID: ID!, songID: ID!): Song!
+
 }

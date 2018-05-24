@@ -1,5 +1,5 @@
 import {getPlaylist} from './queries';
-import {createPlaylist} from './mutations';
+import {createPlaylist, addSongToPlaylist, deleteSongFromPlaylist} from './mutations';
 
 
 export default {
@@ -8,6 +8,7 @@ export default {
   },
 
   Mutation: {
-    createPlaylist
+    createPlaylist,
+    addSongToPlaylist
   }
 }
