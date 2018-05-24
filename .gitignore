@@ -64,4 +64,4 @@ typings/
 dist
 
 # bundle.js file
-public/bundle.js
+bundle.js
