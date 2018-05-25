@@ -6,9 +6,6 @@ const createPlaylist = async(_, {userID, input}) => {
 
   const newPlaylist = await Playlist.create(input);
   
-  console.log('newPlaylist inside createPlaylist ', newPlaylist);
-
-
   const playlistID = newPlaylist.id;
 
   await User.findById(userID, (err, user) => {
@@ -23,13 +20,14 @@ const createPlaylist = async(_, {userID, input}) => {
 }
 
 const addSongToPlaylist = async(_, {playlistID, input}) => {
-  const updatedPlaylist = await Playlist.findById(playlistID, (err, playlist) => {
 
+  const updatedPlaylist = await Playlist.findById(playlistID, (err, playlist) => {
+    
     if (err) {
       console.log('err inside addSongToPlaylist resolver ', err)
     }
     
-    playlist.songs.push(playlistID);
+    playlist.songs.push(input);
     playlist.save();
 
     return playlist;
@@ -40,9 +38,9 @@ const addSongToPlaylist = async(_, {playlistID, input}) => {
 }
 
 
-const deleteSongFromPlaylist = async(_, {playlistID, songID}) => {
+const deleteSongFromPlaylist = async(_, {playlistID, songTitle}) => {
 
-  const deletedSong = await Playlist.findById(playlistID, (err, playlist) => {
+  let deletedSong = await Playlist.findById(playlistID, (err, playlist) => {
   
     if (err) {
       console.log('err inside deleteSongFromPlaylist resolver ', err)
@@ -52,18 +50,20 @@ const deleteSongFromPlaylist = async(_, {playlistID, songID}) => {
     let deleted;
 
     songs = songs.filter(song => {
-      if(song.id == songID) {
+      if(song.title == songTitle) {
         deleted = song;
       }
       
-      return song.id != songID
+      return song.title != songTitle;
     });
-    
+
     playlist.songs = songs;
     playlist.save();
 
     return deleted;
   });
+
+  deletedSong = deletedSong.songs.pop();
 
   return deletedSong;
   

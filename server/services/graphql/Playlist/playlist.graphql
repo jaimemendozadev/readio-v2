@@ -20,6 +20,6 @@ extend type Mutation {
   
   addSongToPlaylist(playlistID: ID!, input: CreateSong): Playlist!
 
-  deleteSongFromPlaylist(playlistID: ID!, songID: ID!): Song!
+  deleteSongFromPlaylist(playlistID: ID!, songTitle: String!): Song!
 
 }
