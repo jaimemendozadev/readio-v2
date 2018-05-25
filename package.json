@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev:start": "nodemon index.js",
-    "dev:build": "webpack --mode development",
+    "dev:build": "webpack --mode development -w",
     "start": "node ./dist/server.js"
   },
   "dependencies": {
