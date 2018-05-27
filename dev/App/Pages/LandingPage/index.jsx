@@ -7,8 +7,7 @@ const LandingPage = () => (
         <h1>Read.io - Personalized Music Just For You</h1>
         
         <div className="btn-container">
-          <button>Sign Up</button>
-          <button>Login</button>
+          <button>Sign Up / Login</button>
         </div>
       </div>
     </header>
