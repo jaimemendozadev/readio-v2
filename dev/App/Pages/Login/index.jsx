@@ -12,8 +12,6 @@ class Login extends Component {
           <h1>Sign Up / Login</h1>
           <button className="fb">Continue with Facebook</button>
           <button>Continue with Google</button>
-        
-
         </form>
       </div>
       
