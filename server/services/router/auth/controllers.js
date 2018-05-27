@@ -4,9 +4,8 @@ const facebookAuth = (req, res) => {
 }
 
 const googleAuth = (req, res) => {
-  console.log("googleAuth req is ", req);
-  res.send('hit googleAuth endpoint');
-  
+  console.log('found user in req object ', req.user)
+  res.send('successfully authenticated Google user');  
 }
 
 module.exports = {
