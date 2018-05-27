@@ -48,11 +48,17 @@ header {
     height: 300px;
     border-bottom: .5px solid grey;
     text-align: center; }
-    .form-container form button {
+    .form-container form a {
       height: 50px;
       border-radius: 5px;
-      margin-top: 1em;
-      font-size: 17px; }
-      .form-container form button.fb {
+      margin-top: 1.5em;
+      font-size: 17px;
+      font-weight: 900;
+      display: block;
+      text-decoration: none;
+      padding-top: 20px; }
+      .form-container form a.facebook {
         background-color: #334F8D;
         color: white; }
+      .form-container form a.google {
+        border: 1px solid grey; }

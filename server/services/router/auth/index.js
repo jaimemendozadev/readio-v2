@@ -1,5 +1,6 @@
 const express = require('express');
 const Router = express.Router();
+const passport = require('../../Passport');
 
 const googleAuth = (req, res) => {
   console.log("googleAuth req is ", req);
@@ -11,6 +12,9 @@ const facebookAuth = (req, res) => {
   console.log("facebookAuth req is ", req);
   res.send('hit facebookAuth endpoint');
 }
+
+//Test Auth Route
+//Router.use('/google', googleAuth);
 
 Router.use('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 

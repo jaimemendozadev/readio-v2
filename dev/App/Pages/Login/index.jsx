@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+const baseURL = 'http://localhost:3000/api/login';
 
 class Login extends Component {
   constructor(props){
     super(props);
-  }
-
-  handleAuthSubmit(event) {
-    console.log('event ', event.target)
-
   }
 
   render(){
@@ -16,8 +12,11 @@ class Login extends Component {
       <div className="form-container">
         <form>
           <h1>Sign Up / Login</h1>
-          <button className="fb">Continue with Facebook</button>
-          <button>Continue with Google</button>
+          
+          <a href={`${baseURL}/facebook`} onClick={this.handleAuthSubmit} className="facebook">Continue with Facebook</a>
+
+          <a href={`${baseURL}/google`} onClick={this.handleAuthSubmit} className="google">Continue with Google</a>
+
         </form>
       </div>
       
