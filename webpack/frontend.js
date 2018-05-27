@@ -1,5 +1,7 @@
 const path = require('path');
 const entry = path.resolve(__dirname, '../dev/index.jsx');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
   entry,
   
@@ -9,7 +11,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.js?x$/, exclude: /node_modules/, loader: 'babel-loader' }
+      { test: /\.js?x$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.(svg|png|jpe?g)$/, loader: 'file-loader'},
+      { test: /\.scss$/, use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader', 'sass-loader']
+      })}
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin('styles.css'),
+  ]
 }
