@@ -24,13 +24,18 @@ header {
 
 .btn-container {
   margin: 0 auto;
-  width: 200px; }
-  .btn-container button {
+  width: 500px; }
+  .btn-container .link-btn {
+    width: 200px;
     padding: .7em;
-    width: 150px;
     border-radius: 100px;
-    font-size: 17px;
-    margin-left: 1.5em; }
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    font-size: 1em;
+    margin: 0 auto;
+    display: block;
+    text-align: center; }
 
 .form-container {
   margin: 5em auto 0 auto;
