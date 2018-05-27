@@ -6,7 +6,8 @@ class Login extends Component {
     super(props);
   }
 
-  handleAuthSubmit() {
+  handleAuthSubmit(event) {
+    console.log('event ', event.target)
 
   }
 

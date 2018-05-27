@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const staticAssets = path.resolve(__dirname, '../public');
+const path = require('path');
+const staticAssets = path.resolve(__dirname, '../../../public');
 
 
 const applyMiddleware = app => {
