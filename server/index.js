@@ -1,19 +1,16 @@
 const DB = require('./DB');
 const express = require('express');
 const app = express();
-const applyAuthMiddleware = require('./services/router')
 const bodyParser = require('body-parser');
 const path = require('path');
 const schema = require('./services/graphql');
 const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 const indexHTML = path.resolve(__dirname, '../public/index.html');
-const staticAssets = path.resolve(__dirname, '../public');
+const applyMiddleware = require('./services/middleware');
 
 
-app.use(express.static(staticAssets));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-applyAuthMiddleware(app);
+
+applyMiddleware(app);
 
 
 app.use('/graphql', graphqlExpress((req) => ({

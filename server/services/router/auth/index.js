@@ -12,10 +12,11 @@ const facebookAuth = (req, res) => {
   res.send('hit facebookAuth endpoint');
 }
 
+Router.use('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+Router.use('/google/callback', passport.authenticate('google', {session: false, failureRedirect: '/login'}), googleAuth);
 
 
-
-Router.use('/google', googleAuth);
 Router.use('/facebook', facebookAuth);
 
 module.exports = Router;
