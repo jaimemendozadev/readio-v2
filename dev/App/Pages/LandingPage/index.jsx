@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
 
 const LandingPage = () => (
   <div>
@@ -7,7 +9,8 @@ const LandingPage = () => (
         <h1>Read.io - Personalized Music Just For You</h1>
         
         <div className="btn-container">
-          <button>Sign Up / Login</button>
+          <Link className="link-btn" to="/login">Sign Up / Login</Link>
+          {/* <button className="link-btn" to="/login">Sign Up / Login</button> */}
         </div>
       </div>
     </header>
