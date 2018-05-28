@@ -8,8 +8,8 @@ import {BrowserRouter, Switch, Link, Route} from 'react-router-dom';
 const App = () => (
   <BrowserRouter>
     <Switch>
-      {/* <ProtectedRoute component={Home} /> */}
-      <Route path="/home" component={Home} />
+      <ProtectedRoute path="/home" component={Home} />
+      {/* <Route path="/home" component={Home} /> */}
       
       <Route path="/login" component={LoginPage} />
       <Route path="/" component={LandingPage} />
