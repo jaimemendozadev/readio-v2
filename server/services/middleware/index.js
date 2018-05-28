@@ -10,7 +10,7 @@ const staticAssets = path.resolve(__dirname, '../../../public');
 
 
 const applyMiddleware = app => {
-  console.log("passport ", passport)
+  
   app.use(morgan('tiny'))
   app.use(express.static(staticAssets));
   app.use(bodyParser.json());

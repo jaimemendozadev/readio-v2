@@ -20,8 +20,6 @@ const getCreateUser = async({_json}) => {
       userInDB = await User.create(newUser);
     }
 
-    console.log('result inside getCreateUser ', userInDB)
-
     return userInDB;
 
   } catch (error) {

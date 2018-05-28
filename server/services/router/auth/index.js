@@ -6,8 +6,8 @@ const {facebookAuth, googleAuth} = require('./controllers');
 
 //Must use Router.get, cannot use Router.use. Otherwise Passport Auth fails.
 Router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
 Router.get('/google/callback', passport.authenticate('google', {session: false, failureRedirect: '/login'}), googleAuth);
+
 
 Router.get('/facebook', facebookAuth);
 

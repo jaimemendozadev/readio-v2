@@ -12,8 +12,6 @@ const getGoogleProfile = async(accessToken, refreshToken, profile, cb) => {
  
   const userFromDB = await getCreateUser(profile);
 
-  console.log('userFromDB ', userFromDB)
-
   return cb(null, userFromDB);
 
 }
