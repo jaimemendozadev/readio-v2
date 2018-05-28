@@ -4,6 +4,8 @@ const generateToken = (userID) => {
   const JWT_KEY = process.env.JWT_KEY;
 
   const token = jwt.sign({ userID }, JWT_KEY);
+
+  console.log('generated token ', token)
   
   return token ? token : {error: "Failed to generate a token"};
 
@@ -23,7 +25,7 @@ const googleAuth = (req, res) => {
 
   const token = generateToken(userID);
   
-  res.send(token);  
+  res.redirect(`/login?token=${token}`);  
 }
 
 module.exports = {
