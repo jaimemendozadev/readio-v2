@@ -5,6 +5,7 @@ class ProtectedRoute extends Component {
   constructor(props){ 
     super(props);
     this.state = {
+      checkingAuthentication: true,  
       authenticated: false
     }
     this.checkForToken = this.checkForToken.bind(this);
@@ -15,29 +16,39 @@ class ProtectedRoute extends Component {
 
     if(token) {
       this.setState({
-        authenticated: true
+        authenticated: true,
+        checkingAuthentication: false
+      });
+    } else {
+      //At this point, the token was never set, redirect to login
+      this.setState({
+        checkingAuthentication: false
       });
     }
   }
 
   componentDidMount(){
+    //on CDM, checkForToken
     this.checkForToken();
   }
 
   render(){
-    this.checkForToken();  
-    const {authenticated} = this.state; 
-    
-    if(authenticated){
-
-      const {component: Component, ...rest} = this.props;
      
-      return <Route {...rest} render={(props) => <Component {...props}/> } />
-
-    } else {
-      return <Redirect to={{pathname: "/login"}} />
+    const {authenticated, checkingAuthentication} = this.state; 
+    
+    //Create checkingAuthentication to prevent immediate redirect
+    if(!checkingAuthentication){
+      if(authenticated) {    
+        const {component: Component, ...rest} = this.props;
+           
+        return <Route {...rest} render={(props) => <Component {...props}/> } />    
+      } else {
+        return <Redirect to={{pathname: "/login"}} />
+      }
     }
     
+    //Return feedback for user
+    return <h1>Checking Authentication...</h1>
   }
 }
 
