@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-class Home extends Component {
+class Search extends Component {
   constructor(props){
     super(props);
   }
@@ -8,7 +8,7 @@ class Home extends Component {
 
   render(){
     return (
-      <div className="home-container">
+      <div className="search-container">
         <div className="side-bar">
           <nav>
              <Link className="side-bar-link" to="/home">Home</Link>
@@ -17,7 +17,7 @@ class Home extends Component {
         </div>
 
         <div className="main-content">
-          <h1>Read.io - Home Page</h1>
+          <h1>Read.io - Search Page</h1>
         </div>
         
       </div>
@@ -25,4 +25,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Search;

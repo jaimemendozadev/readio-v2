@@ -42,8 +42,18 @@ header {
   flex-direction: row; }
   .home-container .side-bar {
     width: 15%;
-    border: 1px solid purple;
+    color: grey;
     background: linear-gradient(to bottom, black, #1B242C 10%, #55728C); }
+    .home-container .side-bar nav {
+      display: flex;
+      flex-direction: column;
+      margin: 5em 2em; }
+      .home-container .side-bar nav .side-bar-link {
+        flex: 1;
+        height: 50px;
+        color: grey;
+        font-size: 1.5em;
+        text-decoration: none; }
   .home-container .main-content {
     height: 100vh;
     flex: 1;

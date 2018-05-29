@@ -1,6 +1,6 @@
 import styles from '../sass/main.scss';
 import React from 'react';
-import {LandingPage, LoginPage, Home} from './Pages/index.jsx';
+import {LandingPage, LoginPage, Home, Search} from './Pages/index.jsx';
 import ProtectedRoute from './Components/ProtectedRoute.jsx';
 import {BrowserRouter, Switch, Link, Route} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
@@ -15,9 +15,8 @@ const App = () => (
   <ApolloProvider client={client}>
     <BrowserRouter>
       <Switch>
-        <ProtectedRoute path="/home" component={Home} />
-        {/* <Route path="/home" component={Home} /> */}
-        
+        <ProtectedRoute path="/home" component={Search} />
+        <ProtectedRoute path="/search" component={Search} />
         <Route path="/login" component={LoginPage} />
         <Route path="/" component={LandingPage} />
       </Switch>

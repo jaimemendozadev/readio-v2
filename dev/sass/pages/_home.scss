@@ -5,8 +5,24 @@
 
   .side-bar {
     width: 15%;
-    border: 1px solid purple;
+    color: grey;
     background: linear-gradient(to bottom, black, #1B242C 10%, #55728C);
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      margin: 5em 2em;
+
+      .side-bar-link {
+        flex: 1;
+        height: 50px;
+        color: grey;
+        font-size: 1.5em;
+        text-decoration: none;  
+      }
+  
+      
+    }
     
 
   }
@@ -19,4 +35,6 @@
     background: linear-gradient(to bottom, #55728C, #1B242C, black);
 
   }
+
+  
 }
