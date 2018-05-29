@@ -1,0 +1,38 @@
+.form-container {
+    margin: 5em auto 0 auto;
+    width: 450px;
+    
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;  
+      padding: 1em;
+      height: 300px;
+      border-bottom: .5px solid grey;
+      text-align: center;
+      
+  
+      a {
+        height: 50px;
+        border-radius: 5px;
+        margin-top: 1.5em;
+        font-size: $button-font-size;
+        font-weight: 900;
+        display: block;
+        text-decoration: none;
+        padding-top: 20px;
+      
+      
+  
+        &.facebook {
+          background-color: #334F8D;
+          color: white;
+        }
+  
+        &.google {
+          border: 1px solid grey;
+        }
+      }
+    }
+  }
