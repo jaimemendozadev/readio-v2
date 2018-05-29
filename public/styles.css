@@ -37,6 +37,20 @@ header {
     display: block;
     text-align: center; }
 
+.home-container {
+  display: flex;
+  flex-direction: row; }
+  .home-container .side-bar {
+    width: 15%;
+    border: 1px solid purple;
+    background: linear-gradient(to bottom, black, #1B242C 10%, #55728C); }
+  .home-container .main-content {
+    height: 100vh;
+    flex: 1;
+    color: white;
+    padding: 1em;
+    background: linear-gradient(to bottom, #55728C, #1B242C, black); }
+
 .form-container {
   margin: 5em auto 0 auto;
   width: 450px; }
