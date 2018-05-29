@@ -6,7 +6,7 @@
   "scripts": {
     "dev:start": "nodemon index.js",
     "dev:build": "webpack --mode development -w",
-    "start": "node ./dist/server.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "apollo-boost": "^0.1.6",
