@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-//FC891F  FC5F1F  FC001F
+
 class Home extends Component {
   constructor(props){
     super(props);
