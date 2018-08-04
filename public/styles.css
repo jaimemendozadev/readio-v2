@@ -59,7 +59,10 @@ header {
     flex: 1;
     color: white;
     padding: 1em;
-    background: linear-gradient(to bottom, #55728C, #1B242C, black); }
+    background: linear-gradient(to bottom, #55728C, #1B242C, black);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
 
 .form-container {
   margin: 5em auto 0 auto;

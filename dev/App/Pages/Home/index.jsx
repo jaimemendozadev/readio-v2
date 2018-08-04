@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { getUserInfo } from './graphql';
+import ReactPlayer from 'react-player'
 
 class Home extends Component {
   constructor(props) {
@@ -35,6 +36,21 @@ class Home extends Component {
 
               <div className="main-content">
                 <h1>Read.io - Home Page</h1>
+                <ReactPlayer
+                  url='https://soundcloud.com/john-dollar-1/alesso-years-original-mix'
+                  playing={true}
+                  width='100%'
+                  height='10vh'
+                  controls="true"
+                  config={{
+                    soundcloud: {
+                      options: {
+                        color: '#55728C'
+                      }
+                    }
+                  }}
+
+                />
               </div>
             </div>
           )

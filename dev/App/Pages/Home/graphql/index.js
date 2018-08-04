@@ -11,13 +11,9 @@ export const getUserInfo = gql`
         id
         name
       }
-
     }
   }
 `
-
-
-
 /*
 Note:
 When querying nested resolvers, you MUST tell GraphQL

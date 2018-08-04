@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const SongSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const SongSchema = new Schema({
   title: String,
   permalink_url: String,
   artwork_url: String
