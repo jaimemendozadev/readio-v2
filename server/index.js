@@ -7,16 +7,17 @@ const schema = require('./services/graphql');
 const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 const indexHTML = path.resolve(__dirname, '../public/index.html');
 const applyMiddleware = require('./services/middleware');
-
+const passport = require('./services/Passport');
 
 
 applyMiddleware(app);
 
 
-app.use('/graphql', graphqlExpress((req) => ({
+app.use('/graphql', passport.authenticate('jwt', { session: false }), graphqlExpress((req) => ({
   schema,
   context: {
-    req
+    req,
+    user: req.user._id
   }
 })));
 

@@ -19,6 +19,9 @@ const facebookAuth = (req, res) => {
   res.send('hit facebookAuth endpoint');
 }
 
+
+
+
 const googleAuth = (req, res) => {
 
   const userID = req.user._id;

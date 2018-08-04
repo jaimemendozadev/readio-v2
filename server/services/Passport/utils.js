@@ -28,8 +28,23 @@ const getCreateUser = async({_json}) => {
 
 }
 
+const findUserInDB = async({userID}) => {
+
+  try {
+    let userInDB  = await User.find({ id: userID});
+
+    if (userInDB.length) {
+      return userInDB.pop(); 
+    }
+
+  } catch (error) {
+    console.log('error finding Google User in DB ', error);
+  }
+
+}
 
 
 module.exports = {
-  getCreateUser
+  getCreateUser,
+  findUserInDB 
 }
