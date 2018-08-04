@@ -1,4 +1,5 @@
 const DB = require('./DB');
+const { User, Song, Playlist } = require('./DB/Schemas');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -17,7 +18,12 @@ app.use('/graphql', passport.authenticate('jwt', { session: false }), graphqlExp
   schema,
   context: {
     req,
-    user: req.user._id
+    userID: req.user._id,
+    schemas: {
+      User, 
+      Song, 
+      Playlist
+    }
   }
 })));
 

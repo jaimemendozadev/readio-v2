@@ -1,15 +1,16 @@
-const User = require('../../../../DB/Schemas/User');
-
-const playlists = async(_parent, _args, {user}) => {
+const playlists = async(_parent, _args, {userID, schemas}) => {
+  const{User} = schemas;
   
-  const{playlists} = await User.findById(user).populate('playlists');
+  const{playlists} = await User.findById(userID).populate('playlists');
 
   return playlists;
 }
 
-const getUser = async(_parent, _args, {user} ) => {
+const getUser = async(_parent, _args, {userID} ) => {
+  const{User} = schemas;
+
   //get User from DB
-  const foundUser = await User.findById(user);
+  const foundUser = await User.findById(userID);
   
   return foundUser;
   
