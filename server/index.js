@@ -19,7 +19,7 @@ app.use('/graphql', passport.authenticate('jwt', { session: false }), graphqlExp
   context: {
     req,
     userID: req.user._id,
-    schemas: {
+    models: {
       User, 
       Song, 
       Playlist

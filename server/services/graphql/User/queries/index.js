@@ -1,13 +1,13 @@
-const playlists = async(_parent, _args, {userID, schemas}) => {
-  const{User} = schemas;
+const playlists = async(_parent, _args, {userID, models}) => {
+  const{User} = models;
   
   const{playlists} = await User.findById(userID).populate('playlists');
 
   return playlists;
 }
 
-const getUser = async(_parent, _args, {userID} ) => {
-  const{User} = schemas;
+const getUser = async(_parent, _args, {userID, models} ) => {
+  const{User} = models;
 
   //get User from DB
   const foundUser = await User.findById(userID);
