@@ -18,19 +18,33 @@ class Home extends Component {
     }
   }
 
+  checkRenderStatus = (data, loading, error) => {
+
+    if (loading) {
+      return <h1>Loading...</h1>
+    }
+
+    if (error) {
+      return <h1>Sorry, there was an error processing your request...</h1>
+    }
+
+    if (data) {
+      const { getUser } = data;
+      return (
+        <div>
+          <h1>{getUser ? `Welcome to Read.io ${getUser.first_name}!` : `Read.io - Home Page`}</h1>
+
+          {this.renderPlaylists(getUser.playlists)}
+        </div>
+      )
+    }
+  }
+
   render() {
     console.log('this.props inside Home ', this.props)
     return (
       <Query query={getUserInfo}>
-        {({ data: { getUser }, loading, error, client }) => {
-
-          if (loading) {
-            return <h1>Loading...</h1>
-          }
-
-          if (error) {
-            return <h1>Sorry, there was an error processing your request...</h1>
-          }
+        {({ data, loading, error, client }) => {
 
           return (
             <div className='page-container'>
@@ -42,14 +56,7 @@ class Home extends Component {
               </div>
 
               <div className='main-content'>
-                <div>
-                  <h1>{getUser ? `Welcome to Read.io ${getUser.first_name}!` : `Read.io - Home Page`}</h1>
-                </div>
-
-                <div>
-                  {this.renderPlaylists(getUser.playlists)}
-                </div>
-
+                {this.checkRenderStatus(data, loading, error)}
 
                 <div className='react-player'>
                   <ReactPlayer
@@ -70,10 +77,7 @@ class Home extends Component {
               </div>
             </div>
           )
-
-        }
-
-        }
+        }}
       </Query>
     )
   }

@@ -34,7 +34,7 @@ body {
     flex-direction: column;
     justify-content: space-between; }
     .page-container .main-content .react-player {
-      margin-bottom: 1em; }
+      margin-bottom: .5em; }
 
 header {
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(8081186dadf5ea548055c7616a500e72.png);
@@ -96,7 +96,7 @@ header {
   font-size: 3em; }
 
 .search-page input {
-  height: 15vh;
+  height: 12vh;
   width: 100%;
   border: 1px solid white;
   font-size: 3.5em; }
