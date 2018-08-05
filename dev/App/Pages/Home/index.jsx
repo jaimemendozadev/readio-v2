@@ -33,15 +33,15 @@ class Home extends Component {
           }
 
           return (
-            <div className="home-container">
-              <div className="side-bar">
+            <div className='page-container'>
+              <div className='side-bar'>
                 <nav>
-                  <Link className="side-bar-link" to="/home">Home</Link>
-                  <Link className="side-bar-link" to="/search">Search</Link>
+                  <Link className='side-bar-link' to='/home'>Home</Link>
+                  <Link className='side-bar-link' to='/search'>Search</Link>
                 </nav>
               </div>
 
-              <div className="main-content">
+              <div className='main-content'>
                 <div>
                   <h1>{getUser ? `Welcome to Read.io ${getUser.first_name}!` : `Read.io - Home Page`}</h1>
                 </div>
@@ -54,11 +54,9 @@ class Home extends Component {
                 <div className='react-player'>
                   <ReactPlayer
                     url='https://soundcloud.com/john-dollar-1/alesso-years-original-mix'
-                    playing={true}
+                    playing={false}
                     width='100%'
                     height='20%'
-
-
                     config={{
                       soundcloud: {
                         options: {

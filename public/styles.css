@@ -7,6 +7,35 @@ body {
   box-sizing: border-box;
   margin: 0; }
 
+.page-container {
+  display: flex;
+  flex-direction: row; }
+  .page-container .side-bar {
+    width: 15%;
+    color: grey;
+    background: linear-gradient(to bottom, black, #1B242C 10%, #55728C); }
+    .page-container .side-bar nav {
+      display: flex;
+      flex-direction: column;
+      margin: 5em 2em; }
+      .page-container .side-bar nav .side-bar-link {
+        flex: 1;
+        height: 50px;
+        color: grey;
+        font-size: 1.5em;
+        text-decoration: none; }
+  .page-container .main-content {
+    height: 100vh;
+    flex: 1;
+    color: white;
+    padding: 1em;
+    background: linear-gradient(to bottom, #55728C, #1B242C, black);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .page-container .main-content .react-player {
+      margin-bottom: 1em; }
+
 header {
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(8081186dadf5ea548055c7616a500e72.png);
   background-size: cover;
@@ -36,35 +65,6 @@ header {
     margin: 0 auto;
     display: block;
     text-align: center; }
-
-.home-container {
-  display: flex;
-  flex-direction: row; }
-  .home-container .side-bar {
-    width: 15%;
-    color: grey;
-    background: linear-gradient(to bottom, black, #1B242C 10%, #55728C); }
-    .home-container .side-bar nav {
-      display: flex;
-      flex-direction: column;
-      margin: 5em 2em; }
-      .home-container .side-bar nav .side-bar-link {
-        flex: 1;
-        height: 50px;
-        color: grey;
-        font-size: 1.5em;
-        text-decoration: none; }
-  .home-container .main-content {
-    height: 100vh;
-    flex: 1;
-    color: white;
-    padding: 1em;
-    background: linear-gradient(to bottom, #55728C, #1B242C, black);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; }
-    .home-container .main-content .react-player {
-      margin-bottom: 1em; }
 
 .form-container {
   margin: 5em auto 0 auto;
