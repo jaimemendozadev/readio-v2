@@ -17,24 +17,26 @@ const findSong = async(_, {title}, {models}) => {
 
 
 const searchSoundCloud = async(_, { searchTerm }) => {
+  const filteredResults = [];
 
   let searchResults = await fetch(`${SOUNDCLOUD_BASE_URL}${SOUNDCLOUD_KEY}&q=${searchTerm}&limit=200&linked_partitioning=1`)
      .then(result => result.json());
 
   searchResults = searchResults.collection;
   
-  console.log('orig searchResults length ', searchResults.length)
-
-  searchResults = searchResults.map(track => {
+  searchResults.forEach(track => {
     const {title, permalink_url, artwork_url} = track;
-    return {
-      title,
-      permalink_url,
-      artwork_url
+
+    if (title && permalink_url && artwork_url) {
+      filteredResults.push({
+        title,
+        permalink_url,
+        artwork_url
+      });
     }
   });
   
-  return searchResults;
+  return filteredResults;
 
 }
 
