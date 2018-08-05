@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { getUserInfo, getCurrentUser } from './graphql';
+import { GET_USER_INFO } from './graphql';
 import ReactPlayer from 'react-player'
+
+const defaultState = {
+  currentUser: {}
+};
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentUser: {}
-    }
+    this.state = defaultState;
   }
 
   renderPlaylists = playlists => {
@@ -43,7 +45,7 @@ class Home extends Component {
   render() {
     console.log('this.props inside Home ', this.props)
     return (
-      <Query query={getUserInfo}>
+      <Query query={GET_USER_INFO}>
         {({ data, loading, error, client }) => {
 
           return (

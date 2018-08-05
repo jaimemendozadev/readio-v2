@@ -99,4 +99,5 @@ header {
   height: 12vh;
   width: 100%;
   border: 1px solid white;
-  font-size: 3.5em; }
+  font-size: 3.5em;
+  padding-left: .3em; }
