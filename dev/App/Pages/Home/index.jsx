@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { getUserInfo } from './graphql';
+import { getUserInfo, getCurrentUser } from './graphql';
 import ReactPlayer from 'react-player'
 
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentUser: {}
+    }
+  }
+
+  renderPlaylists = playlists => {
+    if (playlists.length == 0) {
+      return <h1>You have no playlists. Start searching for Music and make a playlist!</h1>
+    }
   }
 
   render() {
     console.log('this.props inside Home ', this.props)
     return (
       <Query query={getUserInfo}>
-        {(data, loading, error) => {
+        {({ data: { getUser }, loading, error, client }) => {
 
           if (loading) {
             return <h1>Loading...</h1>
@@ -22,8 +31,6 @@ class Home extends Component {
           if (error) {
             return <h1>Sorry, there was an error processing your request...</h1>
           }
-
-          console.log('the data is ', data);
 
           return (
             <div className="home-container">
@@ -35,7 +42,15 @@ class Home extends Component {
               </div>
 
               <div className="main-content">
-                <h1>Read.io - Home Page</h1>
+                <div>
+                  <h1>{getUser ? `Welcome to Read.io ${getUser.first_name}!` : `Read.io - Home Page`}</h1>
+                </div>
+
+                <div>
+                  {this.renderPlaylists(getUser.playlists)}
+                </div>
+
+
                 <div className='react-player'>
                   <ReactPlayer
                     url='https://soundcloud.com/john-dollar-1/alesso-years-original-mix'
