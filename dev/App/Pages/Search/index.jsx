@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player'
+import { escapeHtml } from './utils';
+
+const defaultState = {
+  currentQuery: 'Start typing...'
+}
+
 
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentQuery: 'Start typing...'
+    this.state = defaultState;
+  }
+
+  clearInput = event => {
+    const { currentQuery } = this.state;
+    if (currentQuery == 'Start typing...') {
+      this.setState({
+        currentQuery: ''
+      });
     }
+  }
+
+  handleChange = event => {
+    event.preventDefault();
+
+    const currentQuery = escapeHtml(event.target.value);
+
+    this.setState({
+      currentQuery
+    });
   }
 
   render() {
     return (
-      <div className='page-container'>
+      <div className='page-container search-page'>
         <div className='side-bar'>
           <nav>
             <Link className='side-bar-link' to='/home'>Home</Link>
@@ -23,10 +46,15 @@ class Search extends Component {
         <div className='main-content'>
           <div>
             <h1>Search for any Artist, Playlist, Song, or Audio recording</h1>
+            <form>
+              <input
+                onClick={this.clearInput}
+                onChange={this.handleChange}
+                type='text' value={this.state.currentQuery}
+              />
+            </form>
           </div>
-          <form>
-            <input type='text' value={this.state.currentQuery} />
-          </form>
+
 
 
 
