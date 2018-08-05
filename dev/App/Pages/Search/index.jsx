@@ -8,7 +8,9 @@ import { SEARCH_SOUND_CLOUD } from './graphql'
 
 const defaultState = {
   currentQuery: 'Start typing...',
-  searchResults: []
+  searchResults: [],
+  url: 'https://soundcloud.com/john-dollar-1/alesso-years-original-mix',
+  playing: false
 }
 
 class Search extends Component {
@@ -24,6 +26,13 @@ class Search extends Component {
         currentQuery: ''
       });
     }
+  }
+
+  clickToPlay = url => {
+    this.setState({
+      url,
+      playing: true,
+    })
   }
 
   handleChange = event => {
@@ -54,7 +63,7 @@ class Search extends Component {
   }
 
   render() {
-    const { searchResults } = this.state;
+    const { searchResults, url, playing } = this.state;
     return (
       <ApolloConsumer>
         {client => (
@@ -78,13 +87,14 @@ class Search extends Component {
                 </form>
               </div>
 
-              {searchResults.length == 0 ? null : <SearchResultsView searchResults={searchResults} />}
+              {searchResults.length == 0 ?
+                null : <SearchResultsView callback={this.clickToPlay} searchResults={searchResults} />}
 
 
               <div className='react-player'>
                 <ReactPlayer
-                  url='https://soundcloud.com/john-dollar-1/alesso-years-original-mix'
-                  playing={false}
+                  url={url}
+                  playing={playing}
                   width='100%'
                   height='20%'
                   config={{

@@ -25,13 +25,14 @@ const searchSoundCloud = async(_, { searchTerm }) => {
   searchResults = searchResults.collection;
   
   searchResults.forEach(track => {
-    const {title, permalink_url, artwork_url} = track;
+    const {title, permalink_url, artwork_url, id, user_id} = track;
 
-    if (title && permalink_url && artwork_url) {
+    if (title && permalink_url && artwork_url && id && user_id) {
       filteredResults.push({
         title,
         permalink_url,
-        artwork_url
+        artwork_url,
+        id_user_id_identifier: `${id}-${user_id}`
       });
     }
   });

@@ -6,6 +6,7 @@ export const SEARCH_SOUND_CLOUD = gql`
       title
       permalink_url
       artwork_url
+      id_user_id_identifier
     }
   }
 `

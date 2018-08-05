@@ -1,9 +1,9 @@
 import React from 'react';
 
-const renderResults = searchResults => {
+const renderResults = (searchResults, callback) => {
     return searchResults.map(result => {
         return (
-            <div className='search-item'>
+            <div onClick={() => callback(result.permalink_url)} key={result.id_user_id_identifier} className='search-item'>
                 <div className='search-image-container'>
                     <img src={result.artwork_url} />
                 </div>
@@ -12,9 +12,9 @@ const renderResults = searchResults => {
         )
     })
 }
-const SearchResultsView = ({ searchResults }) => (
+const SearchResultsView = ({ searchResults, callback }) => (
     <div className='search-results'>
-        {renderResults(searchResults)}
+        {renderResults(searchResults, callback)}
     </div>
 )
 
