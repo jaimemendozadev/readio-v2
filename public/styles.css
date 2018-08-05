@@ -49,7 +49,7 @@ header {
     font-size: 1.5em;
     position: relative;
     top: 35%;
-    left: 15%; }
+    left: 22%; }
 
 .btn-container {
   margin: 0 auto;
@@ -103,7 +103,7 @@ header {
   padding-left: .3em; }
 
 .search-results {
-  height: 40vh;
+  height: 30vh;
   overflow: scroll; }
 
 .search-item {
