@@ -13,4 +13,9 @@ export const typeDefs = `
     songs: [Song]!      
   }
 
+  type Mutation {
+    addToPlaylist(songToAdd: Song!)
+    deleteFromPlaylist(songToDelete: ID!)
+    savePlaylist(playlistToSave: Playlist!)
+  }
 `;
