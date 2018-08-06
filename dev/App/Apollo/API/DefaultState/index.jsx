@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const defaults = {
-    currentPlaylist: {},
+    currentPlaylist: [],
     currentUser: {
         __typename: 'CurrentUser',
         id: '',

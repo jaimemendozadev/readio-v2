@@ -13,6 +13,10 @@ export const typeDefs = `
     songs: [Song]!      
   }
 
+  type Query {
+    currentPlaylist: [Song]
+  }
+
   type Mutation {
     addToPlaylist(songToAdd: Song!)
     deleteFromPlaylist(songToDelete: ID!)
