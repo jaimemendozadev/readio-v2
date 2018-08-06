@@ -1,13 +1,18 @@
 import React from 'react';
+import Playlist from './assets/playlist.png';
 
 const renderResults = (searchResults, callback) => {
     return searchResults.map(result => {
         return (
-            <div onClick={() => callback(result.permalink_url)} key={result.id_user_id_identifier} className='search-item'>
+            <div className='search-item' onClick={() => callback(result.permalink_url)} key={result.id_user_id_identifier}>
                 <div className='search-image-container'>
                     <img src={result.artwork_url} />
+                    <div>{result.title}</div>
                 </div>
-                <h3>{result.title}</h3>
+                {/* <div className='search-result-title'>{result.title}</div> */}
+                <div className='playlist-icon-container'>
+                    <img className='playlist-icon' src={Playlist} />
+                </div>
             </div>
         )
     })

@@ -1,8 +1,8 @@
-import React, { Component } from '../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react';
-import { Link } from '../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { ApolloConsumer } from 'react-apollo';
 import ReactPlayer from 'react-player'
-import SearchResultsView from './SearchResultsView';
+import SearchResultsView from './SearchResultsView.jsx';
 import { escapeHtml } from './utils';
 import { SEARCH_SOUND_CLOUD } from './graphql'
 
@@ -37,16 +37,15 @@ class Search extends Component {
 
   handleChange = event => {
     event.preventDefault();
-    const currentQuery = escapeHtml(event.target.value);
 
     this.setState({
-      currentQuery
+      currentQuery: event.target.value
     });
   }
 
   handleSubmit = async (event, client) => {
     event.preventDefault();
-    const { currentQuery } = this.state;
+    const currentQuery = escapeHtml(this.state.currentQuery);
 
     let searchResults = await client.query({
       query: SEARCH_SOUND_CLOUD,
@@ -88,7 +87,11 @@ class Search extends Component {
               </div>
 
               {searchResults.length == 0 ?
-                null : <SearchResultsView callback={this.clickToPlay} searchResults={searchResults} />}
+                null :
+                <SearchResultsView
+                  client={client}
+                  callback={this.clickToPlay}
+                  searchResults={searchResults} />}
 
 
               <div className='react-player'>
