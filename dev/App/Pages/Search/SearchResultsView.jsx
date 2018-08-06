@@ -9,7 +9,6 @@ const renderResults = (searchResults, callback) => {
                     <img src={result.artwork_url} />
                     <div>{result.title}</div>
                 </div>
-                {/* <div className='search-result-title'>{result.title}</div> */}
                 <div className='playlist-icon-container'>
                     <img className='playlist-icon' src={Playlist} />
                 </div>
