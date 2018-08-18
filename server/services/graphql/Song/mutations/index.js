@@ -1,14 +1,13 @@
-const Song = require('../../../../DB/Schemas/Song');
+const Song = require("../../../../DB/Schemas/Song");
 
-const createSong = async(_, {input}) => {
+const createSong = async (_, { input }) => {
   const createdSong = await Song.create(input);
 
-  console.log('createdSong ', createdSong);
+  console.log("createdSong ", createdSong);
 
   return createdSong;
-}
-
+};
 
 module.exports = {
   createSong
-}
+};

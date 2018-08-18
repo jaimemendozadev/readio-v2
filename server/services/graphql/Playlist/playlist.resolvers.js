@@ -1,6 +1,9 @@
-const {getPlaylist} = require('./queries');
-const {createPlaylist, addSongToPlaylist, deleteSongFromPlaylist} = require('./mutations');
-
+const { getPlaylist } = require("./queries");
+const {
+  createPlaylist,
+  addSongToPlaylist,
+  deleteSongFromPlaylist
+} = require("./mutations");
 
 module.exports = {
   Query: {
@@ -12,4 +15,4 @@ module.exports = {
     addSongToPlaylist,
     deleteSongFromPlaylist
   }
-}
+};

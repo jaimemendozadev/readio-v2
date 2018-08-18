@@ -1,6 +1,5 @@
-const {getUser, playlists} = require('./queries');
-const {createUser, deleteUser, updateUser} = require('./mutations');
-
+const { getUser, playlists } = require("./queries");
+const { createUser, deleteUser, updateUser } = require("./mutations");
 
 module.exports = {
   Query: {
@@ -16,4 +15,4 @@ module.exports = {
   User: {
     playlists
   }
-}
+};

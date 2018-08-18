@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -15,10 +15,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  
-  playlists: [{type: mongoose.Schema.Types.ObjectId, ref: 'playlist'}]
+
+  playlists: [{ type: mongoose.Schema.Types.ObjectId, ref: "playlist" }]
 });
 
-const UserModel = mongoose.model('user', UserSchema);
+const UserModel = mongoose.model("user", UserSchema);
 
 module.exports = UserModel;

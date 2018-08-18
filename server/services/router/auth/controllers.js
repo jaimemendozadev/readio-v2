@@ -1,35 +1,26 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const generateToken = (userID) => {
+const generateToken = userID => {
   const JWT_KEY = process.env.JWT_KEY;
 
   const token = jwt.sign({ userID }, JWT_KEY);
-  
-  return token ? token : {error: "Failed to generate a token"};
 
-}
-
-
-
-
+  return token ? token : { error: "Failed to generate a token" };
+};
 
 const facebookAuth = (req, res) => {
-  res.send('hit facebookAuth endpoint');
-}
-
-
-
+  res.send("hit facebookAuth endpoint");
+};
 
 const googleAuth = (req, res) => {
-
   const userID = req.user._id;
 
   const token = generateToken(userID);
-  
-  res.redirect(`/login?token=${token}`);  
-}
+
+  res.redirect(`/login?token=${token}`);
+};
 
 module.exports = {
   facebookAuth,
   googleAuth
-}
+};
