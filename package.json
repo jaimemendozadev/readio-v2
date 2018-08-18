@@ -6,7 +6,8 @@
   "scripts": {
     "dev:start": "nodemon index.js",
     "dev:build": "webpack --mode development -w",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev:format": "prettier --write './dev/**/*.{js,jsx}'"
   },
   "dependencies": {
     "apollo-boost": "^0.1.6",
@@ -50,6 +51,7 @@
     "morgan": "^1.9.0",
     "node-sass": "^4.9.0",
     "nodemon": "^1.17.4",
+    "prettier": "1.14.2",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",

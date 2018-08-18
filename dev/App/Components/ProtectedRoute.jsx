@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
-import {Redirect, Route} from 'react-router-dom';
+import React, { Component } from "react";
+import { Redirect, Route } from "react-router-dom";
 
 class ProtectedRoute extends Component {
-  constructor(props){ 
+  constructor(props) {
     super(props);
     this.state = {
-      checkingAuthentication: true,  
+      checkingAuthentication: true,
       authenticated: false
-    }
-  } 
+    };
+  }
 
   checkForToken = () => {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem("token");
 
-    if(token) {
+    if (token) {
       this.setState({
         authenticated: true,
         checkingAuthentication: false
@@ -24,30 +24,29 @@ class ProtectedRoute extends Component {
         checkingAuthentication: false
       });
     }
-  }
+  };
 
-  componentDidMount(){
+  componentDidMount() {
     //on CDM, checkForToken
     this.checkForToken();
   }
 
-  render(){
-     
-    const {authenticated, checkingAuthentication} = this.state; 
-    
+  render() {
+    const { authenticated, checkingAuthentication } = this.state;
+
     //Create checkingAuthentication to prevent immediate redirect
-    if(!checkingAuthentication){
-      if(authenticated) {    
-        const {component: Component, ...rest} = this.props;
-           
-        return <Route {...rest} render={(props) => <Component {...props}/> } />    
+    if (!checkingAuthentication) {
+      if (authenticated) {
+        const { component: Component, ...rest } = this.props;
+
+        return <Route {...rest} render={props => <Component {...props} />} />;
       } else {
-        return <Redirect to={{pathname: "/login"}} />
+        return <Redirect to={{ pathname: "/login" }} />;
       }
     }
-    
+
     //Return feedback for user
-    return <h1>Checking Authentication...</h1>
+    return <h1>Checking Authentication...</h1>;
   }
 }
 

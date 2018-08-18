@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { ApolloConsumer } from 'react-apollo';
-import ReactPlayer from 'react-player'
-import SearchResultsView from './SearchResultsView.jsx';
-import { escapeHtml } from './utils';
-import { SEARCH_SOUND_CLOUD } from './graphql'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { ApolloConsumer } from "react-apollo";
+import ReactPlayer from "react-player";
+import SearchResultsView from "./SearchResultsView.jsx";
+import { escapeHtml } from "./utils";
+import { SEARCH_SOUND_CLOUD } from "./graphql";
 
 const defaultState = {
-  currentQuery: 'Start typing...',
+  currentQuery: "Start typing...",
   searchResults: [],
-  url: 'https://soundcloud.com/john-dollar-1/alesso-years-original-mix',
+  url: "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
   playing: false
-}
+};
 
 class Search extends Component {
   constructor(props) {
@@ -23,17 +23,17 @@ class Search extends Component {
     const { currentQuery } = this.state;
     if (currentQuery.length) {
       this.setState({
-        currentQuery: ''
+        currentQuery: ""
       });
     }
-  }
+  };
 
   clickToPlay = url => {
     this.setState({
       url,
-      playing: true,
-    })
-  }
+      playing: true
+    });
+  };
 
   handleChange = event => {
     event.preventDefault();
@@ -41,7 +41,7 @@ class Search extends Component {
     this.setState({
       currentQuery: event.target.value
     });
-  }
+  };
 
   handleSubmit = async (event, client) => {
     event.preventDefault();
@@ -52,58 +52,65 @@ class Search extends Component {
       variables: { searchTerm: currentQuery }
     });
 
-    searchResults = searchResults.data.searchSoundCloud
+    searchResults = searchResults.data.searchSoundCloud;
 
-    console.log('data inside handleSubmit ', searchResults)
+    console.log("data inside handleSubmit ", searchResults);
 
     this.setState({
       searchResults
     });
-  }
+  };
 
   render() {
     const { searchResults, url, playing } = this.state;
     return (
       <ApolloConsumer>
         {client => (
-          <div className='page-container search-page'>
-            <div className='side-bar'>
+          <div className="page-container search-page">
+            <div className="side-bar">
               <nav>
-                <Link className='side-bar-link' to='/home'>Home</Link>
-                <Link className='side-bar-link' to='/search'>Search</Link>
+                <Link className="side-bar-link" to="/home">
+                  Home
+                </Link>
+                <Link className="side-bar-link" to="/search">
+                  Search
+                </Link>
               </nav>
             </div>
 
-            <div className='main-content'>
+            <div className="main-content">
               <div>
-                <h1>Search for any Artist, Playlist, Song, or Audio recording</h1>
-                <form onSubmit={(event) => this.handleSubmit(event, client)}>
+                <h1>
+                  Search for any Artist, Playlist, Song, or Audio recording
+                </h1>
+                <form onSubmit={event => this.handleSubmit(event, client)}>
                   <input
                     onClick={this.clearInput}
                     onChange={this.handleChange}
-                    type='text' value={this.state.currentQuery}
+                    type="text"
+                    value={this.state.currentQuery}
                   />
                 </form>
               </div>
 
-              {searchResults.length == 0 ?
-                null :
+              {searchResults.length == 0 ? null : (
                 <SearchResultsView
                   client={client}
                   callback={this.clickToPlay}
-                  searchResults={searchResults} />}
+                  searchResults={searchResults}
+                />
+              )}
 
-
-              <div className='react-player'>
+              <div className="react-player">
                 <ReactPlayer
                   url={url}
                   playing={playing}
-                  width='100%'
-                  height='20%'
+                  width="100%"
+                  height="20%"
                   config={{
                     soundcloud: {
                       options: {
-                        color: '#55728C'
+                        color: "#55728C"
                       }
                     }
                   }}
@@ -113,7 +120,7 @@ class Search extends Component {
           </div>
         )}
       </ApolloConsumer>
-    )
+    );
   }
 }
 

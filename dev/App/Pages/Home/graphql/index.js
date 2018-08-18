@@ -1,4 +1,4 @@
-import {gql} from 'apollo-boost';
+import { gql } from "apollo-boost";
 
 export const GET_USER_INFO = gql`
   query getUserInfo {
@@ -13,7 +13,7 @@ export const GET_USER_INFO = gql`
       }
     }
   }
-`
+`;
 
 /*
 Note:
@@ -23,4 +23,3 @@ to return something. Otherwise you'll get an
 `Message: Field "playlists" of type "[Playlist]!" must have a selection of subfields.`
 
 */
-

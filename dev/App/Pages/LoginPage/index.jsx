@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import Login from '../../Components/Login.jsx';
-import { Redirect } from 'react-router-dom';
-
+import React, { Component } from "react";
+import Login from "../../Components/Login.jsx";
+import { Redirect } from "react-router-dom";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -12,9 +11,9 @@ class LoginPage extends Component {
     let token = search.slice(7);
 
     if (token) {
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
 
-      return <Redirect to={{ pathname: '/home' }} />
+      return <Redirect to={{ pathname: "/home" }} />;
     }
   }
 
@@ -23,9 +22,8 @@ class LoginPage extends Component {
 
     if (search) {
       return this.checkForToken(search);
-
     } else {
-      return <Login heading={`Sign Up / Login`} />
+      return <Login heading={`Sign Up / Login`} />;
     }
   }
 }

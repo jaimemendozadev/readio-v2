@@ -1,4 +1,4 @@
-import {gql} from 'apollo-boost';
+import { gql } from "apollo-boost";
 
 export const ADD_TO_SONG_LIST = gql`
   mutation AddToSongList($songToAdd: Song!) {
@@ -9,7 +9,7 @@ export const ADD_TO_SONG_LIST = gql`
       id_user_id_identifier
     }
   }
-`
+`;
 
 export const SEARCH_SOUND_CLOUD = gql`
   query SearchSoundCloud($searchTerm: String!) {
@@ -20,4 +20,4 @@ export const SEARCH_SOUND_CLOUD = gql`
       id_user_id_identifier
     }
   }
-`
+`;
