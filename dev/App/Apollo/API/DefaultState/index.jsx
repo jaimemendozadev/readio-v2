@@ -1,7 +1,11 @@
 import React from 'react';
 
 export const defaults = {
-    songList: [],
+    songList: {
+      __typename: 'SongList',
+      list: []
+
+    },
     currentUser: {
         __typename: 'CurrentUser',
         id: '',

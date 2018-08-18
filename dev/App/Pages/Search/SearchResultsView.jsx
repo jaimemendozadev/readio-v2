@@ -20,9 +20,9 @@ const renderResults = (client, searchResults, callback) => {
     return searchResults.map(result => {
         const newSong = prepSongObject(result);
         return (
-          <Mutation mutation={ADD_TO_SONG_LIST}>
+          <Mutation key={result.id_user_id_identifier} mutation={ADD_TO_SONG_LIST}>
              {addToSongList => (
-               <div className='search-item' key={result.id_user_id_identifier}>
+               <div className='search-item'>
   
                  <div onClick={() => callback(result.permalink_url)}
                      className='search-image-container'>

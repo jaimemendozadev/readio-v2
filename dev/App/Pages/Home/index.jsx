@@ -43,7 +43,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log('this.props inside Home ', this.props)
+    
     return (
       <Query query={GET_USER_INFO}>
         {({ data, loading, error, client }) => {

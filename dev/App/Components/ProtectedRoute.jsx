@@ -8,10 +8,9 @@ class ProtectedRoute extends Component {
       checkingAuthentication: true,  
       authenticated: false
     }
-    this.checkForToken = this.checkForToken.bind(this);
   } 
 
-  checkForToken(){
+  checkForToken = () => {
     let token = localStorage.getItem('token');
 
     if(token) {
