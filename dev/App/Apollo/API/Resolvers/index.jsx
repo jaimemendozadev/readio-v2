@@ -1,53 +1,42 @@
 import { gql } from 'apollo-boost';
-
-/*
-
-      addTodo: (_, { text }, { cache }) => {
-        const query = gql`
-          query GetTodos {
-            todos @client {
-              id
-              text
-              completed
-            }
-          }
-        `;
-        const previous = cache.readQuery({ query });
-        const newTodo = {
-          id: nextTodoId++,
-          text,
-          completed: false,
-          __typename: 'TodoItem',
-        };
-        const data = {
-          todos: previous.todos.concat([newTodo]),
-        };
-        cache.writeData({ data });
-        return newTodo;
-      },
-
-
-      toggleTodo: (_, variables, { cache }) => {
-        const id = `TodoItem:${variables.id}`;
-        const fragment = gql`
-          fragment completeTodo on TodoItem {
-            completed
-          }
-        `;
-        const todo = cache.readFragment({ fragment, id });
-        const data = { ...todo, completed: !todo.completed };
-        cache.writeData({ id, data });
-        return null;
-      },
-
-*/
-
 export const resolvers = {
-    Mutation: {
-        addToPlaylist: (_, { songToAdd }, { cache }) => {
+  Mutation: {
+    addToSongList: (_, { songToAdd }, { cache }) => {
 
-        },
+      // Create query to get songList
+      const GET_SONG_LIST = gql`
+        query getSongList {
+          songList @client {
+            title
+            permalink_url
+            artwork_url
+            id_user_id_identifier
+          }
+        }
+      `
 
-    }
+      // Old songList
+      const oldState = cache.readQuery({query: GET_SONG_LIST});
 
+      console.log('oldState is ', oldState)
+
+      // Update songList with new song
+      const newState = [...oldState.songList];
+
+      newState.push(songToAdd);
+
+      console.log('new state is ', newState)
+
+      const data = {
+        songList: newState
+      }
+
+      cache.writeData({ data });
+
+      console.log('cache after write ', cache)
+
+      return songToAdd;
+
+    }    
+  }
 };

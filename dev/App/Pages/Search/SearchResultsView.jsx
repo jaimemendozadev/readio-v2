@@ -1,8 +1,9 @@
 import React from 'react';
+import {Mutation} from 'react-apollo';
 import Playlist from './assets/playlist.png';
-import { GET_CACHED_PLAYLIST } from './graphql';
+import { ADD_TO_SONG_LIST } from './graphql';
 
-const saveSongToPlaylist = (result, client) => {
+const prepSongObject = result => {
     const { title, permalink_url, artwork_url, id_user_id_identifier } = result;
     const newSong = {
         title,
@@ -11,36 +12,33 @@ const saveSongToPlaylist = (result, client) => {
         id_user_id_identifier
     }
 
-    const currentPlaylist = client.readQuery({ query: GET_CACHED_PLAYLIST });
-
-    console.log('currentPlaylist is ', currentPlaylist)
-
-    // const newState = [...prevState, newSong];
-
-    // client.writeQuery({ query: GET_CACHED_PLAYLIST, data: newState });
-
+    return newSong;
 }
 
 
 const renderResults = (client, searchResults, callback) => {
     return searchResults.map(result => {
+        const newSong = prepSongObject(result);
         return (
-            <div className='search-item'
-                key={result.id_user_id_identifier}>
-
-                <div onClick={() => callback(result.permalink_url)}
-                    className='search-image-container'>
-                    <img src={result.artwork_url} />
-                    <div>{result.title}</div>
-                </div>
-
-                <div className='playlist-icon-container'>
-                    <img
-                        onClick={() => saveSongToPlaylist(result, client)}
-                        className='playlist-icon'
-                        src={Playlist} />
-                </div>
-            </div>
+          <Mutation mutation={ADD_TO_SONG_LIST}>
+             {addToSongList => (
+               <div className='search-item' key={result.id_user_id_identifier}>
+  
+                 <div onClick={() => callback(result.permalink_url)}
+                     className='search-image-container'>
+                     <img src={result.artwork_url} />
+                     <div>{result.title}</div>
+                 </div>
+  
+                 <div className='playlist-icon-container'>
+                     <img
+                         onClick={() => addToSongList({variables:{ songToAdd: newSong}})}
+                         className='playlist-icon'
+                         src={Playlist} />
+                 </div>
+               </div>
+             )}
+          </Mutation>
         )
     })
 }

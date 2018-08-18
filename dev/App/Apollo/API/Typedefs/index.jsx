@@ -18,8 +18,6 @@ export const typeDefs = `
   }
 
   type Mutation {
-    addToPlaylist(songToAdd: Song!)
-    deleteFromPlaylist(songToDelete: ID!)
-    savePlaylist(playlistToSave: Playlist!)
+    addToSongList(songToAdd: Song!): Song
   }
 `;
