@@ -53,11 +53,7 @@ class Home extends Component {
     return (
       <Query query={GET_USER_INFO}>
         {({ data, loading, error }) => {
-          return (
-            <div>
-              {this.checkRenderStatus(data, loading, error)}
-            </div>
-          );
+          return <div>{this.checkRenderStatus(data, loading, error)}</div>;
         }}
       </Query>
     );

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { ApolloConsumer } from "react-apollo";
-import ReactPlayer from "react-player";
 import SearchResultsView from "./SearchResultsView.jsx";
 import { escapeHtml } from "./utils";
 import { SEARCH_SOUND_CLOUD } from "./graphql";
