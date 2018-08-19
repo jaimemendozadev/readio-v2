@@ -6,31 +6,38 @@ export const resolvers = {
       const GET_SONG_LIST = gql`
         query getSongList {
           songList @client {
-            title
-            permalink_url
-            artwork_url
-            id_user_id_identifier
+            __typename
+            list
           }
         }
       `;
 
+      console.log("songToAdd is ", songToAdd);
+
       // Old songList
       const oldState = cache.readQuery({ query: GET_SONG_LIST });
 
+      const { list } = oldState.songList;
+
       console.log("oldState is ", oldState);
 
-      // Update songList with new song
-      const newState = [...oldState.songList];
+      // Add __typename to song
+      songToAdd.__typename = "Song";
 
-      newState.push(songToAdd);
+      // Update songList with new song
+      const newState = [].concat(list, [songToAdd]);
 
       console.log("new state is ", newState);
 
       const data = {
-        songList: newState
+        songList: {
+          ...oldState.songList,
+          list: newState
+        }
       };
-
-      cache.writeData({ data });
+ 
+      // WARNING: cache.writeData prevented writing to cache
+      cache.writeQuery({ query: GET_SONG_LIST, data });
 
       console.log("cache after write ", cache);
 

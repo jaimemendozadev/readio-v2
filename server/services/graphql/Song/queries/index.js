@@ -29,10 +29,10 @@ const searchSoundCloud = async (_, { searchTerm }) => {
 
     if (title && permalink_url && artwork_url && id && user_id) {
       filteredResults.push({
+        id_user_id_identifier: `${id}-${user_id}`,
         title,
         permalink_url,
-        artwork_url,
-        id_user_id_identifier: `${id}-${user_id}`
+        artwork_url
       });
     }
   });

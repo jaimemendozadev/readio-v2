@@ -1,5 +1,3 @@
-import React from "react";
-
 export const defaults = {
   songList: {
     __typename: "SongList",
