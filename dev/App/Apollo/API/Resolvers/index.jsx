@@ -35,7 +35,7 @@ export const resolvers = {
           list: newState
         }
       };
- 
+
       // WARNING: cache.writeData prevented writing to cache
       cache.writeQuery({ query: GET_SONG_LIST, data });
 

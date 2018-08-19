@@ -52,39 +52,10 @@ class Home extends Component {
   render() {
     return (
       <Query query={GET_USER_INFO}>
-        {({ data, loading, error, client }) => {
+        {({ data, loading, error }) => {
           return (
-            <div className="page-container">
-              <div className="side-bar">
-                <nav>
-                  <Link className="side-bar-link" to="/home">
-                    Home
-                  </Link>
-                  <Link className="side-bar-link" to="/search">
-                    Search
-                  </Link>
-                </nav>
-              </div>
-
-              <div className="main-content">
-                {this.checkRenderStatus(data, loading, error)}
-
-                <div className="react-player">
-                  <ReactPlayer
-                    url="https://soundcloud.com/john-dollar-1/alesso-years-original-mix"
-                    playing={false}
-                    width="100%"
-                    height="20%"
-                    config={{
-                      soundcloud: {
-                        options: {
-                          color: "#55728C"
-                        }
-                      }
-                    }}
-                  />
-                </div>
-              </div>
+            <div>
+              {this.checkRenderStatus(data, loading, error)}
             </div>
           );
         }}
