@@ -64,7 +64,7 @@ class Search extends Component {
     return (
       <ApolloConsumer>
         {client => (
-          <div>
+          <div className="search-page">
             <div>
               <h1>Search for any Artist, Playlist, Song, or Audio recording</h1>
               <form onSubmit={event => this.handleSubmit(event, client)}>
