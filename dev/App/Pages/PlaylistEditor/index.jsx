@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ApolloConsumer } from "react-apollo";
+import { escapeHtml } from "./utils";
 
 const defaultState = {
   playlistName: "Give your playlist a name!",
@@ -12,10 +13,27 @@ class PlaylistEditor extends Component {
     this.state = defaultState;
   }
 
-  handleSubmit = (event, client) => {
-    event.prventDefault();
+  clearInput = event => {
+    const { currentQuery } = this.state;
+    if (currentQuery.length) {
+      this.setState({
+        playlistName: ""
+      });
+    }
+  };
 
-  }
+  handleChange = event => {
+    event.preventDefault();
+
+    this.setState({
+      playlistName: event.target.value
+    });
+  };
+
+  handleSubmit = async (event, client) => {
+    event.preventDefault();
+    const playlistName = escapeHtml(this.state.playlistName);
+  };
 
   render() {
     const { searchResults } = this.state;
@@ -35,7 +53,12 @@ class PlaylistEditor extends Component {
               </form>
             </div>
 
- 
+            {searchResults.length == 0 ? null : (
+              <SongView 
+                songInput={searchResults}
+                callback={this.clickToPlay}
+              />
+            )}
           </div>
         )}
       </ApolloConsumer>

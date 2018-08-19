@@ -1,0 +1,37 @@
+.song-view-container {
+  height: 45vh;
+  overflow: scroll;
+}
+
+.song-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid white;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-radius: 2px;
+  width: 65%;
+
+  .song-image-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    img {
+      width: 100px;
+      height: 100px;
+      margin-right: 1em;
+      
+    }
+  }
+  
+  .playlist-icon-container {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+    margin-right: 1em;
+  }
+
+}

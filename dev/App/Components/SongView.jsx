@@ -1,7 +1,7 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import Playlist from "./assets/playlist.png";
-import { ADD_TO_SONG_LIST } from "./graphql";
+
 
 const prepSongObject = result => {
   const { title, permalink_url, artwork_url, id_user_id_identifier } = result;
@@ -21,10 +21,10 @@ const renderResults = (searchResults, callback) => {
     return (
       <Mutation key={result.id_user_id_identifier} mutation={ADD_TO_SONG_LIST}>
         {addToSongList => (
-          <div className="search-item">
+          <div className="song-item">
             <div
               onClick={() => callback(result.permalink_url)}
-              className="search-image-container"
+              className="song-image-container"
             >
               <img src={result.artwork_url} />
               <div>{result.title}</div>
@@ -45,10 +45,10 @@ const renderResults = (searchResults, callback) => {
     );
   });
 };
-const SearchResultsView = ({ searchResults, callback }) => (
-  <div className="search-results">
-    {renderResults(searchResults, callback)}
+const SongView = ({songInput, callback }) => (
+  <div className="song-view-container">
+    {renderResults(songInput, callback)}
   </div>
 );
 
-export default SearchResultsView;
+export default SongView;
