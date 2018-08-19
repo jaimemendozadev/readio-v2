@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { GET_USER_INFO } from "./graphql";
+import { GET_CURRENTLY_PLYAING_SONG } from "./graphql";
 import ReactPlayer from "react-player";
 import Home from "../Home/index.jsx";
 import Search from "../Search/index.jsx";
@@ -8,9 +8,8 @@ import PlaylistEditor from "../PlaylistEditor/index.jsx";
 
 const defaultState = {
   currentUser: {},
-  currentView: "Home",
-  url: "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
-  playing: false
+  currentSong: "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
+  currentView: "Home"
 };
 
 class Main extends Component {
@@ -25,6 +24,23 @@ class Main extends Component {
     });
   };
 
+  returnQueryResults = (data, loading, error, dataType) => {
+    const { currentSong } = this.state;
+    if (loading) {
+      return dataType == "currentSong" ? currentSong : false;
+    }
+
+    if (error) {
+      console.log(
+        "There was an error with GET_CURRENTLY_PLYAING_SONG query ",
+        error
+      );
+      return dataType == "currentSong" ? currentSong : false;
+    }
+
+    return data.currentlyPlaying[dataType];
+  };
+
   renderCurrentView = () => {
     const { currentView } = this.state;
 
@@ -36,7 +52,7 @@ class Main extends Component {
       return <Search />;
     }
 
-    if (currentView == 'Playlist Editor') {
+    if (currentView == "Playlist Editor") {
       return <PlaylistEditor />;
     }
 
@@ -44,10 +60,11 @@ class Main extends Component {
   };
 
   render() {
-    const { playing, url } = this.state;
+    const { currentSong } = this.state;
     return (
-      <Query query={GET_USER_INFO}>
-        {({ data, loading, error, client }) => {
+      <Query query={GET_CURRENTLY_PLYAING_SONG}>
+        {({ data, loading, error }) => {
+          console.log("data inside Main is ", data);
           return (
             <div className="page-container">
               <div className="side-bar">
@@ -78,8 +95,8 @@ class Main extends Component {
 
                 <div className="react-player">
                   <ReactPlayer
-                    url={url}
-                    playing={playing}
+                    url={data ? data.currentlyPlaying.currentSong : currentSong}
+                    playing={data ? data.currentlyPlaying.playing : false}
                     width="100%"
                     height="20%"
                     config={{

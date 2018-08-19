@@ -14,8 +14,8 @@ class PlaylistEditor extends Component {
   }
 
   clearInput = event => {
-    const { currentQuery } = this.state;
-    if (currentQuery.length) {
+    const { playlistName } = this.state;
+    if (playlistName.length) {
       this.setState({
         playlistName: ""
       });
@@ -54,10 +54,7 @@ class PlaylistEditor extends Component {
             </div>
 
             {searchResults.length == 0 ? null : (
-              <SongView 
-                songInput={searchResults}
-                callback={this.clickToPlay}
-              />
+              <SongView songInput={searchResults} callback={this.clickToPlay} />
             )}
           </div>
         )}

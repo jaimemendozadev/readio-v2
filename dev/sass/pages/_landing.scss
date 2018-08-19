@@ -1,3 +1,8 @@
+@mixin adjustPosition($top, $left) {
+  top: $top;
+  left: $left;
+}
+
 header {
     background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
     url('../../public/images/earbuds-girl-1500.png');
@@ -13,8 +18,7 @@ header {
        display: inline-block;
        font-size: 1.5em;
        position: relative;
-       top: 35%;
-       left: 22%;
+       @include adjustPosition(35%, 15%);
     }
     
   }

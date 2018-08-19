@@ -8,6 +8,11 @@ export const typeDefs = `
     artwork_url: String
   }
 
+  type Url {
+    currentSong: String
+    playing: Boolean
+  }
+
   type SongList {
     list: [Song]
   }

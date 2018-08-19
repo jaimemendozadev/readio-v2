@@ -46,9 +46,7 @@ const renderResults = (searchResults, callback) => {
   });
 };
 const SearchResultsView = ({ searchResults, callback }) => (
-  <div className="search-results">
-    {renderResults(searchResults, callback)}
-  </div>
+  <div className="search-results">{renderResults(searchResults, callback)}</div>
 );
 
 export default SearchResultsView;

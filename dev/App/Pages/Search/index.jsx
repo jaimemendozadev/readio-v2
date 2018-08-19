@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { ApolloConsumer } from "react-apollo";
 // import SearchResultsView from "./SearchResultsView.jsx";
-import SongView from '../../Components/SongView.jsx';
+import SongView from "../../Components/SongView.jsx";
 import { escapeHtml } from "./utils";
-import { SEARCH_SOUND_CLOUD } from "./graphql";
+import { SEARCH_SOUND_CLOUD, ADD_TO_SONG_LIST } from "./graphql";
 
 const defaultState = {
   currentQuery: "Start typing...",
@@ -77,11 +77,8 @@ class Search extends Component {
             </div>
 
             {searchResults.length == 0 ? null : (
-              // <SearchResultsView
-              //   callback={this.clickToPlay}
-              //   searchResults={searchResults}
-              // />
-              <SongView 
+              <SongView
+                PROP_MUTATION={ADD_TO_SONG_LIST}
                 songInput={searchResults}
                 callback={this.clickToPlay}
               />

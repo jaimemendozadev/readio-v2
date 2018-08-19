@@ -3,6 +3,12 @@ export const defaults = {
     __typename: "SongList",
     list: []
   },
+  currentlyPlaying: {
+    __typename: "Url",
+    currentSong:
+      "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
+    playing: false
+  },
   currentUser: {
     __typename: "CurrentUser",
     id: "",
