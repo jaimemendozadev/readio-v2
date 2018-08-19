@@ -92,18 +92,15 @@ header {
       .form-container form a.google {
         border: 1px solid grey; }
 
-.search-page h1 {
-  font-size: 3em; }
-
 .search-page input {
   height: 12vh;
   width: 95%;
   border: 1px solid white;
-  font-size: 3.5em;
+  font-size: 2.5em;
   padding-left: .3em; }
 
 .search-results {
-  height: 30vh;
+  height: 45vh;
   overflow: scroll; }
 
 .search-item {
@@ -111,6 +108,7 @@ header {
   justify-content: space-between;
   align-items: center;
   border: 1px solid white;
+  margin-top: 2em;
   margin-bottom: 2em;
   border-radius: 2px;
   width: 65%; }
