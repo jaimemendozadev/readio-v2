@@ -35,6 +35,23 @@ const handleLoadMutation = url => {
   return playSong;
 };
 
+const renderIcon = (propMutation, assetType, newSong, asset) => {
+  const { id_user_id_identifier } = newSong;
+
+  const variables =
+    assetType == "playlist"
+      ? { songToAdd: newSong }
+      : { songID: id_user_id_identifier };
+
+  return (
+    <img
+      onClick={() => propMutation({ variables })}
+      className="playlist-icon"
+      src={asset}
+    />
+  );
+};
+
 const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
   if (songInput.length == 0) {
     return (
@@ -67,13 +84,7 @@ const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
                 </div>
 
                 <div className="playlist-icon-container">
-                  <img
-                    onClick={() =>
-                      propMutation({ variables: { songToAdd: newSong } })
-                    }
-                    className="playlist-icon"
-                    src={asset}
-                  />
+                  {renderIcon(propMutation, assetType, newSong, asset)}
                 </div>
               </div>
             )}

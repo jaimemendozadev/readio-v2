@@ -1,6 +1,4 @@
 const processSearchResults = searchResults => {
-  // console.log('searchResults inside process ', searchResults);
-
   const filteredResults = [];
 
   searchResults.forEach(track => {
