@@ -1,18 +1,9 @@
-import { gql } from "apollo-boost";
+import { GET_SONG_LIST, GET_CURRENT_SONG } from "../graphql";
+
 export const resolvers = {
   Mutation: {
     addToSongList: (_, { songToAdd }, { cache }) => {
-      // Create query to get songList
-      const GET_SONG_LIST = gql`
-        query getSongList {
-          songList @client {
-            __typename
-            list
-          }
-        }
-      `;
-
-      // Old songList
+      // User query to get Old songList
       const oldState = cache.readQuery({ query: GET_SONG_LIST });
 
       const { list } = oldState.songList;
@@ -39,17 +30,12 @@ export const resolvers = {
       return songToAdd;
     },
 
-    loadSongInPlayer: (_, { songArg }, { cache }) => {
-      const GET_CURRENT_SONG = gql`
-        query CurrentlyPlaying {
-          currentlyPlaying @client {
-            __typename
-            currentSong
-            playing
-          }
-        }
-      `;
+    deleteFromSongList: (_, { songID }, { cache }) => {
 
+
+    },
+
+    loadSongInPlayer: (_, { songArg }, { cache }) => {
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
 
       const { currentlyPlaying } = oldState;

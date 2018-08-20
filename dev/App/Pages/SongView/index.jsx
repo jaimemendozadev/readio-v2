@@ -64,6 +64,8 @@ const renderResults = (searchResults, callback, PROP_MUTATION) => {
 };
 
 // PROP_MUTATION can add or delete song from cache SongList
+// SearchView enables adding song to SongList
+// PlaylistEditor enables deleting song from SongList
 const SongView = ({ songInput, callback, PROP_MUTATION }) => (
   <div className="song-view-container">
     {renderResults(songInput, callback, PROP_MUTATION)}

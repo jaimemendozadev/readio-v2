@@ -24,13 +24,6 @@ class Search extends Component {
     }
   };
 
-  clickToPlay = url => {
-    this.setState({
-      url,
-      playing: true
-    });
-  };
-
   handleChange = event => {
     event.preventDefault();
 
@@ -79,7 +72,7 @@ class Search extends Component {
               <SongView
                 PROP_MUTATION={ADD_TO_SONG_LIST}
                 songInput={searchResults}
-                callback={this.clickToPlay}
+                callback={null}
               />
             )}
           </div>

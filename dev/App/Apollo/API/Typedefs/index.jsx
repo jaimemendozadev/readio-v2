@@ -22,6 +22,7 @@ export const typeDefs = `
 
   type Mutation {
     addToSongList(songToAdd: Song!): Song
+    deleteFromSongList(songID: String!): Song
     loadSongInPlayer(songArg: UrlInput!): Url
   }
 `;
