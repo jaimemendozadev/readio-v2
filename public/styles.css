@@ -115,7 +115,6 @@ header {
   border-radius: 2px;
   width: 65%; }
   .search-item .search-image-container {
-    width: 50%;
     display: flex;
     justify-content: flex-start;
     align-items: center; }
@@ -123,9 +122,6 @@ header {
       width: 100px;
       height: 100px;
       margin-right: 1em; }
-  .search-item .search-result-title {
-    width: 50%;
-    margin-right: 2em; }
   .search-item .playlist-icon-container {
     margin-right: 1em; }
     .search-item .playlist-icon-container img {
