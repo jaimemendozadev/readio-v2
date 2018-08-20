@@ -73,6 +73,7 @@ class Search extends Component {
                 PROP_MUTATION={ADD_TO_SONG_LIST}
                 songInput={searchResults}
                 callback={null}
+                assetType="playlist"
               />
             )}
           </div>

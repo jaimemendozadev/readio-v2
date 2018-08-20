@@ -1,7 +1,18 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import Playlist from "./assets/playlist.png";
+import Trash from "./assets/trash.png";
 import { LOAD_SONG_IN_PLAYER } from "./graphql";
+
+const getAssetPath = assetType => {
+  if (assetType == "playlist") {
+    return Playlist;
+  }
+
+  if (assetType == "trash") {
+    return Trash;
+  }
+};
 
 const prepSongObject = result => {
   const { title, permalink_url, artwork_url, id_user_id_identifier } = result;
@@ -24,10 +35,11 @@ const handleLoadMutation = url => {
   return playSong;
 };
 
-const renderResults = (PROP_MUTATION, songInput, callback) => {
+const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
   return songInput.map(result => {
     const newSong = prepSongObject(result);
     const loadSong = handleLoadMutation(result.permalink_url);
+    const asset = getAssetPath(assetType);
 
     return (
       <Mutation key={result.id_user_id_identifier} mutation={PROP_MUTATION}>
@@ -51,7 +63,7 @@ const renderResults = (PROP_MUTATION, songInput, callback) => {
                       propMutation({ variables: { songToAdd: newSong } })
                     }
                     className="playlist-icon"
-                    src={Playlist}
+                    src={asset}
                   />
                 </div>
               </div>
@@ -66,9 +78,9 @@ const renderResults = (PROP_MUTATION, songInput, callback) => {
 // PROP_MUTATION can add or delete song from cache SongList
 // SearchView enables adding song to SongList
 // PlaylistEditor enables deleting song from SongList
-const SongView = ({ PROP_MUTATION, songInput, callback  }) => (
+const SongView = ({ PROP_MUTATION, songInput, callback, assetType }) => (
   <div className="song-view-container">
-    {renderResults(PROP_MUTATION, songInput, callback)}
+    {renderResults(PROP_MUTATION, songInput, callback, assetType)}
   </div>
 );
 

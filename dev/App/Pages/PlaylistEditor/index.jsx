@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { escapeHtml } from "./utils";
 import SongView from "../SongView/index.jsx";
+import { GET_SONG_LIST, DELETE_FROM_SONG_LIST } from "./graphql";
 
 const defaultState = {
-  playlistName: "Give your playlist a name!",
-  searchResults: []
+  playlistName: "Give your playlist a name!"
 };
 
 class PlaylistEditor extends Component {
@@ -31,20 +31,19 @@ class PlaylistEditor extends Component {
     });
   };
 
-  handleSubmit = async (event, client) => {
+  handleSubmit = event => {
     event.preventDefault();
     const playlistName = escapeHtml(this.state.playlistName);
   };
 
   render() {
-    const { searchResults } = this.state;
     return (
-      <Query query={null}>
-        {client => (
+      <Query query={GET_SONG_LIST}>
+        {({ data, loading, error }) => (
           <div className="playlist-editor">
             <div>
               <h1>Edit and Save Your Current Playlist!</h1>
-              <form onSubmit={event => this.handleSubmit(event, client)}>
+              <form onSubmit={this.handleSubmit}>
                 <input
                   onClick={this.clearInput}
                   onChange={this.handleChange}
@@ -54,14 +53,14 @@ class PlaylistEditor extends Component {
               </form>
             </div>
 
-            {searchResults.length == 0 ? null : (
+            {data.songList.list.length == 0 ? null : (
               <SongView
-                PROP_MUTATION={ADD_TO_SONG_LIST}
-                songInput={searchResults}
+                PROP_MUTATION={DELETE_FROM_SONG_LIST}
+                songInput={data.songList.list}
                 callback={null}
+                assetType="trash"
               />
             )}
-
           </div>
         )}
       </Query>
