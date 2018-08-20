@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-export const GET_CURRENTLY_PLYAING_SONG = gql`
+export const GET_CURRENTLY_PLAYING_SONG = gql`
   query GetCurrentlyPlayingSong {
     currentlyPlaying @client {
       currentSong

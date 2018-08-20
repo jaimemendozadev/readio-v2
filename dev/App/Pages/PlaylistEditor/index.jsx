@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ApolloConsumer } from "react-apollo";
 import { escapeHtml } from "./utils";
+import SongView from "../SongView/index.jsx";
 
 const defaultState = {
   playlistName: "Give your playlist a name!",

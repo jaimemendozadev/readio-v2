@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { GET_CURRENTLY_PLYAING_SONG } from "./graphql";
+import { GET_CURRENTLY_PLAYING_SONG } from "./graphql";
 import ReactPlayer from "react-player";
 import Home from "../Home/index.jsx";
 import Search from "../Search/index.jsx";
@@ -24,21 +24,13 @@ class Main extends Component {
     });
   };
 
-  returnQueryResults = (data, loading, error, dataType) => {
-    const { currentSong } = this.state;
-    if (loading) {
-      return dataType == "currentSong" ? currentSong : false;
-    }
-
+  logError = error => {
     if (error) {
       console.log(
-        "There was an error with GET_CURRENTLY_PLYAING_SONG query ",
+        "There was an error for GET_CURRENTLY_PLAYING_SONG query ",
         error
       );
-      return dataType == "currentSong" ? currentSong : false;
     }
-
-    return data.currentlyPlaying[dataType];
   };
 
   renderCurrentView = () => {
@@ -62,9 +54,14 @@ class Main extends Component {
   render() {
     const { currentSong } = this.state;
     return (
-      <Query query={GET_CURRENTLY_PLYAING_SONG}>
+      <Query query={GET_CURRENTLY_PLAYING_SONG}>
         {({ data, loading, error }) => {
           console.log("data inside Main is ", data);
+
+          if (error) {
+            this.logError(error);
+          }
+
           return (
             <div className="page-container">
               <div className="side-bar">

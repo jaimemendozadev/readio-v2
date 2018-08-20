@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ApolloConsumer } from "react-apollo";
-// import SearchResultsView from "./SearchResultsView.jsx";
-import SongView from "../../Components/SongView.jsx";
+import SongView from "../SongView/index.jsx";
 import { escapeHtml } from "./utils";
 import { SEARCH_SOUND_CLOUD, ADD_TO_SONG_LIST } from "./graphql";
 
