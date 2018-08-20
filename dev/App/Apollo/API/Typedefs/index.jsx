@@ -1,5 +1,3 @@
-import React from "react";
-
 export const typeDefs = `
   type Song {
     id_user_id_identifier: String!
@@ -8,11 +6,22 @@ export const typeDefs = `
     artwork_url: String
   }
 
+  type Url {
+    currentSong: String
+    playing: Boolean
+  }
+
+  input UrlInput {
+    currentSong: String
+    playing: Boolean
+  }
+
   type SongList {
     list: [Song]
   }
 
   type Mutation {
     addToSongList(songToAdd: Song!): Song
+    loadSongInPlayer(songArg: UrlInput!): Url
   }
 `;

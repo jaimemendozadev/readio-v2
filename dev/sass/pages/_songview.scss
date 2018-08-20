@@ -1,20 +1,9 @@
-.search-page {
-  input {
-    height: 12vh;
-    width: 95%;
-    border: 1px solid white;
-    font-size: 2.5em;
-    padding-left: .3em;
-  }
-}
-
-
-.search-results {
+.song-view-container {
   height: 45vh;
   overflow: scroll;
 }
 
-.search-item {
+.song-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,7 +13,7 @@
   border-radius: 2px;
   width: 65%;
 
-  .search-image-container {
+  .song-image-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;

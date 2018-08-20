@@ -1,8 +1,7 @@
 import ApolloClient from "apollo-boost";
-import { defaults } from "./API/DefaultState/index.jsx";
-import { resolvers } from "./API/Resolvers/index.jsx";
-import { typeDefs } from "./API/Typedefs/index.jsx";
-import { cache } from "./API/Cache/index.jsx";
+import { defaults } from "./API/defaults/index.jsx";
+import { resolvers } from "./API/resolvers/index.jsx";
+import { typeDefs } from "./API/typeDefs/index.jsx";
 
 //clientState part of apollo-link-state in apollo-boost
 const client = new ApolloClient({

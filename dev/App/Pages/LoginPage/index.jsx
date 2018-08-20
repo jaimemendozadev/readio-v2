@@ -13,7 +13,7 @@ class LoginPage extends Component {
     if (token) {
       localStorage.setItem("token", token);
 
-      return <Redirect to={{ pathname: "/home" }} />;
+      return <Redirect to={{ pathname: "/main" }} />;
     }
   }
 
