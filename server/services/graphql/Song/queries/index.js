@@ -1,3 +1,5 @@
+const {processSearchResults} = require('../../utils.js');
+
 const fetch = require("node-fetch");
 
 const { SOUNDCLOUD_KEY, SOUNDCLOUD_BASE_URL } = process.env;
@@ -16,26 +18,21 @@ const findSong = async (_, { title }, { models }) => {
 };
 
 const searchSoundCloud = async (_, { searchTerm }) => {
-  const filteredResults = [];
+  let filteredResults = [];
 
   let searchResults = await fetch(
     `${SOUNDCLOUD_BASE_URL}${SOUNDCLOUD_KEY}&q=${searchTerm}&limit=200&linked_partitioning=1`
   ).then(result => result.json());
 
-  searchResults = searchResults.collection;
 
-  searchResults.forEach(track => {
-    const { title, permalink_url, artwork_url, id, user_id } = track;
+  if(searchResults.collection && searchResults.collection.length) {
+    filteredResults = filteredResults.concat(processSearchResults(searchResults.collection));  
+  }
 
-    if (title && permalink_url && artwork_url && id && user_id) {
-      filteredResults.push({
-        id_user_id_identifier: `${id}-${user_id}`,
-        title,
-        permalink_url,
-        artwork_url
-      });
-    }
-  });
+  if(Array.isArray(searchResults && searchResults.length)) {
+    filteredResults = filteredResults.concat(processSearchResults(searchResults));
+  }
+
 
   return filteredResults;
 };
