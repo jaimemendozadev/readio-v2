@@ -24,8 +24,8 @@ const handleLoadMutation = url => {
   return playSong;
 };
 
-const renderResults = (searchResults, callback, PROP_MUTATION) => {
-  return searchResults.map(result => {
+const renderResults = (PROP_MUTATION, songInput, callback) => {
+  return songInput.map(result => {
     const newSong = prepSongObject(result);
     const loadSong = handleLoadMutation(result.permalink_url);
 
@@ -66,9 +66,9 @@ const renderResults = (searchResults, callback, PROP_MUTATION) => {
 // PROP_MUTATION can add or delete song from cache SongList
 // SearchView enables adding song to SongList
 // PlaylistEditor enables deleting song from SongList
-const SongView = ({ songInput, callback, PROP_MUTATION }) => (
+const SongView = ({ PROP_MUTATION, songInput, callback  }) => (
   <div className="song-view-container">
-    {renderResults(songInput, callback, PROP_MUTATION)}
+    {renderResults(PROP_MUTATION, songInput, callback)}
   </div>
 );
 

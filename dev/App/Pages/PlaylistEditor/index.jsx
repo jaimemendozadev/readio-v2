@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ApolloConsumer } from "react-apollo";
+import { Query } from "react-apollo";
 import { escapeHtml } from "./utils";
 import SongView from "../SongView/index.jsx";
 
@@ -39,7 +39,7 @@ class PlaylistEditor extends Component {
   render() {
     const { searchResults } = this.state;
     return (
-      <ApolloConsumer>
+      <Query query={null}>
         {client => (
           <div className="playlist-editor">
             <div>
@@ -55,11 +55,16 @@ class PlaylistEditor extends Component {
             </div>
 
             {searchResults.length == 0 ? null : (
-              <SongView songInput={searchResults} callback={this.clickToPlay} />
+              <SongView
+                PROP_MUTATION={ADD_TO_SONG_LIST}
+                songInput={searchResults}
+                callback={null}
+              />
             )}
+
           </div>
         )}
-      </ApolloConsumer>
+      </Query>
     );
   }
 }
