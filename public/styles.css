@@ -140,6 +140,9 @@ header {
 .song-view-container {
   height: 45vh;
   overflow: scroll; }
+  .song-view-container .error-msg {
+    font-size: 2em;
+    margin-top: 2.5em; }
 
 .song-item {
   display: flex;

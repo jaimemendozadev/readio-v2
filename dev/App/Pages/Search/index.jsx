@@ -6,7 +6,8 @@ import { SEARCH_SOUND_CLOUD, ADD_TO_SONG_LIST } from "./graphql";
 
 const defaultState = {
   currentQuery: "Start typing...",
-  searchResults: []
+  searchResults: [],
+  startSearch: false
 };
 
 class Search extends Component {
@@ -46,12 +47,13 @@ class Search extends Component {
     console.log("data inside handleSubmit ", searchResults);
 
     this.setState({
-      searchResults
+      searchResults,
+      startSearch: true
     });
   };
 
   render() {
-    const { searchResults } = this.state;
+    const { searchResults, startSearch } = this.state;
     return (
       <ApolloConsumer>
         {client => (
@@ -68,12 +70,13 @@ class Search extends Component {
               </form>
             </div>
 
-            {searchResults.length == 0 ? null : (
+            {startSearch == false ? null : (
               <SongView
                 PROP_MUTATION={ADD_TO_SONG_LIST}
                 songInput={searchResults}
                 callback={null}
                 assetType="playlist"
+                startSearch={startSearch}
               />
             )}
           </div>

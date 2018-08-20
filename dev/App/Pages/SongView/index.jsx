@@ -35,7 +35,16 @@ const handleLoadMutation = url => {
   return playSong;
 };
 
-const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
+const renderResults = (PROP_MUTATION, songInput, callback, assetType, startSearch) => {
+
+  console.log('songInput is ', songInput)
+  console.log('startSearch is ', startSearch)
+  
+  if(songInput.length == 0 && startSearch){
+    return <div className="error-msg">Whoops! We couldn't find any results for your search. Try something else.</div> 
+  }
+
+
   return songInput.map(result => {
     const newSong = prepSongObject(result);
     const loadSong = handleLoadMutation(result.permalink_url);
@@ -78,9 +87,9 @@ const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
 // PROP_MUTATION can add or delete song from cache SongList
 // SearchView enables adding song to SongList
 // PlaylistEditor enables deleting song from SongList
-const SongView = ({ PROP_MUTATION, songInput, callback, assetType }) => (
+const SongView = ({ PROP_MUTATION, songInput, callback, assetType, startSearch }) => (
   <div className="song-view-container">
-    {renderResults(PROP_MUTATION, songInput, callback, assetType)}
+    {renderResults(PROP_MUTATION, songInput, callback, assetType, startSearch)}
   </div>
 );
 
