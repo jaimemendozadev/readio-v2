@@ -51,6 +51,8 @@ class Search extends Component {
       startSearch: true
     });
   };
+  
+  // Note: <Query> can't be fired manually. Manual queries are done with <ApolloConsumer>
 
   render() {
     const { searchResults, startSearch } = this.state;
