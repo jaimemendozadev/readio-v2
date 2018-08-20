@@ -1,4 +1,5 @@
-import { GET_SONG_LIST, GET_CURRENT_SONG } from "../graphql";
+import { GET_SONG_LIST } from "../graphql";
+import { GET_CURRENT_SONG } from "../graphql";
 
 export const resolvers = {
   Mutation: {
@@ -31,8 +32,32 @@ export const resolvers = {
     },
 
     deleteFromSongList: (_, { songID }, { cache }) => {
+      let filteredSong;
 
+      const oldState = cache.readQuery({ query: GET_SONG_LIST });
 
+      const { list } = oldState.songList;
+
+      const newState = list.filter(song => {
+        if (songID != song.id_user_id_identifier) {
+          return song;
+        } else {
+          filteredSong = song;
+        }
+      });
+
+      const data = {
+        songList: {
+          ...oldState.songList,
+          list: newState
+        }
+      };
+
+      cache.writeQuery({ query: GET_SONG_LIST, data });
+
+      console.log("cache after deleting song from playlist ", cache);
+
+      return filteredSong;
     },
 
     loadSongInPlayer: (_, { songArg }, { cache }) => {

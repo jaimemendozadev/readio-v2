@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-const GET_SONG_LIST = gql`
+export const GET_SONG_LIST = gql`
   query getSongList {
     songList @client {
       __typename
@@ -9,7 +9,7 @@ const GET_SONG_LIST = gql`
   }
 `;
 
-const GET_CURRENT_SONG = gql`
+export const GET_CURRENT_SONG = gql`
   query CurrentlyPlaying {
     currentlyPlaying @client {
       __typename
@@ -18,8 +18,3 @@ const GET_CURRENT_SONG = gql`
     }
   }
 `;
-
-export default {
-  GET_CURRENT_SONG,
-  GET_CURRENT_SONG
-}
