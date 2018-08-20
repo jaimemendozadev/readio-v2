@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { ApolloConsumer } from "react-apollo";
+import { Mutation } from "react-apollo";
 import SongView from "../SongView/index.jsx";
 import { escapeHtml } from "./utils";
 import { SEARCH_SOUND_CLOUD, ADD_TO_SONG_LIST } from "./graphql";
+import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {
   currentQuery: "Start typing...",
@@ -33,36 +34,62 @@ class Search extends Component {
     });
   };
 
-  handleSubmit = async (event, client) => {
+  handleSubmit = async (event, searchSoundCloud) => {
     event.preventDefault();
     const currentQuery = escapeHtml(this.state.currentQuery);
 
-    let searchResults = await client.query({
-      query: SEARCH_SOUND_CLOUD,
-      variables: { searchTerm: currentQuery }
-    });
-
-    searchResults = searchResults.data.searchSoundCloud;
-
-    console.log("data inside handleSubmit ", searchResults);
+    searchSoundCloud({ variables: { searchTerm: currentQuery } });
 
     this.setState({
-      searchResults,
       startSearch: true
     });
   };
-  
+
+  handleSongView = (startSearch, data, loading, error) => {
+    if (!startSearch) {
+      return null;
+    }
+
+    if (loading) {
+      return <Spinner />;
+    }
+
+    if (error) {
+      console.log("error querying SC mutation on BE ", error);
+
+      return (
+        <div className="error-msg">
+          Whoops! There was an error processing your request. Try again later.
+        </div>
+      );
+    }
+
+    if (data) {
+      const { searchSoundCloud } = data;
+      return (
+        <SongView
+          PROP_MUTATION={ADD_TO_SONG_LIST}
+          songInput={searchSoundCloud}
+          callback={null}
+          assetType="playlist"
+        />
+      );
+    }
+  };
+
   // Note: <Query> can't be fired manually. Manual queries are done with <ApolloConsumer>
 
   render() {
     const { searchResults, startSearch } = this.state;
     return (
-      <ApolloConsumer>
-        {client => (
+      <Mutation mutation={SEARCH_SOUND_CLOUD}>
+        {(searchSoundCloud, { data, loading, error }) => (
           <div className="search-page">
             <div>
               <h1>Search for any Artist, Playlist, Song, or Audio recording</h1>
-              <form onSubmit={event => this.handleSubmit(event, client)}>
+              <form
+                onSubmit={event => this.handleSubmit(event, searchSoundCloud)}
+              >
                 <input
                   onClick={this.clearInput}
                   onChange={this.handleChange}
@@ -72,18 +99,10 @@ class Search extends Component {
               </form>
             </div>
 
-            {startSearch == false ? null : (
-              <SongView
-                PROP_MUTATION={ADD_TO_SONG_LIST}
-                songInput={searchResults}
-                callback={null}
-                assetType="playlist"
-                startSearch={startSearch}
-              />
-            )}
+            {this.handleSongView(startSearch, data, loading, error)}
           </div>
         )}
-      </ApolloConsumer>
+      </Mutation>
     );
   }
 }

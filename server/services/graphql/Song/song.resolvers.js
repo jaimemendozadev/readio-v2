@@ -1,13 +1,13 @@
-const { findSong, searchSoundCloud } = require("./queries");
-const { createSong } = require("./mutations");
+const { findSong } = require("./queries");
+const { createSong, searchSoundCloud } = require("./mutations");
 
 module.exports = {
   Query: {
-    findSong,
-    searchSoundCloud
+    findSong
   },
 
   Mutation: {
-    createSong
+    createSong,
+    searchSoundCloud
   }
 };

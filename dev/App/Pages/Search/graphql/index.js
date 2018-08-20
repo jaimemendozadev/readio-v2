@@ -12,7 +12,7 @@ export const ADD_TO_SONG_LIST = gql`
 `;
 
 export const SEARCH_SOUND_CLOUD = gql`
-  query SearchSoundCloud($searchTerm: String!) {
+  mutation SearchSoundCloud($searchTerm: String!) {
     searchSoundCloud(searchTerm: $searchTerm) {
       id_user_id_identifier
       title

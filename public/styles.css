@@ -8,6 +8,7 @@ body {
   margin: 0; }
 
 .spinner {
+  margin: 2em auto 0;
   border: 15px solid #706580;
   border-radius: 50%;
   height: 100px;
@@ -20,6 +21,10 @@ body {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
+
+.error-msg {
+  font-size: 2em;
+  margin-top: 2.5em; }
 
 /*
   Spinner Citation
@@ -160,9 +165,6 @@ header {
 .song-view-container {
   height: 45vh;
   overflow: scroll; }
-  .song-view-container .error-msg {
-    font-size: 2em;
-    margin-top: 2.5em; }
 
 .song-item {
   display: flex;

@@ -1,5 +1,4 @@
 const processSearchResults = searchResults => {
-
   // console.log('searchResults inside process ', searchResults);
 
   const filteredResults = [];
@@ -17,11 +16,11 @@ const processSearchResults = searchResults => {
     }
   });
 
-  console.log('finalized results before return ', filteredResults)
+  console.log("finalized results before return ", filteredResults);
 
   return filteredResults;
-}
+};
 
 module.exports = {
   processSearchResults
-}
+};

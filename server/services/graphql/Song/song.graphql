@@ -13,9 +13,9 @@ input CreateSong {
 
 extend type Query {
   findSong(title: String): [Song]!
-  searchSoundCloud(searchTerm: String!): [Song]!
 }
 
 extend type Mutation {
   createSong(input: CreateSong): Song!
+  searchSoundCloud(searchTerm: String!): [Song]!
 }
