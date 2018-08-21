@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { GET_USER_INFO } from "./graphql";
+import { GET_USER_INFO, SAVE_USER_IN_CACHE } from "./graphql";
 import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {
@@ -13,6 +13,18 @@ class Home extends Component {
     this.state = defaultState;
   }
 
+  saveFetchedUser = (getUser, client) => {
+    let oldState = client.readQuery({query: SAVE_USER_IN_CACHE});
+
+    //console.log('oldState in saveFetchedUser ', oldState);
+
+    const newState = {
+      ...oldState,
+     
+    }
+
+  }
+
   renderPlaylists = playlists => {
     if (playlists.length == 0) {
       return (
@@ -23,7 +35,7 @@ class Home extends Component {
     }
   };
 
-  checkRenderStatus = (data, loading, error) => {
+  checkRenderStatus = (data, loading, error, client) => {
     if (loading) {
       return (
         <div className="home-loading-container">
@@ -43,6 +55,9 @@ class Home extends Component {
 
     if (data) {
       const { getUser } = data;
+
+      this.saveFetchedUser(getUser, client)
+
       return (
         <div>
           <h1>
@@ -60,8 +75,8 @@ class Home extends Component {
   render() {
     return (
       <Query query={GET_USER_INFO}>
-        {({ data, loading, error }) => {
-          return <div>{this.checkRenderStatus(data, loading, error)}</div>;
+        {({ data, loading, error, client }) => {
+          return <div>{this.checkRenderStatus(data, loading, error, client)}</div>;
         }}
       </Query>
     );

@@ -6,6 +6,7 @@ type Song {
 }
 
 input CreateSong {
+  id_user_id_identifier: String!
   title: String!
   permalink_url: String!
   artwork_url: String

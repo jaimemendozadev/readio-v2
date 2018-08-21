@@ -15,6 +15,21 @@ export const GET_USER_INFO = gql`
   }
 `;
 
+
+export const SAVE_USER_IN_CACHE = gql`
+  query getCurrentUser {
+    currentUser @client {
+      __typename
+      id
+      first_name
+      email
+      playlists
+    }
+  }
+`
+
+
+
 /*
 Note:
 When querying nested resolvers, you MUST tell GraphQL

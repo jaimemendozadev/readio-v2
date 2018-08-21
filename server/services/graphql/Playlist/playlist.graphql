@@ -8,7 +8,7 @@ type Playlist {
 #Error: Schema must contain unique named types but contains multiple types named '...'
 input CreatePlaylist {
   name: String!
-  songs: [CreateSong]! 
+  list: [CreateSong]! 
 }
 
 extend type Query {

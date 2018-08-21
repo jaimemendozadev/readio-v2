@@ -46,15 +46,13 @@ class PlaylistEditor extends Component {
 
     console.log("oldState inside Playlist Editor ", oldState);
 
-    const newState = { ...oldState };
-
-    newState.songList.name = playlistName;
-
-    console.log("newState after appending name ", newState);
-
-    client.writeQuery({ query: GET_SONG_LIST, data: oldState });
-
-    console.log("client after write is ", client);
+    let newState = { ...oldState.songList };
+    
+    newState.name = playlistName;
+    
+    newState = Object.assign({}, oldState, {songList: newState});
+    
+    client.writeQuery({ query: GET_SONG_LIST, data: newState });
   };
 
   handlePlaylistEditorView = (data, loading, error) => {
@@ -127,7 +125,7 @@ class PlaylistEditor extends Component {
                     <h1>Save or Delete Your Playlist in Your Account...</h1>
                   </div>
 
-                  <button className="btn-save"><img src={SaveIcon} />Save</button>
+                  <button><img src={SaveIcon} />Save</button>
                   <button><img src={DeleteIcon} />Delete</button>
                 </div>
 
