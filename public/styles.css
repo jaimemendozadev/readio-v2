@@ -142,17 +142,29 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
-.playlist-buttons-container {
+.playlist-btn-container {
   height: 20vh;
-  margin-top: 5em; }
-  .playlist-buttons-container button {
+  margin-top: 5em;
+  display: flex;
+  flex-wrap: wrap; }
+  .playlist-btn-container .playlist-btn-header {
+    width: 100%; }
+  .playlist-btn-container button {
     border-radius: 25px;
     border-color: #87546f;
-    width: 200px;
-    height: 50px;
+    width: 180px;
+    margin-right: 1.5em;
+    height: 55px;
     background-color: #87546f;
     color: white;
-    font-size: 1em; }
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .playlist-btn-container button img {
+      width: 30px;
+      height: 30px;
+      margin-right: 5px; }
 
 .playlist-songs-container {
   margin-top: 15em;

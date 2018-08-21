@@ -3,7 +3,10 @@ import { ApolloConsumer, Query } from "react-apollo";
 import { escapeHtml } from "./utils";
 import SongView from "../SongView/index.jsx";
 import { GET_SONG_LIST, DELETE_FROM_SONG_LIST } from "./graphql";
+import SaveIcon from './assets/savesonglist.png';
+import DeleteIcon from './assets/deletesonglist.png';
 import Spinner from "../../Components/Spinner.jsx";
+
 
 const defaultState = {
   playlistName: "Give your playlist a name!"
@@ -119,10 +122,13 @@ class PlaylistEditor extends Component {
                   </form>
                 </div>
 
-                <div className="playlist-buttons-container">
-                  <h1>Save or Delete Your Playlist in Your Account...</h1>
-                  <button>Save</button>
-                  <button>Delete</button>
+                <div className="playlist-btn-container">
+                  <div className="playlist-btn-header">
+                    <h1>Save or Delete Your Playlist in Your Account...</h1>
+                  </div>
+                  
+                  <button className="btn-save"><img src={SaveIcon} />Save</button>
+                  <button><img src={DeleteIcon} />Delete</button>
                 </div>
 
                 {this.handlePlaylistEditorView(data, loading, error)}
