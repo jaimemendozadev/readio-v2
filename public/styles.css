@@ -136,8 +136,11 @@ header {
     padding-left: .3em; }
 
 .playlist-name-container {
-  margin-top: 1em;
-  margin-bottom: 1em; }
+  margin-top: 3em;
+  margin-bottom: 2em; }
+
+.playlist-editor-view-container {
+  margin-bottom: 4em; }
 
 .search-song-view-container {
   height: 45vh;
