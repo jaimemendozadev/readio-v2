@@ -10,6 +10,15 @@ export const GET_SONG_LIST = gql`
   }
 `;
 
+export const GET_USER_ID = gql`
+  query getCurrentUser {
+    currentUser @client {
+      __typename
+      id
+    }
+  }
+`;
+
 export const DELETE_FROM_SONG_LIST = gql`
   mutation DeleteFromSongList($songID: String!) {
     deleteFromSongList(songID: $songID) @client {
@@ -17,6 +26,15 @@ export const DELETE_FROM_SONG_LIST = gql`
       title
       permalink_url
       artwork_url
+    }
+  }
+`;
+
+export const SAVE_SONGLIST_TO_DB = gql`
+  mutation SaveSonglistToDB($userID: ID!, $input: SonglistInput!) {
+    createPlaylist(userID: $userID, input: $input) {
+      error
+      message
     }
   }
 `;

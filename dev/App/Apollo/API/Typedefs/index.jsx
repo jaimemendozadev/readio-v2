@@ -21,6 +21,11 @@ export const typeDefs = `
     list: [Song]
   }
 
+  input SonglistInput {
+    name: String!
+    list: [Song]! 
+  }
+
   type Mutation {
     addToSongList(songToAdd: Song!): Song
     deleteFromSongList(songID: String!): Song

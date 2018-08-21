@@ -1,14 +1,25 @@
 import React, { Component } from "react";
-import { ApolloConsumer, Query } from "react-apollo";
+import { ApolloConsumer, Query, Mutation } from "react-apollo";
 import { escapeHtml } from "./utils";
 import SongView from "../SongView/index.jsx";
-import { GET_SONG_LIST, DELETE_FROM_SONG_LIST } from "./graphql";
+import {
+  GET_SONG_LIST,
+  DELETE_FROM_SONG_LIST,
+  SAVE_SONGLIST_TO_DB,
+  GET_USER_ID
+} from "./graphql";
 import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
 import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {
   playlistName: "Give your playlist a name!"
+};
+
+const defaultSongList = {
+  __typename: "SongList",
+  name: "untitled",
+  list: []
 };
 
 class PlaylistEditor extends Component {
@@ -96,48 +107,71 @@ class PlaylistEditor extends Component {
     }
   };
 
+  saveToDB = (saveToDBMutation, client) => {
+    const { songList } = client.readQuery({ query: GET_SONG_LIST });
+    const { currentUser } = client.readQuery({ query: GET_USER_ID });
+
+    let mutationResult = saveToDBMutation({
+      variables: { userID: currentUser.id, input: songList.list }
+    });
+
+    console.log("mutation result is ", mutationResult);
+  };
+
+  deleteFromDB = () => {};
+
   render() {
     return (
       <ApolloConsumer>
         {client => (
-          <Query query={GET_SONG_LIST}>
-            {({ data, loading, error }) => (
-              <div>
-                <div className="playlist-header-container">
-                  <div className="playlist-headers">
-                    <h1>Edit and Save Your Current Playlist!</h1>
-                    <h2>Click on a song to load it into the player!</h2>
+          <Mutation mutation={SAVE_SONGLIST_TO_DB}>
+            {saveSonglistToDB => (
+              <Query query={GET_SONG_LIST}>
+                {({ data, loading, error }) => (
+                  <div>
+                    <div className="playlist-header-container">
+                      <div className="playlist-headers">
+                        <h1>Edit and Save Your Current Playlist!</h1>
+                        <h2>Click on a song to load it into the player!</h2>
+                      </div>
+
+                      <form
+                        onSubmit={event => this.handleSubmit(event, client)}
+                      >
+                        <input
+                          onClick={this.clearInput}
+                          onChange={this.handleChange}
+                          type="text"
+                          value={this.state.playlistName}
+                        />
+                      </form>
+                    </div>
+
+                    <div className="playlist-btn-container">
+                      <div className="playlist-btn-header">
+                        <h1>Save or Delete Your Playlist in Your Account...</h1>
+                      </div>
+
+                      <button
+                        onClick={() =>
+                          this.saveToDB(saveSonglistToDB, client)
+                        }
+                      >
+                        <img src={SaveIcon} />
+                        Save
+                      </button>
+                      <button onClick={this.deleteFromDB}>
+                        <img src={DeleteIcon} />
+                        Delete
+                      </button>
+                    </div>
+
+                    {this.handlePlaylistEditorView(data, loading, error)}
                   </div>
-
-                  <form onSubmit={event => this.handleSubmit(event, client)}>
-                    <input
-                      onClick={this.clearInput}
-                      onChange={this.handleChange}
-                      type="text"
-                      value={this.state.playlistName}
-                    />
-                  </form>
-                </div>
-
-                <div className="playlist-btn-container">
-                  <div className="playlist-btn-header">
-                    <h1>Save or Delete Your Playlist in Your Account...</h1>
-                  </div>
-
-                  <button>
-                    <img src={SaveIcon} />
-                    Save
-                  </button>
-                  <button>
-                    <img src={DeleteIcon} />
-                    Delete
-                  </button>
-                </div>
-
-                {this.handlePlaylistEditorView(data, loading, error)}
-              </div>
+                )}
+              </Query>
             )}
-          </Query>
+          </Mutation>
         )}
       </ApolloConsumer>
     );

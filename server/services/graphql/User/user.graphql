@@ -6,6 +6,11 @@ type User {
   playlists: [Playlist]!
 }
 
+type ServerResponse {
+  error: Boolean!
+  message: String!
+}
+
 input NewUser {
   first_name: String!
   last_name: String!

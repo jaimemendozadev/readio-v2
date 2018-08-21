@@ -14,7 +14,9 @@ const createPlaylist = async (_, { userID, input }) => {
     user.save();
   });
 
-  return newPlaylist;
+  return {error: false, message: "Playlist successfully saved in DB!"};
+
+  // return newPlaylist;
 };
 
 const addSongToPlaylist = async (_, { playlistID, input }) => {
