@@ -1,6 +1,7 @@
 export const defaults = {
   songList: {
     __typename: "SongList",
+    name: "untitled",
     list: []
   },
   currentlyPlaying: {

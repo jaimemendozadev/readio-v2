@@ -17,6 +17,7 @@ export const typeDefs = `
   }
 
   type SongList {
+    name: String
     list: [Song]
   }
 

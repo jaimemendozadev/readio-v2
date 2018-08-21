@@ -4,6 +4,7 @@ export const GET_SONG_LIST = gql`
   query getSongList {
     songList @client {
       __typename
+      name
       list
     }
   }
