@@ -1,12 +1,29 @@
 @import "mixins";
 
-.playlist-editor {
-  margin-top: 1em;
+.playlist-editor-main {
+  // margin-top: 1em;
+  min-height: 150vh;
+  flex: 1;
+  color: white;
+  padding: 1em;
+  background: linear-gradient(to bottom, #55728C, #1B242C, black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .react-player {
+    margin-bottom: .5em;
+  }
+
 }
 
 
+
+
+
+
 .playlist-header-container {
-  height: 20vh;
+  height: 20%;
 
   input {
     @include inputStyling;
@@ -14,7 +31,7 @@
 }
 
 .playlist-btn-container {
-  height: 20vh;
+  height: 20%;
   margin-top: 5em;
   display: flex;
   flex-wrap: wrap;
@@ -35,7 +52,7 @@
 .playlist-songs-container {
 
   margin-top: 15em;  // Play around with margin-top
-  height: 40vh;
+  height: 40%;
 
   .playlist-name-container {
     margin-bottom: 2em;
@@ -46,3 +63,5 @@
 .playlist-editor-view-container {
   margin-bottom: 4em;
 }
+
+

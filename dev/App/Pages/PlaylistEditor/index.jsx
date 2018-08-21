@@ -105,7 +105,7 @@ class PlaylistEditor extends Component {
         {client => (
           <Query query={GET_SONG_LIST}>
             {({ data, loading, error }) => (
-              <div className="playlist-editor">
+              <div>
                 <div className="playlist-header-container">
                   <div className="playlist-headers">
                     <h1>Edit and Save Your Current Playlist!</h1>
@@ -126,7 +126,7 @@ class PlaylistEditor extends Component {
                   <div className="playlist-btn-header">
                     <h1>Save or Delete Your Playlist in Your Account...</h1>
                   </div>
-                  
+
                   <button className="btn-save"><img src={SaveIcon} />Save</button>
                   <button><img src={DeleteIcon} />Delete</button>
                 </div>

@@ -52,7 +52,7 @@ class Main extends Component {
   };
 
   render() {
-    const { currentSong } = this.state;
+    const { currentSong, currentView } = this.state;
     return (
       <Query query={GET_CURRENTLY_PLAYING_SONG}>
         {({ data, loading, error }) => {
@@ -87,7 +87,7 @@ class Main extends Component {
                 </nav>
               </div>
 
-              <div className="main-content">
+              <div className={currentView == "Playlist Editor" ? "playlist-editor-main" : "main-content"}>
                 {this.renderCurrentView()}
 
                 <div className="react-player">

@@ -130,11 +130,20 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
-.playlist-editor {
-  margin-top: 1em; }
+.playlist-editor-main {
+  min-height: 150vh;
+  flex: 1;
+  color: white;
+  padding: 1em;
+  background: linear-gradient(to bottom, #55728C, #1B242C, black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+  .playlist-editor-main .react-player {
+    margin-bottom: .5em; }
 
 .playlist-header-container {
-  height: 20vh; }
+  height: 20%; }
   .playlist-header-container input {
     height: 12vh;
     width: 95%;
@@ -143,7 +152,7 @@ header {
     padding-left: .3em; }
 
 .playlist-btn-container {
-  height: 20vh;
+  height: 20%;
   margin-top: 5em;
   display: flex;
   flex-wrap: wrap; }
@@ -168,7 +177,7 @@ header {
 
 .playlist-songs-container {
   margin-top: 15em;
-  height: 40vh; }
+  height: 40%; }
   .playlist-songs-container .playlist-name-container {
     margin-bottom: 2em; }
 
