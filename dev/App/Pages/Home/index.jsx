@@ -14,16 +14,22 @@ class Home extends Component {
   }
 
   saveFetchedUser = (getUser, client) => {
-    let oldState = client.readQuery({query: SAVE_USER_IN_CACHE});
+    let oldState = client.readQuery({ query: SAVE_USER_IN_CACHE });
 
-    //console.log('oldState in saveFetchedUser ', oldState);
+    // Copy all oldState.currentUser key/values
+    let newState = { ...oldState.currentUser };
 
-    const newState = {
-      ...oldState,
-     
-    }
+    // Update newState key/values with getUser
+    newState.id = getUser.id;
+    newState.email = getUser.email;
+    newState.first_name = getUser.first_name;
+    newState.last_name = getUser.last_name;
+    newState.playlists = getUser.playlists;
 
-  }
+    newState = Object.assign({}, oldState, { currentUser: newState });
+
+    client.writeQuery({ query: SAVE_USER_IN_CACHE, data: newState });
+  };
 
   renderPlaylists = playlists => {
     if (playlists.length == 0) {
@@ -56,7 +62,7 @@ class Home extends Component {
     if (data) {
       const { getUser } = data;
 
-      this.saveFetchedUser(getUser, client)
+      this.saveFetchedUser(getUser, client);
 
       return (
         <div>
@@ -76,7 +82,9 @@ class Home extends Component {
     return (
       <Query query={GET_USER_INFO}>
         {({ data, loading, error, client }) => {
-          return <div>{this.checkRenderStatus(data, loading, error, client)}</div>;
+          return (
+            <div>{this.checkRenderStatus(data, loading, error, client)}</div>
+          );
         }}
       </Query>
     );

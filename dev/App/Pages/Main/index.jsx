@@ -87,7 +87,13 @@ class Main extends Component {
                 </nav>
               </div>
 
-              <div className={currentView == "Playlist Editor" ? "playlist-editor-main" : "main-content"}>
+              <div
+                className={
+                  currentView == "Playlist Editor"
+                    ? "playlist-editor-main"
+                    : "main-content"
+                }
+              >
                 {this.renderCurrentView()}
 
                 <div className="react-player">

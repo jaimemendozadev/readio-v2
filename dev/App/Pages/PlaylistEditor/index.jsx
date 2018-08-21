@@ -3,10 +3,9 @@ import { ApolloConsumer, Query } from "react-apollo";
 import { escapeHtml } from "./utils";
 import SongView from "../SongView/index.jsx";
 import { GET_SONG_LIST, DELETE_FROM_SONG_LIST } from "./graphql";
-import SaveIcon from './assets/savesonglist.png';
-import DeleteIcon from './assets/deletesonglist.png';
+import SaveIcon from "./assets/savesonglist.png";
+import DeleteIcon from "./assets/deletesonglist.png";
 import Spinner from "../../Components/Spinner.jsx";
-
 
 const defaultState = {
   playlistName: "Give your playlist a name!"
@@ -47,11 +46,11 @@ class PlaylistEditor extends Component {
     console.log("oldState inside Playlist Editor ", oldState);
 
     let newState = { ...oldState.songList };
-    
+
     newState.name = playlistName;
-    
-    newState = Object.assign({}, oldState, {songList: newState});
-    
+
+    newState = Object.assign({}, oldState, { songList: newState });
+
     client.writeQuery({ query: GET_SONG_LIST, data: newState });
   };
 
@@ -125,8 +124,14 @@ class PlaylistEditor extends Component {
                     <h1>Save or Delete Your Playlist in Your Account...</h1>
                   </div>
 
-                  <button><img src={SaveIcon} />Save</button>
-                  <button><img src={DeleteIcon} />Delete</button>
+                  <button>
+                    <img src={SaveIcon} />
+                    Save
+                  </button>
+                  <button>
+                    <img src={DeleteIcon} />
+                    Delete
+                  </button>
                 </div>
 
                 {this.handlePlaylistEditorView(data, loading, error)}
