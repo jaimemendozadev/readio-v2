@@ -53,8 +53,15 @@ const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
 // PROP_MUTATION can add or delete song from cache SongList
 // SearchView enables adding song to SongList
 // PlaylistEditor enables deleting song from SongList
-const SongView = ({ PROP_MUTATION, songInput, callback, assetType }) => (
-  <div className="song-view-container">
+// searchView checks if SongView nested in Search View to use Search View styling
+const SongView = ({
+  PROP_MUTATION,
+  songInput,
+  callback,
+  assetType,
+  searchView
+}) => (
+  <div className={searchView == true ? "search-song-view-container" : ""}>
     {renderResults(PROP_MUTATION, songInput, callback, assetType)}
   </div>
 );

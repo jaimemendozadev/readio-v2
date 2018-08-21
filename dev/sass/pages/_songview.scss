@@ -1,4 +1,5 @@
-.song-view-container {
+// Prevents song item results from pushing React player to bottom of page
+.search-song-view-container {
   height: 45vh;
   overflow: scroll;
 }

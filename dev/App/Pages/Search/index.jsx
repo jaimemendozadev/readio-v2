@@ -72,6 +72,7 @@ class Search extends Component {
           songInput={searchSoundCloud}
           callback={null}
           assetType="playlist"
+          searchView={true}
         />
       );
     }
