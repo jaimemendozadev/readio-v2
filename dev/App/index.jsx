@@ -1,4 +1,4 @@
-import styles from "../sass/main.scss";
+import styles from "../sass/index.scss";
 import React from "react";
 import { LandingPage, LoginPage, Main } from "./Pages/index.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx";

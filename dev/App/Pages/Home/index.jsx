@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import { GET_USER_INFO } from "./graphql";
-import ReactPlayer from "react-player";
+import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {
   currentUser: {}
@@ -26,11 +25,20 @@ class Home extends Component {
 
   checkRenderStatus = (data, loading, error) => {
     if (loading) {
-      return <h1>Loading...</h1>;
+      return (
+        <div>
+          <h1>Loading...</h1>
+          <Spinner />
+        </div>
+      );
     }
 
     if (error) {
-      return <h1>Sorry, there was an error processing your request...</h1>;
+      return (
+        <div className="error-msg">
+          Sorry, there was an error processing your request...
+        </div>
+      );
     }
 
     if (data) {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Route } from "react-router-dom";
+import Spinner from "./Spinner.jsx";
 
 class ProtectedRoute extends Component {
   constructor(props) {
@@ -46,7 +47,12 @@ class ProtectedRoute extends Component {
     }
 
     //Return feedback for user
-    return <h1>Checking Authentication...</h1>;
+    return (
+      <div>
+        <h1>Checking Authentication...</h1>
+        <Spinner />
+      </div>
+    );
   }
 }
 

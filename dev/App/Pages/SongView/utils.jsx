@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Playlist from "./assets/playlist.png";
 import Trash from "./assets/trash.png";
 
