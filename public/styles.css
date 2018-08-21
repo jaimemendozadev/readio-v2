@@ -32,34 +32,9 @@ body {
   https://stackoverflow.com/questions/42234855/is-it-possible-to-draw-a-partial-circle-outline-in-css-open-ring-shape  
 
 */
-.page-container {
-  display: flex;
-  flex-direction: row; }
-  .page-container .side-bar {
-    width: 15%;
-    color: grey;
-    background: linear-gradient(to bottom, black, #1B242C 10%, #55728C); }
-    .page-container .side-bar nav {
-      display: flex;
-      flex-direction: column;
-      margin: 5em 2em; }
-      .page-container .side-bar nav .side-bar-link {
-        flex: 1;
-        height: 50px;
-        color: grey;
-        font-size: 1.5em;
-        text-decoration: none; }
-  .page-container .main-content {
-    min-height: 100vh;
-    flex: 1;
-    color: white;
-    padding: 1em;
-    background: linear-gradient(to bottom, #55728C, #1B242C, black);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; }
-    .page-container .main-content .react-player {
-      margin-bottom: .5em; }
+.home-loading-container {
+  text-align: center;
+  margin-top: 5em; }
 
 header {
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(8081186dadf5ea548055c7616a500e72.png);
@@ -117,6 +92,35 @@ header {
       .form-container form a.google {
         border: 1px solid grey; }
 
+.page-container {
+  display: flex;
+  flex-direction: row; }
+  .page-container .side-bar {
+    width: 15%;
+    color: grey;
+    background: linear-gradient(to bottom, black, #1B242C 10%, #55728C); }
+    .page-container .side-bar nav {
+      display: flex;
+      flex-direction: column;
+      margin: 5em 2em; }
+      .page-container .side-bar nav .side-bar-link {
+        flex: 1;
+        height: 50px;
+        color: grey;
+        font-size: 1.5em;
+        text-decoration: none; }
+  .page-container .main-content {
+    min-height: 100vh;
+    flex: 1;
+    color: white;
+    padding: 1em;
+    background: linear-gradient(to bottom, #55728C, #1B242C, black);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .page-container .main-content .react-player {
+      margin-bottom: .5em; }
+
 .search-page {
   margin-top: 1em; }
   .search-page input {
@@ -128,16 +132,25 @@ header {
 
 .playlist-editor {
   margin-top: 1em; }
-  .playlist-editor input {
+
+.playlist-header-container {
+  height: 20%; }
+  .playlist-header-container input {
     height: 12vh;
     width: 95%;
     border: 1px solid white;
     font-size: 2.5em;
     padding-left: .3em; }
 
-.playlist-name-container {
-  margin-top: 3em;
-  margin-bottom: 2em; }
+.playlist-buttons-container {
+  height: 20%;
+  margin-top: 3em; }
+
+.playlist-songs-container {
+  margin-top: 15em;
+  height: 40%; }
+  .playlist-songs-container .playlist-name-container {
+    margin-bottom: 2em; }
 
 .playlist-editor-view-container {
   margin-bottom: 4em; }

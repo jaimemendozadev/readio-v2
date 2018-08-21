@@ -26,7 +26,7 @@ class Home extends Component {
   checkRenderStatus = (data, loading, error) => {
     if (loading) {
       return (
-        <div>
+        <div className="home-loading-container">
           <h1>Loading...</h1>
           <Spinner />
         </div>

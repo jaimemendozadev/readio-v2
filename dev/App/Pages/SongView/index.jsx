@@ -61,7 +61,13 @@ const SongView = ({
   assetType,
   searchView
 }) => (
-  <div className={searchView == true ? "search-song-view-container" : "playlist-editor-view-container"}>
+  <div
+    className={
+      searchView == true
+        ? "search-song-view-container"
+        : "playlist-editor-view-container"
+    }
+  >
     {renderResults(PROP_MUTATION, songInput, callback, assetType)}
   </div>
 );

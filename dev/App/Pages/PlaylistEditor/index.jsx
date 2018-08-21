@@ -6,8 +6,7 @@ import { GET_SONG_LIST, DELETE_FROM_SONG_LIST } from "./graphql";
 import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {
-  playlistName: "Give your playlist a name!",
-
+  playlistName: "Give your playlist a name!"
 };
 
 class PlaylistEditor extends Component {
@@ -37,25 +36,22 @@ class PlaylistEditor extends Component {
     event.preventDefault();
     const playlistName = this.state.playlistName;
 
-    // sanitize the playlist BEFORE submitting to DB 
+    // sanitize the playlist BEFORE submitting to DB
     // const playlistName = escapeHtml(this.state.playlistName);
 
-    const oldState = client.readQuery({query: GET_SONG_LIST});
+    const oldState = client.readQuery({ query: GET_SONG_LIST });
 
-    console.log('oldState inside Playlist Editor ', oldState);
+    console.log("oldState inside Playlist Editor ", oldState);
 
-
-    const newState = {...oldState};
+    const newState = { ...oldState };
 
     newState.songList.name = playlistName;
 
-    console.log('newState after appending name ', newState)
+    console.log("newState after appending name ", newState);
 
-    client.writeQuery({query: GET_SONG_LIST, data: oldState});
+    client.writeQuery({ query: GET_SONG_LIST, data: oldState });
 
-
-    console.log('client after write is ', client);
-    
+    console.log("client after write is ", client);
   };
 
   handlePlaylistEditorView = (data, loading, error) => {
@@ -73,18 +69,17 @@ class PlaylistEditor extends Component {
       );
     }
 
-    if(data.songList.name == 'untitled' && data.songList.list.length == 0) {
+    if (data.songList.name == "untitled" && data.songList.list.length == 0) {
       return (
         <div className="error-msg">
           You haven't saved any songs in your playlist. Go SEARCH for a song!
         </div>
-
-      )
+      );
     }
 
     if (data) {
       return (
-        <div>
+        <div className="playlist-songs-container">
           <div className="playlist-name-container">
             <h2>Your current playlist name is: {data.songList.name}</h2>
           </div>
@@ -108,12 +103,13 @@ class PlaylistEditor extends Component {
           <Query query={GET_SONG_LIST}>
             {({ data, loading, error }) => (
               <div className="playlist-editor">
-                <div>
-                  <h1>Edit and Save Your Current Playlist!</h1>
-                  <h2>
-                    Click on a song to load it into the player!
-                  </h2>
-                  <form onSubmit={(event) => this.handleSubmit(event, client)}>
+                <div className="playlist-header-container">
+                  <div className="playlist-headers">
+                    <h1>Edit and Save Your Current Playlist!</h1>
+                    <h2>Click on a song to load it into the player!</h2>
+                  </div>
+
+                  <form onSubmit={event => this.handleSubmit(event, client)}>
                     <input
                       onClick={this.clearInput}
                       onChange={this.handleChange}
@@ -122,7 +118,13 @@ class PlaylistEditor extends Component {
                     />
                   </form>
                 </div>
-    
+
+                <div className="playlist-buttons-container">
+                  <h1>Save or Delete Your Playlist in Your Account...</h1>
+                  <button>Save</button>
+                  <button>Delete</button>
+                </div>
+
                 {this.handlePlaylistEditorView(data, loading, error)}
               </div>
             )}
