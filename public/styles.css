@@ -143,6 +143,7 @@ header {
     margin-bottom: .5em; }
 
 .playlist-header-container {
+  margin-top: 1em;
   height: 20%; }
   .playlist-header-container input {
     height: 12vh;
@@ -176,7 +177,7 @@ header {
       margin-right: 5px; }
 
 .playlist-songs-container {
-  margin-top: 15em;
+  margin-top: 5em;
   height: 40%; }
   .playlist-songs-container .playlist-name-container {
     margin-bottom: 2em; }

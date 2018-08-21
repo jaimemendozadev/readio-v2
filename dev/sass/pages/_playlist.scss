@@ -1,7 +1,6 @@
 @import "mixins";
 
 .playlist-editor-main {
-  // margin-top: 1em;
   min-height: 150vh;
   flex: 1;
   color: white;
@@ -19,10 +18,8 @@
 
 
 
-
-
-
 .playlist-header-container {
+  margin-top: 1em;
   height: 20%;
 
   input {
@@ -51,7 +48,7 @@
 
 .playlist-songs-container {
 
-  margin-top: 15em;  // Play around with margin-top
+  margin-top: 5em;  // Play around with margin-top
   height: 40%;
 
   .playlist-name-container {
