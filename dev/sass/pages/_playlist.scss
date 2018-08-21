@@ -6,7 +6,7 @@
 
 
 .playlist-header-container {
-  height: 20%;
+  height: 20vh;
 
   input {
     @include inputStyling;
@@ -14,8 +14,12 @@
 }
 
 .playlist-buttons-container {
-  height: 20%;
-  margin-top: 3em;
+  height: 20vh;
+  margin-top: 5em;
+
+  button {
+    @include playlistButtonStyling;
+  }
 }
 
 
@@ -24,7 +28,7 @@
 .playlist-songs-container {
 
   margin-top: 15em;  // Play around with margin-top
-  height: 40%;
+  height: 40vh;
 
   .playlist-name-container {
     margin-bottom: 2em;
