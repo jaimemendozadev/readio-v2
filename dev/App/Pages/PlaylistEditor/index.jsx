@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Query } from "react-apollo";
+import { ApolloConsumer, Query } from "react-apollo";
 import { escapeHtml } from "./utils";
 import SongView from "../SongView/index.jsx";
 import { GET_SONG_LIST, DELETE_FROM_SONG_LIST } from "./graphql";
 import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {
-  playlistName: "Give your playlist a name!"
+  playlistName: "Give your playlist a name!",
+
 };
 
 class PlaylistEditor extends Component {
@@ -32,9 +33,29 @@ class PlaylistEditor extends Component {
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event, client) => {
     event.preventDefault();
-    const playlistName = escapeHtml(this.state.playlistName);
+    const playlistName = this.state.playlistName;
+
+    // sanitize the playlist BEFORE submitting to DB 
+    // const playlistName = escapeHtml(this.state.playlistName);
+
+    const oldState = client.readQuery({query: GET_SONG_LIST});
+
+    console.log('oldState inside Playlist Editor ', oldState);
+
+
+    const newState = {...oldState};
+
+    newState.songList.name = playlistName;
+
+    console.log('newState after appending name ', newState)
+
+    client.writeQuery({query: GET_SONG_LIST, data: oldState});
+
+
+    console.log('client after write is ', client);
+    
   };
 
   handlePlaylistEditorView = (data, loading, error) => {
@@ -50,6 +71,15 @@ class PlaylistEditor extends Component {
           Whoops! There was an error processing your request. Try again later.
         </div>
       );
+    }
+
+    if(data.songList.name == 'untitled' && data.songList.list.length == 0) {
+      return (
+        <div className="error-msg">
+          You haven't saved any songs in your playlist. Go SEARCH for a song!
+        </div>
+
+      )
     }
 
     if (data) {
@@ -73,37 +103,32 @@ class PlaylistEditor extends Component {
 
   render() {
     return (
-      <Query query={GET_SONG_LIST}>
-        {({ data, loading, error }) => (
-          <div className="playlist-editor">
-            <div>
-              <h1>Edit and Save Your Current Playlist!</h1>
-              <form onSubmit={this.handleSubmit}>
-                <input
-                  onClick={this.clearInput}
-                  onChange={this.handleChange}
-                  type="text"
-                  value={this.state.playlistName}
-                />
-              </form>
-            </div>
-
-            <div className="playlist-name-container">
-              <h2>Your current playlist name is: {data.songList.name}</h2>
-            </div>
-
-            {data.songList.list.length == 0 ? null : (
-              <SongView
-                PROP_MUTATION={DELETE_FROM_SONG_LIST}
-                songInput={data.songList.list}
-                callback={null}
-                assetType="trash"
-                searchView={false}
-              />
+      <ApolloConsumer>
+        {client => (
+          <Query query={GET_SONG_LIST}>
+            {({ data, loading, error }) => (
+              <div className="playlist-editor">
+                <div>
+                  <h1>Edit and Save Your Current Playlist!</h1>
+                  <h2>
+                    Click on a song to load it into the player!
+                  </h2>
+                  <form onSubmit={(event) => this.handleSubmit(event, client)}>
+                    <input
+                      onClick={this.clearInput}
+                      onChange={this.handleChange}
+                      type="text"
+                      value={this.state.playlistName}
+                    />
+                  </form>
+                </div>
+    
+                {this.handlePlaylistEditorView(data, loading, error)}
+              </div>
             )}
-          </div>
+          </Query>
         )}
-      </Query>
+      </ApolloConsumer>
     );
   }
 }
