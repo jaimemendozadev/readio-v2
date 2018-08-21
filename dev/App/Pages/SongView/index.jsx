@@ -1,56 +1,11 @@
 import React from "react";
 import { Mutation } from "react-apollo";
-import Playlist from "./assets/playlist.png";
-import Trash from "./assets/trash.png";
+
 import { LOAD_SONG_IN_PLAYER } from "./graphql";
-
-const getAssetPath = assetType => {
-  if (assetType == "playlist") {
-    return Playlist;
-  }
-
-  if (assetType == "trash") {
-    return Trash;
-  }
-};
-
-const prepSongObject = result => {
-  const { title, permalink_url, artwork_url, id_user_id_identifier } = result;
-  const newSong = {
-    title,
-    permalink_url,
-    artwork_url,
-    id_user_id_identifier
-  };
-
-  return newSong;
-};
-
-const handleLoadMutation = url => {
-  const playSong = {
-    currentSong: url,
-    playing: true
-  };
-
-  return playSong;
-};
-
-const renderIcon = (propMutation, assetType, newSong, asset) => {
-  const { id_user_id_identifier } = newSong;
-
-  const variables =
-    assetType == "playlist"
-      ? { songToAdd: newSong }
-      : { songID: id_user_id_identifier };
-
-  return (
-    <img
-      onClick={() => propMutation({ variables })}
-      className="playlist-icon"
-      src={asset}
-    />
-  );
-};
+import { getAssetPath } from "./utils.jsx";
+import { prepSongObject } from "./utils.jsx";
+import { handleLoadMutation } from "./utils.jsx";
+import { renderIcon } from "./utils.jsx";
 
 const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
   if (songInput.length == 0) {
