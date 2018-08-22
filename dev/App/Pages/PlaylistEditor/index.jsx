@@ -146,6 +146,7 @@ class PlaylistEditor extends Component {
                         </div>
 
                         <button
+                          disabled={songListCount == 0 ? true : false}
                           onClick={() =>
                             this.saveToDB(saveSonglistToDB, client)
                           }
@@ -153,7 +154,10 @@ class PlaylistEditor extends Component {
                           <img src={SaveIcon} />
                           Save
                         </button>
-                        <button onClick={this.deleteFromDB}>
+                        <button
+                          disabled={songListCount == 0 ? true : false}
+                          onClick={this.deleteFromDB}
+                        >
                           <img src={DeleteIcon} />
                           Delete
                         </button>
