@@ -10,6 +10,12 @@ export const GET_USER_INFO = gql`
       playlists {
         id
         name
+        songs {
+          id_user_id_identifier
+          title
+          permalink_url
+          artwork_url
+        }
       }
     }
   }
