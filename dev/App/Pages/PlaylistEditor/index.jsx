@@ -19,7 +19,8 @@ const defaultState = {
 const defaultSongList = {
   __typename: "SongList",
   name: "untitled",
-  list: []
+  list: [],
+  serverResponse: ""
 };
 
 class PlaylistEditor extends Component {
@@ -49,12 +50,7 @@ class PlaylistEditor extends Component {
     event.preventDefault();
     const playlistName = this.state.playlistName;
 
-    // sanitize the playlist BEFORE submitting to DB
-    // const playlistName = escapeHtml(this.state.playlistName);
-
     const oldState = client.readQuery({ query: GET_SONG_LIST });
-
-    console.log("oldState inside Playlist Editor ", oldState);
 
     let newState = { ...oldState.songList };
 
@@ -65,7 +61,7 @@ class PlaylistEditor extends Component {
     client.writeQuery({ query: GET_SONG_LIST, data: newState });
   };
 
-  handlePlaylistEditorView = (data, loading, error) => {
+  handlePlaylistEditorView = (data, loading, error, serverResponse) => {
     if (loading) {
       return <Spinner />;
     }
@@ -78,6 +74,10 @@ class PlaylistEditor extends Component {
           Whoops! There was an error processing your request. Try again later.
         </div>
       );
+    }
+
+    if (serverResponse) {
+      return <h1>{serverResponse}</h1>;
     }
 
     if (data.songList.name == "untitled" && data.songList.list.length == 0) {
@@ -111,15 +111,13 @@ class PlaylistEditor extends Component {
     const { songList } = client.readQuery({ query: GET_SONG_LIST });
     const { currentUser } = client.readQuery({ query: GET_USER_ID });
 
-    console.log("songList inside saveToDB ", songList);
-    console.log("currentUser inside saveToDB ", currentUser);
-
     // MUST DELETE __typename of each song before sending to backend
     // else __typename will cause error in BE because __typename is
     // not found on mutation input
     const filteredList = [];
     const songKeys = Object.keys(songList.list[0]);
 
+    // Not most optimal solution to delete __typename
     songList.list.forEach(song => {
       const fileredSongObj = {};
 
@@ -132,25 +130,46 @@ class PlaylistEditor extends Component {
       filteredList.push(fileredSongObj);
     });
 
+    // sanitize the playlist BEFORE submitting to DB
     const input = {
-      name: songList.name,
+      name: escapeHtml(songList.name),
       list: filteredList
     };
 
     const userID = currentUser.id;
 
-    console.log('input that we send to DB ', input)
-
     let mutationResult = await saveToDBMutation({
       variables: { userID, input }
     });
 
-    console.log("mutation result is ", mutationResult);
+    if (mutationResult.error) {
+      console.log("Error received from Server saving playlist ", error);
+      this.setState({
+        serverResponse: mutationResult.message
+      });
+    } else {
+      this.setState(
+        {
+          serverResponse: mutationResult.message
+        },
+        () => {
+          // Reset songList cache with defaults
+          const defaultSongList = Object.assign({}, songList, {
+            name: "untitled",
+            list: []
+          });
+
+          console.log("defaultSongList is ", defaultSongList);
+          client.writeQuery({ query: GET_SONG_LIST, data: defaultSongList });
+        }
+      );
+    }
   };
 
   deleteFromDB = () => {};
 
   render() {
+    const { serverResponse } = this.state;
     return (
       <ApolloConsumer>
         {client => (
@@ -194,7 +213,12 @@ class PlaylistEditor extends Component {
                       </button>
                     </div>
 
-                    {this.handlePlaylistEditorView(data, loading, error)}
+                    {this.handlePlaylistEditorView(
+                      data,
+                      loading,
+                      error,
+                      serverResponse
+                    )}
                   </div>
                 )}
               </Query>
