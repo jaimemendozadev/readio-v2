@@ -15,7 +15,7 @@ const createPlaylist = async (_, { userID, input }, { models }) => {
     foundUser.playlists.push(playlistID);
     foundUser.save();
 
-    return { error: false, message: "Playlist was saved in the DB!" };
+    return { error: false, message: "Your playlist was successfully saved!" };
   } catch (error) {
     console.log(
       "Error creating playlist, saving playlist to user in DB",

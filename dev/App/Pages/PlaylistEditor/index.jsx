@@ -1,25 +1,18 @@
 import React, { Component } from "react";
 import { ApolloConsumer, Query, Mutation } from "react-apollo";
-import { escapeHtml } from "./utils";
-import SongView from "../SongView/index.jsx";
 import {
-  GET_SONG_LIST,
-  DELETE_FROM_SONG_LIST,
-  SAVE_SONGLIST_TO_DB,
-  GET_USER_ID
-} from "./graphql";
+  escapeHtml,
+  editSongList,
+  handlePlaylistEditorView
+} from "./utils.jsx";
+import { GET_SONG_LIST, SAVE_SONGLIST_TO_DB, GET_USER_ID } from "./graphql";
 import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
-import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {
-  playlistName: "Give your playlist a name!"
-};
-
-const defaultSongList = {
-  __typename: "SongList",
-  name: "untitled",
-  list: [],
+  playlistName: "Give your playlist a name!",
+  pageError: false,
+  pageErrorMsg: "",
   serverResponse: ""
 };
 
@@ -29,11 +22,13 @@ class PlaylistEditor extends Component {
     this.state = defaultState;
   }
 
-  clearInput = event => {
+  clearInput = () => {
     const { playlistName } = this.state;
     if (playlistName.length) {
       this.setState({
-        playlistName: ""
+        playlistName: "",
+        pageError: false,
+        pageErrorMsg: ""
       });
     }
   };
@@ -46,64 +41,27 @@ class PlaylistEditor extends Component {
     });
   };
 
-  handleSubmit = (event, client) => {
+  handleSubmit = (event, client, songListCount) => {
     event.preventDefault();
-    const playlistName = this.state.playlistName;
 
-    const oldState = client.readQuery({ query: GET_SONG_LIST });
+    if (songListCount == 0) {
+      this.setState({
+        pageError: true,
+        pageErrorMsg:
+          "Whoops! You can't enter a playlist name when you haven't selected a song!"
+      });
+    } else {
+      const playlistName = this.state.playlistName;
 
-    let newState = { ...oldState.songList };
+      const oldState = client.readQuery({ query: GET_SONG_LIST });
 
-    newState.name = playlistName;
+      let newState = { ...oldState.songList };
 
-    newState = Object.assign({}, oldState, { songList: newState });
+      newState.name = playlistName;
 
-    client.writeQuery({ query: GET_SONG_LIST, data: newState });
-  };
+      newState = Object.assign({}, oldState, { songList: newState });
 
-  handlePlaylistEditorView = (data, loading, error, serverResponse) => {
-    if (loading) {
-      return <Spinner />;
-    }
-
-    if (error) {
-      console.log("error querying cache mutation for songList ", error);
-
-      return (
-        <div className="error-msg">
-          Whoops! There was an error processing your request. Try again later.
-        </div>
-      );
-    }
-
-    if (serverResponse) {
-      return <h1>{serverResponse}</h1>;
-    }
-
-    if (data.songList.name == "untitled" && data.songList.list.length == 0) {
-      return (
-        <div className="error-msg">
-          You haven't saved any songs in your playlist. Go SEARCH for a song!
-        </div>
-      );
-    }
-
-    if (data) {
-      return (
-        <div className="playlist-songs-container">
-          <div className="playlist-name-container">
-            <h2>Your current playlist name is: {data.songList.name}</h2>
-          </div>
-
-          <SongView
-            PROP_MUTATION={DELETE_FROM_SONG_LIST}
-            songInput={data.songList.list}
-            callback={null}
-            assetType="trash"
-            searchView={false}
-          />
-        </div>
-      );
+      client.writeQuery({ query: GET_SONG_LIST, data: newState });
     }
   };
 
@@ -114,21 +72,9 @@ class PlaylistEditor extends Component {
     // MUST DELETE __typename of each song before sending to backend
     // else __typename will cause error in BE because __typename is
     // not found on mutation input
-    const filteredList = [];
-    const songKeys = Object.keys(songList.list[0]);
 
     // Not most optimal solution to delete __typename
-    songList.list.forEach(song => {
-      const fileredSongObj = {};
-
-      songKeys.forEach(key => {
-        if (key != "__typename") {
-          fileredSongObj[key] = song[key];
-        }
-      });
-
-      filteredList.push(fileredSongObj);
-    });
+    const filteredList = editSongList(songList.list);
 
     // sanitize the playlist BEFORE submitting to DB
     const input = {
@@ -138,89 +84,92 @@ class PlaylistEditor extends Component {
 
     const userID = currentUser.id;
 
-    let mutationResult = await saveToDBMutation({
+    const { data } = await saveToDBMutation({
       variables: { userID, input }
     });
 
-    if (mutationResult.error) {
-      console.log("Error received from Server saving playlist ", error);
-      this.setState({
-        serverResponse: mutationResult.message
-      });
-    } else {
-      this.setState(
-        {
-          serverResponse: mutationResult.message
-        },
-        () => {
-          // Reset songList cache with defaults
-          const defaultSongList = Object.assign({}, songList, {
-            name: "untitled",
-            list: []
-          });
+    const { createPlaylist } = data;
 
-          console.log("defaultSongList is ", defaultSongList);
-          client.writeQuery({ query: GET_SONG_LIST, data: defaultSongList });
-        }
-      );
+    // If playlist saved, reset songList cache
+    if (!createPlaylist.error) {
+      // Reset songList cache with defaults
+      // NOTE: data MUST include defaultStore key
+      const defaultSongList = {
+        songList: Object.assign({}, songList, { name: "untitled", list: [] })
+      };
+
+      client.writeQuery({ query: GET_SONG_LIST, data: defaultSongList });
+      console.log("cache after resetting ", client);
     }
   };
 
   deleteFromDB = () => {};
 
   render() {
-    const { serverResponse } = this.state;
+    const { pageError, pageErrorMsg } = this.state;
     return (
       <ApolloConsumer>
         {client => (
           <Mutation mutation={SAVE_SONGLIST_TO_DB}>
-            {saveSonglistToDB => (
+            {(saveSonglistToDB, { data: mutationData }) => (
               <Query query={GET_SONG_LIST}>
-                {({ data, loading, error }) => (
-                  <div>
-                    <div className="playlist-header-container">
-                      <div className="playlist-headers">
-                        <h1>Edit and Save Your Current Playlist!</h1>
-                        <h2>Click on a song to load it into the player!</h2>
+                {({ data, loading, error }) => {
+                  const songListCount = data.songList.list.length;
+
+                  return (
+                    <div>
+                      <div className="playlist-header-container">
+                        <div className="playlist-headers">
+                          <h1>Edit and Save Your Current Playlist!</h1>
+                          <h2>Click on a song to load it into the player!</h2>
+                        </div>
+
+                        <form
+                          onSubmit={event =>
+                            this.handleSubmit(event, client, songListCount)
+                          }
+                        >
+                          <input
+                            onClick={this.clearInput}
+                            onChange={this.handleChange}
+                            type="text"
+                            value={this.state.playlistName}
+                          />
+                        </form>
                       </div>
 
-                      <form
-                        onSubmit={event => this.handleSubmit(event, client)}
-                      >
-                        <input
-                          onClick={this.clearInput}
-                          onChange={this.handleChange}
-                          type="text"
-                          value={this.state.playlistName}
-                        />
-                      </form>
-                    </div>
+                      <div className="playlist-btn-container">
+                        <div className="playlist-btn-header">
+                          <h1>
+                            Save or Delete Your Playlist in Your Account...
+                          </h1>
+                        </div>
 
-                    <div className="playlist-btn-container">
-                      <div className="playlist-btn-header">
-                        <h1>Save or Delete Your Playlist in Your Account...</h1>
+                        <button
+                          onClick={() =>
+                            this.saveToDB(saveSonglistToDB, client)
+                          }
+                        >
+                          <img src={SaveIcon} />
+                          Save
+                        </button>
+                        <button onClick={this.deleteFromDB}>
+                          <img src={DeleteIcon} />
+                          Delete
+                        </button>
                       </div>
 
-                      <button
-                        onClick={() => this.saveToDB(saveSonglistToDB, client)}
-                      >
-                        <img src={SaveIcon} />
-                        Save
-                      </button>
-                      <button onClick={this.deleteFromDB}>
-                        <img src={DeleteIcon} />
-                        Delete
-                      </button>
+                      {handlePlaylistEditorView(
+                        data,
+                        loading,
+                        error,
+                        mutationData,
+                        pageError,
+                        pageErrorMsg
+                      )}
                     </div>
-
-                    {this.handlePlaylistEditorView(
-                      data,
-                      loading,
-                      error,
-                      serverResponse
-                    )}
-                  </div>
-                )}
+                  );
+                }}
               </Query>
             )}
           </Mutation>

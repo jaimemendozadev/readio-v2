@@ -27,8 +27,6 @@ export const resolvers = {
       // WARNING: cache.writeData prevented writing to cache
       cache.writeQuery({ query: GET_SONG_LIST, data });
 
-      console.log("cache after adding song to playlist ", cache);
-
       return songToAdd;
     },
 
@@ -56,8 +54,6 @@ export const resolvers = {
 
       cache.writeQuery({ query: GET_SONG_LIST, data });
 
-      console.log("cache after deleting song from playlist ", cache);
-
       return filteredSong;
     },
 
@@ -75,8 +71,6 @@ export const resolvers = {
       };
 
       cache.writeQuery({ query: GET_CURRENT_SONG, data });
-
-      console.log("cache after loading new song ", cache);
 
       return songArg;
     }
