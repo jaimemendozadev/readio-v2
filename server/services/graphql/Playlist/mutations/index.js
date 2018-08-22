@@ -1,25 +1,20 @@
 const createPlaylist = async (_, { userID, input }, { models }) => {
   const { Playlist, User } = models;
 
-  console.log("userID inside createPlaylist ", userID);
-  console.log("input inside createPlaylist ", input);
-
   try {
-    const newPlaylist = await Playlist.create(input);
+    // Save playlist in DB
+    const newPlaylist = await new Playlist({name: input.name, songs: input.list});
+    newPlaylist.save();
 
-    console.log("newPlaylist is ", newPlaylist);
+
+    // Save reference to Playlist in User document
     const playlistID = newPlaylist.id;
-
     const foundUser = await User.findById(userID);
-
-    console.log("foundUser before update ", foundUser);
-
     foundUser.playlists.push(playlistID);
     foundUser.save();
 
-    console.log("foundUser after update ", foundUser);
-
     return { error: false, message: "Playlist was saved in the DB!" };
+
   } catch (error) {
     console.log(
       "Error creating playlist, saving playlist to user in DB",
@@ -30,6 +25,7 @@ const createPlaylist = async (_, { userID, input }, { models }) => {
       message: "There was an error saving the playlist in the DB."
     };
   }
+  
 };
 
 const addSongToPlaylist = async (_, { playlistID, input }) => {

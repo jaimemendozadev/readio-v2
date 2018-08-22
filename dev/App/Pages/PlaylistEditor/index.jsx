@@ -139,6 +139,8 @@ class PlaylistEditor extends Component {
 
     const userID = currentUser.id;
 
+    console.log('input that we send to DB ', input)
+
     let mutationResult = await saveToDBMutation({
       variables: { userID, input }
     });
