@@ -11,14 +11,12 @@ const getUser = async (_parent, _args, { userID, models }) => {
 
   //get User from DB
   const foundUser = await User.findById(userID);
-  const foundPlaylists = await User.findById(userID).populate('playlists');
+  const foundPlaylists = await User.findById(userID).populate("playlists");
 
-
-  console.log('foundUser in DB ', foundUser)
-  console.log('foundUserPlaylists in DB ', foundPlaylists)
+  console.log("foundUser in DB ", foundUser);
+  console.log("foundUserPlaylists in DB ", foundPlaylists);
 
   foundUser.playlists = foundPlaylists;
-  
 
   return foundUser;
 };
