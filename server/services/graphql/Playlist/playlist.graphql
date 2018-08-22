@@ -16,10 +16,11 @@ extend type Query {
 }
 
 extend type Mutation {
-  createPlaylist(userID: ID!, input: CreatePlaylist): Playlist!
-  addSongToPlaylist(playlistID: ID!, input: CreateSong!): ServerResponse!
+  createPlaylist(userID: ID!, input: CreatePlaylist!): ServerResponse!
+  
   # making a new version of addSongToPlaylist for testing
-  # addSongToPlaylist(playlistID: ID!, input: CreateSong!): Playlist!
+  # createPlaylist(userID: ID!, input: CreatePlaylist): Playlist!
+  addSongToPlaylist(playlistID: ID!, input: CreateSong!): Playlist!
 
   deleteSongFromPlaylist(playlistID: ID!, songTitle: String!): Song!
 

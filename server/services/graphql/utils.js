@@ -14,8 +14,6 @@ const processSearchResults = searchResults => {
     }
   });
 
-  console.log("finalized results before return ", filteredResults);
-
   return filteredResults;
 };
 

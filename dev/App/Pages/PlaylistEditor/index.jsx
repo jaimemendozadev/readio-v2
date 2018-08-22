@@ -107,15 +107,47 @@ class PlaylistEditor extends Component {
     }
   };
 
-  saveToDB = (saveToDBMutation, client) => {
+  saveToDB = async(saveToDBMutation, client) => {
     const { songList } = client.readQuery({ query: GET_SONG_LIST });
     const { currentUser } = client.readQuery({ query: GET_USER_ID });
 
-    let mutationResult = saveToDBMutation({
-      variables: { userID: currentUser.id, input: songList.list }
+    console.log('songList inside saveToDB ', songList)
+    console.log('currentUser inside saveToDB ', currentUser)
+
+    // MUST DELETE __typename of each song before sending to backend
+    // else __typename will cause error in BE because __typename is 
+    // not found on mutation input
+    const filteredList = [];
+    const songKeys = Object.keys(songList.list[0]);
+
+    songList.list.forEach(song => {
+      const fileredSongObj = {};
+
+      songKeys.forEach(key => {
+        if (key != '__typename') {
+          fileredSongObj[key] = song[key];
+        }
+      });
+
+      filteredList.push(fileredSongObj);
+
+    });
+
+
+    const input = {
+      name: songList.name,
+      list: filteredList
+    }
+
+    const userID = currentUser.id;
+    
+    let mutationResult = await saveToDBMutation({
+      variables: { userID, input}
     });
 
     console.log("mutation result is ", mutationResult);
+
+  
   };
 
   deleteFromDB = () => {};

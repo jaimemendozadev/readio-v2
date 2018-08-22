@@ -9,8 +9,9 @@ export const resolvers = {
 
       const { list } = oldState.songList;
 
-      // Add __typename to song
-      songToAdd.__typename = "Song";
+      // Add __typename to song for Apollo cache tracking
+      // MUST DELETE when sending songs to backend
+      songToAdd.__typename = "CreateSong";
 
       // Update songList with new song
       const newState = [].concat(list, [songToAdd]);

@@ -31,7 +31,7 @@ export const DELETE_FROM_SONG_LIST = gql`
 `;
 
 export const SAVE_SONGLIST_TO_DB = gql`
-  mutation SaveSonglistToDB($userID: ID!, $input: SonglistInput!) {
+  mutation SaveSonglistToDB($userID: ID!, $input: CreatePlaylist!) {
     createPlaylist(userID: $userID, input: $input) {
       error
       message

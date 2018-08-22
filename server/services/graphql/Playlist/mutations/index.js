@@ -1,7 +1,10 @@
-const Playlist = require("../../../../DB/Schemas/Playlist");
-const User = require("../../../../DB/Schemas/User");
+const createPlaylist = async (_, { userID, input }, { models }) => {
+  const {Playlist, User} = models;
 
-const createPlaylist = async (_, { userID, input }) => {
+  //console.log('userID inside createPlaylist ', userID)
+  //console.log('input inside createPlaylist ', input);
+
+  
   const newPlaylist = await Playlist.create(input);
 
   const playlistID = newPlaylist.id;
@@ -13,6 +16,7 @@ const createPlaylist = async (_, { userID, input }) => {
     user.playlists.push(playlistID);
     user.save();
   });
+  
 
   return {error: false, message: "Playlist successfully saved in DB!"};
 
