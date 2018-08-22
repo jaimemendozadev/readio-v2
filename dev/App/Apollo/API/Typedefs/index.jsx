@@ -28,7 +28,6 @@ export const typeDefs = `
   }
 `;
 
-
 /*
   For a successful mutation to GraphQL API, 
   
