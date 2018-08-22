@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { GET_USER_INFO, SAVE_USER_IN_CACHE } from "./graphql";
 import Spinner from "../../Components/Spinner.jsx";
+import PlaylistView from '../PlaylistView/index.jsx';
 
 const defaultState = {
   currentUser: {}
@@ -32,13 +33,17 @@ class Home extends Component {
   };
 
   renderPlaylists = playlists => {
+
+    console.log('playlists inside Home page ', playlists)
     if (playlists.length == 0) {
       return (
         <h1>
           You have no playlists. Start searching for Music and make a playlist!
         </h1>
       );
-    }
+    } 
+
+    return <PlaylistView playlists={playlists} />
   };
 
   checkRenderStatus = (data, loading, error, client) => {
