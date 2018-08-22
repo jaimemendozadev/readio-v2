@@ -191,11 +191,23 @@ header {
   .playlistview-container .playlistview-header {
     width: 100%; }
   .playlistview-container .playlistcard {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border: 1px solid white;
     margin: 5px 10px;
-    background-color: rgba(160, 179, 196, 0.2); }
+    background-color: rgba(160, 179, 196, 0.2);
+    border-radius: 2px; }
+    .playlistview-container .playlistcard h3 {
+      text-align: center; }
+    .playlistview-container .playlistcard:hover {
+      animation-duration: 3s;
+      animation-name: cardRotate; }
+
+@keyframes cardRotate {
+  from {
+    transform: rotateY(0deg); }
+  to {
+    transform: rotateY(360deg); } }
 
 .search-song-view-container {
   height: 45vh;

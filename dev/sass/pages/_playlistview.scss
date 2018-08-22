@@ -2,6 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   
+  
+  
 
   .playlistview-header {
     width: 100%;
@@ -9,11 +11,33 @@
 
 
   .playlistcard {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border: 1px solid white;
     margin: 5px 10px;
     background-color:rgba(#A0B3C4, .2);
+    border-radius: 2px;
+    
+    h3 {
+      text-align: center;
+    }
+    
+
+
+    &:hover {
+      animation-duration: 3s;
+      animation-name: cardRotate;
+    }
   }
 
+}
+
+@keyframes cardRotate {
+  from {
+    transform: rotateY(0deg); 
+  }
+  
+  to {
+    transform: rotateY(360deg);
+  }
 }
