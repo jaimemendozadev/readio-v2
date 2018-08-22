@@ -1,0 +1,19 @@
+.playlistview-container {
+  display: flex;
+  flex-wrap: wrap;
+  
+
+  .playlistview-header {
+    width: 100%;
+  }
+
+
+  .playlistcard {
+    width: 200px;
+    height: 200px;
+    border: 1px solid white;
+    margin: 5px 10px;
+    background-color:rgba(#A0B3C4, .2);
+  }
+
+}

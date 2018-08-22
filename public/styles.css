@@ -185,6 +185,18 @@ header {
 .playlist-editor-view-container {
   margin-bottom: 4em; }
 
+.playlistview-container {
+  display: flex;
+  flex-wrap: wrap; }
+  .playlistview-container .playlistview-header {
+    width: 100%; }
+  .playlistview-container .playlistcard {
+    width: 200px;
+    height: 200px;
+    border: 1px solid white;
+    margin: 5px 10px;
+    background-color: rgba(160, 179, 196, 0.2); }
+
 .search-song-view-container {
   height: 45vh;
   overflow: scroll; }
