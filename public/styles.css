@@ -194,25 +194,41 @@ header {
   overflow: scroll; }
   .playlistview-container .playlistview-header {
     width: 100%; }
+  .playlistview-container .playlist-wrapper {
+    perspective: 800px; }
   .playlistview-container .playlistcard {
     width: 250px;
     height: 250px;
     border: 1px solid white;
     margin: 5px 10px;
     background-color: rgba(160, 179, 196, 0.2);
-    border-radius: 2px; }
+    border-radius: 2px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.5s; }
+    .playlistview-container .playlistcard .playlistcard-front {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      backface-visibility: hidden; }
+    .playlistview-container .playlistcard .playlistcard-back {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      transform: rotateY(-180deg); }
+    .playlistview-container .playlistcard:hover {
+      transform: rotateY(-180deg); }
     .playlistview-container .playlistcard h3 {
       text-align: center; }
-    .playlistview-container .playlistcard:hover {
-      animation-duration: 3s;
-      animation-name: cardRotate; }
 
-@keyframes cardRotate {
-  from {
-    transform: rotateY(0deg); }
-  to {
-    transform: rotateY(360deg); } }
+/*
+Citations
 
+Playlist
+https://medium.com/designer-recipes/understanding-card-flip-animation-using-css-391c40ed3136
+
+*/
 .search-song-view-container {
   height: 45vh;
   overflow: scroll; }

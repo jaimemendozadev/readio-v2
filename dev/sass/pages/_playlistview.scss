@@ -1,3 +1,5 @@
+@import "mixins";
+
 .playlistview-container {
   display: flex;
   flex-wrap: wrap;
@@ -14,7 +16,11 @@
     width: 100%;
   }
 
+  .playlist-wrapper {
+    perspective: 800px;
+  }
 
+  // See citation for playlistcard
   .playlistcard {
     width: 250px;
     height: 250px;
@@ -22,27 +28,43 @@
     margin: 5px 10px;
     background-color:rgba(#A0B3C4, .2);
     border-radius: 2px;
-    
-    h3 {
-      text-align: center;
+    position: relative;
+
+
+    transform-style: preserve-3d;
+    transition: transform 1.5s;
+   
+
+    .playlistcard-front {
+      @include playlistCardStyling;
     }
     
+    .playlistcard-back {
+      @include playlistCardStyling;
+      transform: rotateY(-180deg);
+    }
 
 
     &:hover {
-      animation-duration: 3s;
-      animation-name: cardRotate;
+      transform: rotateY(-180deg);
+    }
+
+
+
+    h3 {
+      text-align: center;
     }
   }
-
 }
 
-@keyframes cardRotate {
-  from {
-    transform: rotateY(0deg); 
-  }
-  
-  to {
-    transform: rotateY(360deg);
-  }
-}
+
+/*
+Citations
+
+Playlist
+https://medium.com/designer-recipes/understanding-card-flip-animation-using-css-391c40ed3136
+
+*/
+
+
+
