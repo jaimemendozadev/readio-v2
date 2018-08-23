@@ -102,9 +102,10 @@ header {
     .page-container .side-bar nav {
       display: flex;
       flex-direction: column;
-      margin: 5em 2em; }
+      justify-content: space-around;
+      margin: 5em 2em 0 2em;
+      height: 50vh; }
       .page-container .side-bar nav .side-bar-link {
-        flex: 1;
         height: 50px;
         color: grey;
         font-size: 1.5em;
@@ -130,7 +131,7 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
-.playlist-editor-main {
+.save-playlist-editor-main {
   min-height: 150vh;
   flex: 1;
   color: white;
@@ -139,27 +140,27 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between; }
-  .playlist-editor-main .react-player {
+  .save-playlist-editor-main .react-player {
     margin-bottom: .5em; }
 
-.playlist-header-container {
+.save-playlist-header-container {
   margin-top: 1em;
   height: 20%; }
-  .playlist-header-container input {
+  .save-playlist-header-container input {
     height: 12vh;
     width: 95%;
     border: 1px solid white;
     font-size: 2.5em;
     padding-left: .3em; }
 
-.playlist-btn-container {
+.save-playlist-btn-container {
   height: 20%;
   margin-top: 5em;
   display: flex;
   flex-wrap: wrap; }
-  .playlist-btn-container .playlist-btn-header {
+  .save-playlist-btn-container .save-playlist-btn-header {
     width: 100%; }
-  .playlist-btn-container button {
+  .save-playlist-btn-container button {
     border-radius: 25px;
     border-color: #87546f;
     width: 180px;
@@ -171,7 +172,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center; }
-    .playlist-btn-container button img {
+    .save-playlist-btn-container button img {
       width: 30px;
       height: 30px;
       margin-right: 5px; }

@@ -4,6 +4,7 @@ import { GET_CURRENTLY_PLAYING_SONG } from "./graphql";
 import ReactPlayer from "react-player";
 import Home from "../Home/index.jsx";
 import Search from "../Search/index.jsx";
+import SavePlaylist from "../SavePlaylist/index.jsx";
 import PlaylistEditor from "../PlaylistEditor/index.jsx";
 
 const defaultState = {
@@ -44,6 +45,10 @@ class Main extends Component {
       return <Search />;
     }
 
+    if(currentView == "Save Playlist") {
+      return <SavePlaylist />
+    }
+
     if (currentView == "Playlist Editor") {
       return <PlaylistEditor />;
     }
@@ -79,18 +84,24 @@ class Main extends Component {
                     Search
                   </div>
                   <div
+                    onClick={() => this.viewSwitch("Save Playlist")}
+                    className="side-bar-link"
+                  >
+                    Save Current Playlist
+                  </div>
+                  <div
                     onClick={() => this.viewSwitch("Playlist Editor")}
                     className="side-bar-link"
                   >
-                    Playlist Editor
+                    Edit All Playlists
                   </div>
                 </nav>
               </div>
 
               <div
                 className={
-                  currentView == "Playlist Editor"
-                    ? "playlist-editor-main"
+                  currentView == "Save Playlist"
+                    ? "save-playlist-editor-main"
                     : "main-content"
                 }
               >

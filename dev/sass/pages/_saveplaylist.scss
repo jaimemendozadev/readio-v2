@@ -1,6 +1,6 @@
 @import "mixins";
 
-.playlist-editor-main {
+.save-playlist-editor-main {
   min-height: 150vh;
   flex: 1;
   color: white;
@@ -18,7 +18,7 @@
 
 
 
-.playlist-header-container {
+.save-playlist-header-container {
   margin-top: 1em;
   height: 20%;
 
@@ -27,13 +27,13 @@
   }
 }
 
-.playlist-btn-container {
+.save-playlist-btn-container {
   height: 20%;
   margin-top: 5em;
   display: flex;
   flex-wrap: wrap;
 
-  .playlist-btn-header {
+  .save-playlist-btn-header {
     width: 100%;
   }
 

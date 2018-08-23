@@ -11,14 +11,16 @@
     nav {
       display: flex;
       flex-direction: column;
-      margin: 5em 2em;
+      justify-content: space-around;
+      margin: 5em 2em 0 2em;
+      height: 50vh;
 
       .side-bar-link {
-        flex: 1;
         height: 50px;
         color: grey;
         font-size: 1.5em;
-        text-decoration: none;  
+        text-decoration: none;
+        
       }
   
       
