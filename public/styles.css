@@ -187,7 +187,10 @@ header {
 
 .playlistview-container {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 60vh;
+  overflow: scroll; }
   .playlistview-container .playlistview-header {
     width: 100%; }
   .playlistview-container .playlistcard {
