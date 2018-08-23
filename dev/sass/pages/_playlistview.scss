@@ -9,15 +9,12 @@
   overflow: scroll;
 
   
-  
-  
-
   .playlistview-header {
     width: 100%;
   }
 
   .playlist-wrapper {
-    perspective: 800px;
+    perspective: 1000px;
   }
 
   // See citation for playlistcard
@@ -37,19 +34,27 @@
 
     .playlistcard-front {
       @include playlistCardStyling;
+      height: 100%;
+      overflow: hidden;
+      margin: 0 auto;
+
+      ul li {
+        list-style-type: none;
+      }
+          
     }
-    
+
+  
     .playlistcard-back {
       @include playlistCardStyling;
       transform: rotateY(-180deg);
+      height: 250px;
+      overflow: hidden; // See notes
     }
-
 
     &:hover {
       transform: rotateY(-180deg);
     }
-
-
 
     h3 {
       text-align: center;
@@ -65,6 +70,17 @@ Playlist
 https://medium.com/designer-recipes/understanding-card-flip-animation-using-css-391c40ed3136
 
 */
+
+
+/*
+Notes
+-In a BIG playlist with lots of songs, seeting the back card to overflow:scroll
+makes the playlist text appear in the front of the card. Used overflow:hidden 
+as a compromise.
+
+
+
+
 
 
 
