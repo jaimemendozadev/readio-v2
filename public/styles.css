@@ -194,6 +194,8 @@ header {
   overflow: scroll; }
   .playlistview-container .playlistview-header {
     width: 100%; }
+    .playlistview-container .playlistview-header h1 {
+      text-align: center; }
   .playlistview-container .playlist-wrapper {
     perspective: 1000px; }
   .playlistview-container .playlistcard {
@@ -201,24 +203,29 @@ header {
     height: 250px;
     border: 1px solid white;
     margin: 5px 10px;
-    background-color: rgba(160, 179, 196, 0.2);
     border-radius: 2px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 1.5s; }
     .playlistview-container .playlistcard .playlistcard-front {
-      position: absolute;
-      backface-visibility: hidden;
-      height: 100%;
-      overflow: hidden;
-      margin: 0 auto; }
-      .playlistview-container .playlistcard .playlistcard-front ul li {
-        list-style-type: none; }
-    .playlistview-container .playlistcard .playlistcard-back {
-      position: absolute;
-      backface-visibility: hidden;
-      transform: rotateY(-180deg);
       height: 250px;
+      width: 250px;
+      position: absolute;
+      backface-visibility: hidden;
+      background-color: rgba(232, 79, 137, 0.9);
+      overflow: hidden; }
+      .playlistview-container .playlistcard .playlistcard-front h3 {
+        margin: 2em auto; }
+      .playlistview-container .playlistcard .playlistcard-front ul li {
+        list-style-type: none;
+        color: white; }
+    .playlistview-container .playlistcard .playlistcard-back {
+      height: 250px;
+      width: 250px;
+      position: absolute;
+      backface-visibility: hidden;
+      background-color: rgba(232, 79, 137, 0.9);
+      transform: rotateY(-180deg);
       overflow: hidden; }
     .playlistview-container .playlistcard:hover {
       transform: rotateY(-180deg); }
@@ -230,6 +237,13 @@ Citations
 
 Playlist
 https://medium.com/designer-recipes/understanding-card-flip-animation-using-css-391c40ed3136
+
+*/
+/*
+Notes
+-In a BIG playlist with lots of songs, seeting the back card to overflow:scroll
+makes the playlist text appear in the front of the card. Used overflow:hidden 
+as a compromise.
 
 */
 .search-song-view-container {

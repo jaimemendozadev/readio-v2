@@ -31,8 +31,9 @@
 
 
 @mixin playlistCardStyling {
-  // height:100%;
-  // width:100%;
+  height: 250px;
+  width: 250px;
   position: absolute;
   backface-visibility: hidden;
+  background-color: rgba(#E84F89, .9); // Change color?
 }

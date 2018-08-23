@@ -10,7 +10,7 @@ const renderPlaylistCards = playlistArray => {
 const PlaylistView = ({ playlists }) => (
   <div className="playlistview-container">
     <div className="playlistview-header">
-      <h1>PlaylistViewer</h1>
+      <h1>Your Current Playlists!</h1>
     </div>
 
     {console.log("playlists inside PlaylistViewer ", playlists)}

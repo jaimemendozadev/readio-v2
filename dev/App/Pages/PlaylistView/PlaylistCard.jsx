@@ -19,8 +19,6 @@ const PlaylistCard = ({ playlistInfo }) => (
         <div className="playlistcard-front">
            <h3>{playlistInfo.name}</h3>
         </div>
-
-        <div className="playlistcard-middle"></div>
         
         <div className="playlistcard-back">
           {renderSongNames(playlistInfo.songs)}
