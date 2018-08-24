@@ -87,7 +87,7 @@ class Main extends Component {
                     onClick={() => this.viewSwitch("Save Playlist")}
                     className="side-bar-link"
                   >
-                    Save Current Playlist
+                    Save Playlist
                   </div>
                   <div
                     onClick={() => this.viewSwitch("Playlist Editor")}
