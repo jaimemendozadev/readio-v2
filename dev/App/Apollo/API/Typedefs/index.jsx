@@ -6,12 +6,6 @@ export const typeDefs = `
     artwork_url: String
   }
 
-  type SongStack {
-    currentSong: String
-    stack: [String]
-    playing: Boolean
-  }
-
   input UrlInput {
     currentSong: String
     playing: Boolean
@@ -29,7 +23,7 @@ export const typeDefs = `
   type Mutation {
     addToSongList(songToAdd: CreateSong!): CreateSong
     deleteFromSongList(songID: String!): Song
-    loadSongInPlayer(songArg: UrlInput!): SongStack
+    loadSongInPlayer(songArg: UrlInput!)
     loadPlaylistInCache(playlistArg: LoadPlaylist!)
   }
 `;

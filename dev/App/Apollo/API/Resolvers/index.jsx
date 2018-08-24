@@ -60,19 +60,19 @@ export const resolvers = {
     loadSongInPlayer: (_, { songArg }, { cache }) => {
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
 
-      const { currentlyPlaying } = oldState;
+       const currentlyPlaying = Object.assign({}, oldState.currentlyPlaying, songArg);
 
-      songArg.__typename = "SongStack";
-
-      const newState = Object.assign({}, currentlyPlaying, songArg);
+      console.log('new currentlyPlaying ', currentlyPlaying)
 
       const data = {
-        currentlyPlaying: newState
-      };
+        ...oldState,
+        currentlyPlaying
+      }
 
       cache.writeQuery({ query: GET_CURRENT_SONG, data });
-
-      return songArg;
+      
+      // See notes
+      return null;
     },
 
     loadPlaylistInCache: (_, { playlistArg }, { cache }) => {
@@ -115,6 +115,9 @@ export const resolvers = {
 
 /*
   Notes
+
+  For loadSongInPlayer
+  -Originally returned currentSong url and playing boolean, now returns null, functionality still works.
 
   For loadPlaylistInCache:
   - Must slice incoming playlistArg. Else we get "Cannot assign to read only property '0' of object '[object Array]'" error
