@@ -107,6 +107,7 @@ class Main extends Component {
               >
                 {this.renderCurrentView()}
 
+
                 <div className="react-player">
                   <ReactPlayer
                     url={data ? data.currentlyPlaying.currentSong : currentSong}
