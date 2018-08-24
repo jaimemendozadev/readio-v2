@@ -9,6 +9,7 @@ export const defaults = {
     currentSong:
       "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
     stack: [],
+    selectedPlaylist: [],
     playing: false
   },
   currentUser: {

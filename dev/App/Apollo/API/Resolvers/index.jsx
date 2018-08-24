@@ -94,9 +94,12 @@ export const resolvers = {
           ? localPlaylist
           : localPlaylist.concat(currentlyPlaying.stack);
 
+
+      // Put original playlistArg into selectedPlaylist key
       const newState = {
         currentSong: newCurrentSong,
         stack: newStack,
+        selectedPlaylist: playlistArg,
         playing: true
       };
 
