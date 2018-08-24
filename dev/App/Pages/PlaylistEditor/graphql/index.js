@@ -1,11 +1,9 @@
 import { gql } from "apollo-boost";
 
-export const GET_SONG_LIST = gql`
-  query getSongList {
-    songList @client {
-      __typename
-      name
-      list
+export const GET_SELECTED_PLAYLIST = gql`
+  query getSelectedPlayList {
+    currentlyPlaying @client {
+      stack
     }
   }
 `;

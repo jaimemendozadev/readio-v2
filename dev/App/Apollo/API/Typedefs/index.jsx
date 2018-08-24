@@ -6,6 +6,12 @@ export const typeDefs = `
     artwork_url: String
   }
 
+  type Playlist {
+    id: String!
+    name: String!
+    songs: [CreateSong]!
+  }
+
   input UrlInput {
     currentSong: String
     playing: Boolean
@@ -16,8 +22,18 @@ export const typeDefs = `
     list: [Song]
   }
 
+  input SongInput {
+    id_user_id_identifier: String!
+    title: String!
+    permalink_url: String!
+    artwork_url: String
+
+  }
+
   input LoadPlaylist {
-    toLoad: [String]
+    id: String!
+    name: String!
+    songs: [SongInput]!
   }
 
   type Mutation {

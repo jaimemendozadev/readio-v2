@@ -76,8 +76,10 @@ export const resolvers = {
     },
 
     loadPlaylistInCache: (_, { playlistArg }, { cache }) => {
+      console.log('playlistArg inside loadPlaylistInCache ', playlistArg)
+
       // Make copy of playlistArt locally, see note below
-      let localPlaylist = playlistArg.slice(0);
+      let localPlaylist = playlistArg.songs.slice(0);
 
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
       const { currentlyPlaying } = oldState;
@@ -109,6 +111,8 @@ export const resolvers = {
       };
 
       cache.writeQuery({ query: GET_CURRENT_SONG, data });
+
+      console.log('cache after loadPlaylistInCache ', cache)
 
       // See notes
       return null;

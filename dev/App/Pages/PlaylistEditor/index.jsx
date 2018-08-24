@@ -5,12 +5,12 @@ import {
   editSongList,
   handlePlaylistEditorView
 } from "./utils.jsx";
-import { GET_SONG_LIST, SAVE_SONGLIST_TO_DB, GET_USER_ID } from "./graphql";
+import { GET_SELECTED_PLAYLIST, SAVE_SONGLIST_TO_DB, GET_USER_ID } from "./graphql";
 import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
 
 const defaultState = {
-  playlistName: "Give your playlist a name!",
+  playlistName: "Edit the playlist name",
   pageError: false,
   pageErrorMsg: "",
   serverResponse: ""
@@ -98,14 +98,16 @@ class PlaylistEditor extends Component {
 
   deleteFromDB = () => {};
 
+
+  //Change SAVE_SONGLIST_TO_DB mutation
   render() {
     const { pageError, pageErrorMsg } = this.state;
     return (
       <ApolloConsumer>
         {client => (
-          <Mutation mutation={SAVE_SONGLIST_TO_DB}>
+          <Mutation mutation={SAVE_SONGLIST_TO_DB}> 
             {(saveSonglistToDB, { data: mutationData }) => (
-              <Query query={GET_SONG_LIST}>
+              <Query query={GET_SELECTED_PLAYLIST}>
                 {({ data, loading, error }) => {
                   const songListCount = data.songList.list.length;
 
