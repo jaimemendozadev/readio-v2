@@ -31,7 +31,7 @@ class Home extends Component {
 
     client.writeQuery({ query: SAVE_USER_IN_CACHE, data: newState });
 
-    console.log('client after saving getUser ', client)
+    console.log("client after saving getUser ", client);
   };
 
   renderPlaylists = playlists => {
@@ -64,7 +64,7 @@ class Home extends Component {
         </div>
       );
     }
-    
+
     if (data) {
       const { getUser } = data;
 

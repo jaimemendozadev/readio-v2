@@ -1,7 +1,5 @@
-import React from 'react';
+import React from "react";
 
-const PlaylistEditor = () => (
-  <h1>PlaylistEditor</h1>
-)
+const PlaylistEditor = () => <h1>PlaylistEditor</h1>;
 
 export default PlaylistEditor;

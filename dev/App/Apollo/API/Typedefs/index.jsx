@@ -21,10 +21,15 @@ export const typeDefs = `
     list: [Song]
   }
 
+  input LoadPlaylist {
+    toLoad: [String]
+  }
+
   type Mutation {
     addToSongList(songToAdd: CreateSong!): CreateSong
     deleteFromSongList(songID: String!): Song
     loadSongInPlayer(songArg: UrlInput!): Url
+    loadPlaylistInCache(playlistArg: LoadPlaylist!)
   }
 `;
 
