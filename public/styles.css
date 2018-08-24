@@ -157,9 +157,10 @@ header {
   height: 20%;
   margin-top: 5em;
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  align-items: center; }
   .save-playlist-btn-container .save-playlist-btn-header {
-    width: 100%; }
+    width: 50%; }
   .save-playlist-btn-container button {
     border-radius: 25px;
     border-color: #87546f;

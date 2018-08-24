@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { ApolloConsumer, Query, Mutation } from "react-apollo";
 import {
   escapeHtml,

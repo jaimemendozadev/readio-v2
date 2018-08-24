@@ -103,8 +103,6 @@ class SavePlaylist extends Component {
     }
   };
 
-  deleteFromDB = () => {};
-
   render() {
     const { pageError, pageErrorMsg } = this.state;
     return (
@@ -120,8 +118,7 @@ class SavePlaylist extends Component {
                     <div>
                       <div className="save-playlist-header-container">
                         <div>
-                          <h1>Edit and Save Your Current Playlist!</h1>
-                          <h2>Click on a song to load it into the player!</h2>
+                          <h1>Edit and Save Your Current Playlist! Click on a song to load it into the player!</h1>
                         </div>
 
                         <form
@@ -141,7 +138,7 @@ class SavePlaylist extends Component {
                       <div className="save-playlist-btn-container">
                         <div className="save-playlist-btn-header">
                           <h1>
-                            Save or Delete Your Playlist in Your Account...
+                            Save Your Playlist in Your Account:
                           </h1>
                         </div>
 
@@ -153,13 +150,6 @@ class SavePlaylist extends Component {
                         >
                           <img src={SaveIcon} />
                           Save
-                        </button>
-                        <button
-                          disabled={songListCount == 0 ? true : false}
-                          onClick={this.deleteFromDB}
-                        >
-                          <img src={DeleteIcon} />
-                          Delete
                         </button>
                       </div>
 
