@@ -62,7 +62,7 @@ export const resolvers = {
 
       const { currentlyPlaying } = oldState;
 
-      songArg.__typename = "Url";
+      songArg.__typename = "SongStack";
 
       const newState = Object.assign({}, currentlyPlaying, songArg);
 
@@ -73,6 +73,52 @@ export const resolvers = {
       cache.writeQuery({ query: GET_CURRENT_SONG, data });
 
       return songArg;
+    },
+
+    loadPlaylistInCache: (_, { playlistArg }, { cache }) => {
+      // Make copy of playlistArt locally, see note below
+      let localPlaylist = playlistArg.slice(0);
+
+      const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
+      const { currentlyPlaying } = oldState;
+
+      const stackLength = currentlyPlaying.stack.length;
+
+      // Get the first song from localPlaylist, remove from localPlaylist
+      const newCurrentSong = localPlaylist[0].permalink_url;
+      localPlaylist.shift();
+
+      // Update the stack
+      const newStack =
+        stackLength == 0
+          ? localPlaylist
+          : localPlaylist.concat(currentlyPlaying.stack);
+
+      const newState = {
+        currentSong: newCurrentSong,
+        stack: newStack,
+        playing: true
+      };
+
+      const data = {
+        ...oldState,
+        currentlyPlaying: Object.assign({}, oldState.currentlyPlaying, newState)
+      };
+
+      cache.writeQuery({ query: GET_CURRENT_SONG, data });
+
+      // See notes
+      return null;
     }
   } // End Mutation Object
 };
+
+/*
+  Notes
+
+  For loadPlaylistInCache:
+  - Must slice incoming playlistArg. Else we get "Cannot assign to read only property '0' of object '[object Array]'" error
+
+
+  -MUST RETURN SOMETHING. If schema doesn't specify returning anything, return null
+*/

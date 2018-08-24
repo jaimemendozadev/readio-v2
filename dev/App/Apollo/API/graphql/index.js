@@ -15,6 +15,7 @@ export const GET_CURRENT_SONG = gql`
     currentlyPlaying @client {
       __typename
       currentSong
+      stack
       playing
     }
   }

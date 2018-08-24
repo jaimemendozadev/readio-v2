@@ -35,7 +35,6 @@ class Home extends Component {
   };
 
   renderPlaylists = playlists => {
-    console.log("playlists inside Home page ", playlists);
     if (playlists.length == 0) {
       return (
         <h1>

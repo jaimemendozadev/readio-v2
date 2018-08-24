@@ -193,9 +193,8 @@ header {
   height: 60vh;
   overflow: scroll; }
   .playlistview-container .playlistview-header {
-    width: 100%; }
-    .playlistview-container .playlistview-header h1 {
-      text-align: center; }
+    width: 100%;
+    margin-bottom: 2em; }
   .playlistview-container .playlist-wrapper {
     perspective: 1000px; }
   .playlistview-container .playlistcard {

@@ -3,23 +3,13 @@ import { Mutation } from "react-apollo";
 import PlaylistCard from "./PlaylistCard.jsx";
 import { LOAD_PLAYLIST_IN_CACHE } from "./graphql";
 
-/*
-  On Playlist card click
-   -fireoff mutation
-     -first song in playlist is updated to currentSong in cache
-
-     -push remaining songs in playlist to cache stack;
-
-     -React Player 'onEnded' event, fire mutation to play next song in cache stack
-
-     input LoadPlaylist {
-    toLoad: [String]
-  }
-*/
-
 const renderPlaylistCards = (playlistArray, mutation) => {
   return playlistArray.map(playlist => (
-    <PlaylistCard propMutation={mutation} playlistInfo={playlist} />
+    <PlaylistCard
+      key={playlist.id}
+      propMutation={mutation}
+      playlistInfo={playlist}
+    />
   ));
 };
 
@@ -28,7 +18,10 @@ const PlaylistView = ({ playlists }) => (
     {loadPlaylistInCache => (
       <div className="playlistview-container">
         <div className="playlistview-header">
-          <h1>Your Current Playlists!</h1>
+          <h1>
+            Your Current Playlists: Click on a playlist to load it in the
+            player!
+          </h1>
         </div>
 
         {console.log("playlists inside PlaylistViewer ", playlists)}

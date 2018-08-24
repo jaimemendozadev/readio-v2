@@ -10,12 +10,11 @@ const renderSongNames = songs => {
   );
 };
 
-
 const PlaylistCard = ({ propMutation, playlistInfo }) => {
   const { songs, name } = playlistInfo;
   return (
     <div
-      onClick={() => propMutation({ variables: songs })}
+      onClick={() => propMutation({ variables: { playlistArg: songs } })}
       className="playlist-wrapper"
     >
       <div className="playlistcard">
