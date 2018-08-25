@@ -84,30 +84,23 @@ export const resolvers = {
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
       const { currentlyPlaying } = oldState;
 
-      const stackLength = currentlyPlaying.stack.length;
-
       // Get the first song from localPlaylist, remove from localPlaylist
       const newCurrentSong = localPlaylist[0].permalink_url;
       localPlaylist.shift();
 
-      // Update the stack
-      const newStack =
-        stackLength == 0
-          ? localPlaylist
-          : localPlaylist.concat(currentlyPlaying.stack);
-
 
       // Put original playlistArg into selectedPlaylist key
+      // Put localPlaylist in playlistStack
       const newState = {
         currentSong: newCurrentSong,
-        stack: newStack,
+        playlistStack: localPlaylist,
         selectedPlaylist: playlistArg,
         playing: true
       };
 
       const data = {
         ...oldState,
-        currentlyPlaying: Object.assign({}, oldState.currentlyPlaying, newState)
+        currentlyPlaying: Object.assign({}, currentlyPlaying, newState)
       };
 
       cache.writeQuery({ query: GET_CURRENT_SONG, data });

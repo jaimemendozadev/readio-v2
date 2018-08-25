@@ -16,6 +16,8 @@ export const GET_CURRENT_SONG = gql`
       __typename
       currentSong
       stack
+      playlistStack
+      userSelectedPlaylist
       selectedPlaylist
       playing
     }
