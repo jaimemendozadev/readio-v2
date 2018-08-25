@@ -61,7 +61,7 @@ class Main extends Component {
     return (
       <Query query={GET_CURRENTLY_PLAYING_SONG}>
         {({ data, loading, error }) => {
-          console.log("data inside Main is ", data);
+          console.log("CURRENTLY_PLYAING_SONG inside Main is ", data);
 
           if (error) {
             this.logError(error);

@@ -6,12 +6,6 @@ export const typeDefs = `
     artwork_url: String
   }
 
-  type Playlist {
-    id: String!
-    name: String!
-    songs: [CreateSong]!
-  }
-
   input UrlInput {
     currentSong: String
     playing: Boolean
