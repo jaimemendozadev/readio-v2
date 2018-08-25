@@ -60,6 +60,8 @@ export const resolvers = {
     loadSongInPlayer: (_, { songArg }, { cache }) => {
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
 
+      console.log('oldState in loadSongInPlayer ', oldState)
+
       const currentlyPlaying = Object.assign(
         {},
         oldState.currentlyPlaying,
@@ -122,9 +124,24 @@ export const resolvers = {
   For loadSongInPlayer
   -Originally returned currentSong url and playing boolean, now returns null, functionality still works.
 
+  -Keep getting an error because we're requesting the nested selectedPlaylist from cache in currentlyPlaying:
+
+  `Error: Network error: Encountered a sub-selection on the query, but the store doesn't have an object reference. This should never happen during normal use unless you have custom code that is directly manipulating the store; please file an issue.`
+
+
+
+
+
   For loadPlaylistInCache:
   - Must slice incoming playlistArg. Else we get "Cannot assign to read only property '0' of object '[object Array]'" error
 
 
   -MUST RETURN SOMETHING. If schema doesn't specify returning anything, return null
+
+
+
+
+
+
+
 */
