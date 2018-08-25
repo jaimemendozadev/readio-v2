@@ -140,6 +140,9 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
+.playlist-edit-save-view-container {
+  margin-bottom: 4em; }
+
 .save-playlist-editor-main {
   min-height: 150vh;
   flex: 1;
@@ -193,7 +196,7 @@ header {
   .playlist-songs-container .playlist-name-container {
     margin-bottom: 2em; }
 
-.playlist-editor-view-container {
+.playlist-edit-save-view-container {
   margin-bottom: 4em; }
 
 .playlistview-container {

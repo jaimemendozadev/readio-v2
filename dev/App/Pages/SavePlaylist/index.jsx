@@ -7,7 +7,6 @@ import {
 } from "./utils.jsx";
 import { GET_SONG_LIST, SAVE_SONGLIST_TO_DB, GET_USER_ID } from "./graphql";
 import SaveIcon from "./assets/savesonglist.png";
-import DeleteIcon from "./assets/deletesonglist.png";
 
 const defaultState = {
   playlistName: "Give your playlist a name!",
@@ -118,7 +117,10 @@ class SavePlaylist extends Component {
                     <div>
                       <div className="save-playlist-header-container">
                         <div>
-                          <h1>Edit and Save Your Current Playlist! Click on a song to load it into the player!</h1>
+                          <h1>
+                            Edit and Save Your Current Playlist! Click on a song
+                            to load it into the player!
+                          </h1>
                         </div>
 
                         <form
@@ -137,9 +139,7 @@ class SavePlaylist extends Component {
 
                       <div className="save-playlist-btn-container">
                         <div className="save-playlist-btn-header">
-                          <h1>
-                            Save Your Playlist in Your Account:
-                          </h1>
+                          <h1>Save Your Playlist in Your Account:</h1>
                         </div>
 
                         <button

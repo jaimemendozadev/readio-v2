@@ -15,7 +15,7 @@ const PlaylistCard = ({ propMutation, playlistInfo }) => {
 
   return (
     <div
-      onClick={() => propMutation({ variables: { playlistArg: playlistInfo} })}
+      onClick={() => propMutation({ variables: { playlistArg: playlistInfo } })}
       className="playlist-wrapper"
     >
       <div className="playlistcard">

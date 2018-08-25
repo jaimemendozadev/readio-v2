@@ -54,6 +54,7 @@ const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
 // SearchView enables adding song to SongList
 // PlaylistEditor enables deleting song from SongList
 // searchView checks if SongView nested in Search View to use Search View styling
+
 const SongView = ({
   PROP_MUTATION,
   songInput,
@@ -65,7 +66,7 @@ const SongView = ({
     className={
       searchView == true
         ? "search-song-view-container"
-        : "playlist-editor-view-container"
+        : "playlist-edit-save-view-container"
     }
   >
     {renderResults(PROP_MUTATION, songInput, callback, assetType)}

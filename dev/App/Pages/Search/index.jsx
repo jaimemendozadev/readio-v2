@@ -87,7 +87,10 @@ class Search extends Component {
         {(searchSoundCloud, { data, loading, error }) => (
           <div className="search-page">
             <div>
-              <h1>Search for any Artist, Playlist, Song, or Audio recording! Or click on the playlist icon to save it for a new playlist!</h1>
+              <h1>
+                Search for any Artist, Playlist, Song, or Audio recording! Or
+                click on the playlist icon to save it for a new playlist!
+              </h1>
               <form
                 onSubmit={event => this.handleSubmit(event, searchSoundCloud)}
               >

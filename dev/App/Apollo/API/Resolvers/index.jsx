@@ -60,23 +60,27 @@ export const resolvers = {
     loadSongInPlayer: (_, { songArg }, { cache }) => {
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
 
-       const currentlyPlaying = Object.assign({}, oldState.currentlyPlaying, songArg);
+      const currentlyPlaying = Object.assign(
+        {},
+        oldState.currentlyPlaying,
+        songArg
+      );
 
-      console.log('new currentlyPlaying ', currentlyPlaying)
+      console.log("new currentlyPlaying ", currentlyPlaying);
 
       const data = {
         ...oldState,
         currentlyPlaying
-      }
+      };
 
       cache.writeQuery({ query: GET_CURRENT_SONG, data });
-      
+
       // See notes
       return null;
     },
 
     loadPlaylistInCache: (_, { playlistArg }, { cache }) => {
-      console.log('playlistArg inside loadPlaylistInCache ', playlistArg)
+      console.log("playlistArg inside loadPlaylistInCache ", playlistArg);
 
       // Make copy of playlistArt locally, see note below
       let localPlaylist = playlistArg.songs.slice(0);
@@ -87,7 +91,6 @@ export const resolvers = {
       // Get the first song from localPlaylist, remove from localPlaylist
       const newCurrentSong = localPlaylist[0].permalink_url;
       localPlaylist.shift();
-
 
       // Put original playlistArg into selectedPlaylist key
       // Put localPlaylist in playlistStack
@@ -105,7 +108,7 @@ export const resolvers = {
 
       cache.writeQuery({ query: GET_CURRENT_SONG, data });
 
-      console.log('cache after loadPlaylistInCache ', cache)
+      console.log("cache after loadPlaylistInCache ", cache);
 
       // See notes
       return null;
