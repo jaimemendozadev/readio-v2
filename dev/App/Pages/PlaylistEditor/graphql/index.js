@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 export const GET_SELECTED_PLAYLIST = gql`
   query getSelectedPlayList {
     currentlyPlaying @client {
-      stack
+      selectedPlaylist
     }
   }
 `;

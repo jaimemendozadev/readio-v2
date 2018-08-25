@@ -13,7 +13,6 @@ const renderSongNames = songs => {
 const PlaylistCard = ({ propMutation, playlistInfo }) => {
   const { songs, name } = playlistInfo;
 
-  //const playlistArg = {selectedPlaylist: playlistInfo};
   return (
     <div
       onClick={() => propMutation({ variables: { playlistArg: playlistInfo} })}

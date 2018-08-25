@@ -131,6 +131,15 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
+.playlist-editor {
+  margin-top: 1em; }
+  .playlist-editor input {
+    height: 12vh;
+    width: 95%;
+    border: 1px solid white;
+    font-size: 2.5em;
+    padding-left: .3em; }
+
 .save-playlist-editor-main {
   min-height: 150vh;
   flex: 1;

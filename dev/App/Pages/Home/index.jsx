@@ -15,21 +15,26 @@ class Home extends Component {
   }
 
   saveFetchedUser = (getUser, client) => {
-    let oldState = client.readQuery({ query: SAVE_USER_IN_CACHE });
+    const oldState = client.readQuery({ query: SAVE_USER_IN_CACHE });
 
-    // Copy all oldState.currentUser key/values
-    let newState = { ...oldState.currentUser };
+    const {currentUser} = oldState;
 
     // Update newState key/values with getUser
+    const newState = {};
     newState.id = getUser.id;
     newState.email = getUser.email;
     newState.first_name = getUser.first_name;
     newState.last_name = getUser.last_name;
     newState.playlists = getUser.playlists;
 
-    newState = Object.assign({}, oldState, { currentUser: newState });
 
-    client.writeQuery({ query: SAVE_USER_IN_CACHE, data: newState });
+    // Spread oldState and update currentUser with newState
+    const data = {
+      ...oldState,
+      currentUser:  Object.assign({}, currentUser, newState)
+    };
+
+    client.writeQuery({ query: SAVE_USER_IN_CACHE, data});
 
     console.log("client after saving getUser ", client);
   };

@@ -1,0 +1,9 @@
+@import "mixins";
+
+.playlist-editor {
+  margin-top: 1em;
+
+  input {
+    @include inputStyling;
+  }
+}

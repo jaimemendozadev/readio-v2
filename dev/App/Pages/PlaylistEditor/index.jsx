@@ -109,10 +109,13 @@ class PlaylistEditor extends Component {
             {(saveSonglistToDB, { data: mutationData }) => (
               <Query query={GET_SELECTED_PLAYLIST}>
                 {({ data, loading, error }) => {
-                  const songListCount = data.songList.list.length;
+                //   const songListCount = data.songList.list.length;
+
+                console.log('mutation data inside Playlist editor ', data)
+                console.log('client is ', client)
 
                   return (
-                    <div>
+                    <div className="playlist-editor">
                       <div className="playlist-editor-header-container">
                         <div>
                           <h1>Click on a playlist to edit it!</h1>
@@ -120,9 +123,7 @@ class PlaylistEditor extends Component {
                         </div>
 
                         <form
-                          onSubmit={event =>
-                            this.handleSubmit(event, client, songListCount)
-                          }
+                          onSubmit={event => null}
                         >
                           <input
                             onClick={this.clearInput}
@@ -141,16 +142,14 @@ class PlaylistEditor extends Component {
                         </div>
 
                         <button
-                          disabled={songListCount == 0 ? true : false}
-                          onClick={() =>
-                            this.saveToDB(saveSonglistToDB, client)
-                          }
+                          disabled={true}
+                          onClick={() => null}
                         >
                           <img src={SaveIcon} />
                           Save
                         </button>
                         <button
-                          disabled={songListCount == 0 ? true : false}
+                          disabled={true}
                           onClick={this.deleteFromDB}
                         >
                           <img src={DeleteIcon} />
@@ -158,14 +157,15 @@ class PlaylistEditor extends Component {
                         </button>
                       </div>
 
-                      {handlePlaylistEditorView(
+                      {/* {handlePlaylistEditorView(
                         data,
                         loading,
                         error,
                         mutationData,
                         pageError,
                         pageErrorMsg
-                      )}
+                      )} */}
+
                     </div>
                   );
                 }}
