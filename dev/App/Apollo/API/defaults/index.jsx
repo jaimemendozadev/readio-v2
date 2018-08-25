@@ -10,14 +10,14 @@ export const defaults = {
       "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
     stack: [],
     playlistStack: [],
-    selectedPlaylist: {
-      __typename: "Playlist",
-      id: "",
-      name: "untitled",
-      songs: [],
-    },
     userSelectedPlaylist: false,
     playing: false
+  },
+  selectedPlaylist: {
+    __typename: "Playlist",
+    id: "",
+    name: "untitled",
+    songs: [],
   },
   currentUser: {
     __typename: "CurrentUser",

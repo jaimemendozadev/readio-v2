@@ -6,11 +6,6 @@ export const GET_CURRENTLY_PLAYING_SONG = gql`
       currentSong
       stack
       playlistStack
-      selectedPlaylist {
-        id
-        name
-        songs
-      }
       userSelectedPlaylist
       playing
     }

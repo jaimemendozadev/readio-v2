@@ -18,7 +18,6 @@ export const GET_CURRENT_SONG = gql`
       stack
       playlistStack
       userSelectedPlaylist
-      selectedPlaylist
       playing
     }
   }

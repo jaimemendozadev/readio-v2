@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import Home from "../Home/index.jsx";
 import Search from "../Search/index.jsx";
 import SavePlaylist from "../SavePlaylist/index.jsx";
+import NavSidebar from "./NavSidebar.jsx";
 import PlaylistEditor from "../PlaylistEditor/index.jsx";
 
 const defaultState = {
@@ -67,36 +68,11 @@ class Main extends Component {
             this.logError(error);
           }
 
+          const{currentlyPlaying} = data;
+
           return (
             <div className="page-container">
-              <div className="side-bar">
-                <nav>
-                  <div
-                    onClick={() => this.viewSwitch("Home")}
-                    className="side-bar-link"
-                  >
-                    Home
-                  </div>
-                  <div
-                    onClick={() => this.viewSwitch("Search")}
-                    className="side-bar-link"
-                  >
-                    Search
-                  </div>
-                  <div
-                    onClick={() => this.viewSwitch("Save Playlist")}
-                    className="side-bar-link"
-                  >
-                    Save Playlist
-                  </div>
-                  <div
-                    onClick={() => this.viewSwitch("Playlist Editor")}
-                    className="side-bar-link"
-                  >
-                    Edit All Playlists
-                  </div>
-                </nav>
-              </div>
+              <NavSidebar callback={this.viewSwitch} />
 
               <div
                 className={
@@ -110,8 +86,8 @@ class Main extends Component {
 
                 <div className="react-player">
                   <ReactPlayer
-                    url={data ? data.currentlyPlaying.currentSong : currentSong}
-                    playing={data ? data.currentlyPlaying.playing : false}
+                    url={currentlyPlaying ? currentlyPlaying.currentSong : currentSong}
+                    playing={currentlyPlaying ? currentlyPlaying.playing : false}
                     width="100%"
                     height="20%"
                     config={{
