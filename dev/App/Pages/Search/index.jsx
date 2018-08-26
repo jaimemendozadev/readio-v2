@@ -67,13 +67,17 @@ class Search extends Component {
     if (data) {
       const { searchSoundCloud } = data;
       return (
-        <SongView
-          PROP_MUTATION={ADD_TO_SONG_LIST}
-          songInput={searchSoundCloud}
-          callback={null}
-          assetType="playlist"
-          searchView={true}
-        />
+        <Mutation mutation={ADD_TO_SONG_LIST}>
+          {addToSongList => (
+            <SongView
+              PROP_MUTATION={addToSongList}
+              songInput={searchSoundCloud}
+              callback={null}
+              assetType="playlist"
+              searchView={true}
+            />
+          )}
+        </Mutation>
       );
     }
   };

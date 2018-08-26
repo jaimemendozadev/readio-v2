@@ -48,7 +48,7 @@ class PlaylistEditor extends Component {
       playlistToEdit: playlist,
       currentView: "Song View"
     });
-  }
+  };
 
   handleSubmit = (event, client, songListCount) => {
     event.preventDefault();
@@ -60,7 +60,6 @@ class PlaylistEditor extends Component {
           "Whoops! You can't enter a playlist name when you haven't selected a song!"
       });
     } else {
-
     }
   };
 
@@ -109,28 +108,26 @@ class PlaylistEditor extends Component {
   */
 
   renderCurrentView = (currentView, currentUser) => {
-    if(currentView == "Edit Playlist") {
+    if (currentView == "Edit Playlist") {
       return (
-        <PlaylistView 
+        <PlaylistView
           scrollView={false}
           propMutation={null}
           varObjKey={null}
           playlists={currentUser.playlists}
           callback={this.editPlaylist}
         />
-
-      )
+      );
     }
 
-    if(currentView == "Song View") {
-      return <h1>SongView to Render</h1>
+    if (currentView == "Song View") {
+      return <h1>SongView to Render</h1>;
     }
-    
-  }
+  };
 
   render() {
-    const{currentUser, currentlyPlaying} = this.props;
-    const{currentView} = this.state;
+    const { currentUser, currentlyPlaying } = this.props;
+    const { currentView } = this.state;
 
     return (
       <div className="playlist-editor">

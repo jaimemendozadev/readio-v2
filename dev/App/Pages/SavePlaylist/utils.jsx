@@ -1,4 +1,5 @@
 import React from "react";
+import { Mutation } from "react-apollo";
 import Spinner from "../../Components/Spinner.jsx";
 import SongView from "../SongView/index.jsx";
 import { DELETE_FROM_SONG_LIST } from "./graphql";
@@ -84,13 +85,17 @@ export const handlePlaylistEditorView = (
           <h2>Your current playlist name is: {data.songList.name}</h2>
         </div>
 
-        <SongView
-          PROP_MUTATION={DELETE_FROM_SONG_LIST}
-          songInput={data.songList.list}
-          callback={null}
-          assetType="trash"
-          searchView={false}
-        />
+        <Mutation mutation={DELETE_FROM_SONG_LIST}>
+          {deleteSongFromSongList => (
+            <SongView
+              PROP_MUTATION={deleteSongFromSongList}
+              songInput={data.songList.list}
+              callback={null}
+              assetType="trash"
+              searchView={false}
+            />
+          )}
+        </Mutation>
       </div>
     );
   }

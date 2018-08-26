@@ -7,7 +7,7 @@ import { prepSongObject } from "./utils.jsx";
 import { handleLoadMutation } from "./utils.jsx";
 import { renderIcon } from "./utils.jsx";
 
-const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
+const renderResults = (propMutation, songInput, callback, assetType) => {
   if (songInput.length == 0) {
     return (
       <div className="error-msg">
@@ -23,27 +23,26 @@ const renderResults = (PROP_MUTATION, songInput, callback, assetType) => {
     const asset = getAssetPath(assetType);
 
     return (
-      <Mutation key={result.id_user_id_identifier} mutation={PROP_MUTATION}>
-        {propMutation => (
-          <Mutation mutation={LOAD_SONG_IN_PLAYER}>
-            {loadSongInPlayer => (
-              <div className="song-item">
-                <div
-                  onClick={() =>
-                    loadSongInPlayer({ variables: { songArg: loadSong } })
-                  }
-                  className="song-image-container"
-                >
-                  <img src={result.artwork_url} />
-                  <div>{result.title}</div>
-                </div>
+      <Mutation
+        key={result.id_user_id_identifier}
+        mutation={LOAD_SONG_IN_PLAYER}
+      >
+        {loadSongInPlayer => (
+          <div className="song-item">
+            <div
+              onClick={() =>
+                loadSongInPlayer({ variables: { songArg: loadSong } })
+              }
+              className="song-image-container"
+            >
+              <img src={result.artwork_url} />
+              <div>{result.title}</div>
+            </div>
 
-                <div className="playlist-icon-container">
-                  {renderIcon(propMutation, assetType, newSong, asset)}
-                </div>
-              </div>
-            )}
-          </Mutation>
+            <div className="playlist-icon-container">
+              {renderIcon(propMutation, assetType, newSong, asset)}
+            </div>
+          </div>
         )}
       </Mutation>
     );
@@ -61,16 +60,18 @@ const SongView = ({
   callback,
   assetType,
   searchView
-}) => (
-  <div
-    className={
-      searchView == true
-        ? "search-song-view-container"
-        : "playlist-edit-save-view-container"
-    }
-  >
-    {renderResults(PROP_MUTATION, songInput, callback, assetType)}
-  </div>
-);
+}) => {
+  return (
+    <div
+      className={
+        searchView == true
+          ? "search-song-view-container"
+          : "playlist-edit-save-view-container"
+      }
+    >
+      {renderResults(PROP_MUTATION, songInput, callback, assetType)}
+    </div>
+  );
+};
 
 export default SongView;
