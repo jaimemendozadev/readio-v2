@@ -60,7 +60,7 @@ export const resolvers = {
     loadSongInPlayer: (_, { songArg }, { cache }) => {
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
 
-      console.log('oldState in loadSongInPlayer ', oldState)
+      console.log("oldState in loadSongInPlayer ", oldState);
 
       const currentlyPlaying = Object.assign(
         {},
@@ -118,10 +118,6 @@ export const resolvers = {
     }
   } // End Mutation Object
 };
-
-
-
-
 
 /*
   Notes

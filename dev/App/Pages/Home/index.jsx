@@ -17,7 +17,7 @@ class Home extends Component {
   saveFetchedUser = (getUser, client) => {
     const oldState = client.readQuery({ query: SAVE_USER_IN_CACHE });
 
-    const {currentUser} = oldState;
+    const { currentUser } = oldState;
 
     // Update newState key/values with getUser
     const newState = {};
@@ -27,14 +27,13 @@ class Home extends Component {
     newState.last_name = getUser.last_name;
     newState.playlists = getUser.playlists;
 
-
     // Spread oldState and update currentUser with newState
     const data = {
       ...oldState,
-      currentUser:  Object.assign({}, currentUser, newState)
+      currentUser: Object.assign({}, currentUser, newState)
     };
 
-    client.writeQuery({ query: SAVE_USER_IN_CACHE, data});
+    client.writeQuery({ query: SAVE_USER_IN_CACHE, data });
 
     console.log("client after saving getUser ", client);
   };
@@ -48,7 +47,14 @@ class Home extends Component {
       );
     }
 
-    return <PlaylistView playlists={playlists} />;
+    return (
+      <div>
+        <h1>
+          Your Current Playlists: Click on a playlist to load it in the player!
+        </h1>
+        <PlaylistView playlists={playlists} />
+      </div>
+    );
   };
 
   checkRenderStatus = (data, loading, error, client) => {

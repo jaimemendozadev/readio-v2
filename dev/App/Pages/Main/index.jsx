@@ -68,7 +68,7 @@ class Main extends Component {
             this.logError(error);
           }
 
-          const{currentlyPlaying} = data;
+          const { currentlyPlaying } = data;
 
           return (
             <div className="page-container">
@@ -83,11 +83,16 @@ class Main extends Component {
               >
                 {this.renderCurrentView()}
 
-
                 <div className="react-player">
                   <ReactPlayer
-                    url={currentlyPlaying ? currentlyPlaying.currentSong : currentSong}
-                    playing={currentlyPlaying ? currentlyPlaying.playing : false}
+                    url={
+                      currentlyPlaying
+                        ? currentlyPlaying.currentSong
+                        : currentSong
+                    }
+                    playing={
+                      currentlyPlaying ? currentlyPlaying.playing : false
+                    }
                     width="100%"
                     height="20%"
                     config={{
