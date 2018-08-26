@@ -99,7 +99,8 @@ export const resolvers = {
       const newState = {
         currentSong: newCurrentSong,
         playlistStack: localPlaylist,
-        selectedPlaylist: playlistArg,
+        storedPlaylist: [playlistArg],
+        userSelectedPlaylist: true,
         playing: true
       };
 
@@ -117,6 +118,10 @@ export const resolvers = {
     }
   } // End Mutation Object
 };
+
+
+
+
 
 /*
   Notes
@@ -137,11 +142,5 @@ export const resolvers = {
 
 
   -MUST RETURN SOMETHING. If schema doesn't specify returning anything, return null
-
-
-
-
-
-
 
 */

@@ -17,6 +17,7 @@ export const GET_CURRENT_SONG = gql`
       currentSong
       stack
       playlistStack
+      storedPlaylist
       userSelectedPlaylist
       playing
     }
