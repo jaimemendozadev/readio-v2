@@ -35,7 +35,7 @@ class Main extends Component {
     }
   };
 
-  renderCurrentView = () => {
+  renderCurrentView = currentlyPlaying => {
     const { currentView } = this.state;
 
     if (currentView == "Home") {
@@ -51,7 +51,7 @@ class Main extends Component {
     }
 
     if (currentView == "Playlist Editor") {
-      return <PlaylistEditor />;
+      return <PlaylistEditor currentlyPlaying={currentlyPlaying} />;
     }
 
     return null;
@@ -81,7 +81,7 @@ class Main extends Component {
                     : "main-content"
                 }
               >
-                {this.renderCurrentView()}
+                {this.renderCurrentView(currentlyPlaying)}
 
                 <div className="react-player">
                   <ReactPlayer

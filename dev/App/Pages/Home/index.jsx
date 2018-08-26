@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import { Query } from "react-apollo";
-import { GET_USER_INFO, SAVE_USER_IN_CACHE } from "./graphql";
+import { Query, Mutation } from "react-apollo";
+import {
+  GET_USER_INFO,
+  SAVE_USER_IN_CACHE,
+  LOAD_PLAYLIST_IN_CACHE
+} from "./graphql";
 import Spinner from "../../Components/Spinner.jsx";
 import PlaylistView from "../PlaylistView/index.jsx";
 
@@ -52,7 +56,16 @@ class Home extends Component {
         <h1>
           Your Current Playlists: Click on a playlist to load it in the player!
         </h1>
-        <PlaylistView playlists={playlists} />
+        <Mutation mutation={LOAD_PLAYLIST_IN_CACHE}>
+          {loadPlaylistInCache => (
+            <PlaylistView
+              propMutation={loadPlaylistInCache}
+              varObjKey={"playlistArg"}
+              playlists={playlists}
+              callback={null}
+            />
+          )}
+        </Mutation>
       </div>
     );
   };

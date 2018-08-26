@@ -6,6 +6,7 @@ export const GET_CURRENTLY_PLAYING_SONG = gql`
       currentSong
       stack
       playlistStack
+      storedPlaylist
       userSelectedPlaylist
       playing
     }
@@ -20,4 +21,5 @@ stuck in Loading spinner because selectedPlaylist
 keys were never specified in default state and
 query never requested any of the keys in 
 selectedPlaylist
+
 */

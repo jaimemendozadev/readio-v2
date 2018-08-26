@@ -10,12 +10,27 @@ const renderSongNames = songs => {
   );
 };
 
-const PlaylistCard = ({ propMutation, playlistInfo }) => {
+const mutateOrInvokeCB = (propMutation, varObjKey, callback, playlistInfo) => {
+  if (propMutation && varObjKey) {
+    const variables = {};
+    variables[varObjKey] = playlistInfo;
+
+    console.log('INVOKING MUTATION')
+
+    propMutation({ variables });
+  } else {
+    callback();
+  }
+};
+
+const PlaylistCard = ({ propMutation, varObjKey, callback, playlistInfo }) => {
   const { songs, name } = playlistInfo;
 
   return (
     <div
-      onClick={() => propMutation({ variables: { playlistArg: playlistInfo } })}
+      onClick={() =>
+        mutateOrInvokeCB(propMutation, varObjKey, callback, playlistInfo)
+      }
       className="playlist-wrapper"
     >
       <div className="playlistcard">

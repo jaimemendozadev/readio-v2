@@ -14,10 +14,12 @@ import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
 
 const defaultState = {
+  currentView: "Edit Playlist",
   playlistName: "Edit the playlist name",
   pageError: false,
   pageErrorMsg: "",
-  serverResponse: ""
+  serverResponse: "",
+  playlistOnDeck: {}
 };
 
 class PlaylistEditor extends Component {
@@ -149,10 +151,16 @@ class PlaylistEditor extends Component {
           </button>
         </div>
 
+        {console.log("this.props ", this.props)}
+
         {/* 
           Render <PlaylistView />
 
-          
+          //If you click on a Playlist, use <SonvView /> to render songs
+
+
+
+
 
 
         

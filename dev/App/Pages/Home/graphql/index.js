@@ -34,6 +34,12 @@ export const SAVE_USER_IN_CACHE = gql`
   }
 `;
 
+export const LOAD_PLAYLIST_IN_CACHE = gql`
+  mutation($playlistArg: LoadPlaylist!) {
+    loadPlaylistInCache(playlistArg: $playlistArg) @client
+  }
+`;
+
 /*
 Note:
 When querying nested resolvers, you MUST tell GraphQL
