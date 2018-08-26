@@ -22,6 +22,10 @@ body {
   100% {
     transform: rotate(360deg); } }
 
+.fixedScrollPlaylistView {
+  height: 60vh;
+  overflow: scroll; }
+
 .error-msg {
   font-size: 2em;
   margin-top: 2.5em; }
@@ -203,9 +207,7 @@ header {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2em;
-  justify-content: center;
-  height: 60vh;
-  overflow: scroll; }
+  justify-content: center; }
   .playlistview-container .playlistview-header {
     width: 100%;
     margin-bottom: 2em; }

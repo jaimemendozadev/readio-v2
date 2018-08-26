@@ -24,6 +24,11 @@ body {
   }
 }
 
+.fixedScrollPlaylistView {
+  height: 60vh;
+  overflow: scroll;
+}
+
 .error-msg {
   font-size: 2em;
   margin-top: 2.5em;

@@ -151,6 +151,7 @@ class PlaylistEditor extends Component {
         {console.log("this.props ", this.props)}
 
         <PlaylistView 
+          scrollView={false}
           propMutation={null}
           varObjKey={null}
           playlists={currentUser.playlists}

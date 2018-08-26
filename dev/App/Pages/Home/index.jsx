@@ -59,6 +59,7 @@ class Home extends Component {
         <Mutation mutation={LOAD_PLAYLIST_IN_CACHE}>
           {loadPlaylistInCache => (
             <PlaylistView
+              scrollView={true}
               propMutation={loadPlaylistInCache}
               varObjKey={"playlistArg"}
               playlists={playlists}
