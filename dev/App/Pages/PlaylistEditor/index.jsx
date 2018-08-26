@@ -8,6 +8,7 @@ import { GET_USER_ID } from "./graphql";
 import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
 import PlaylistView from "../PlaylistView/index.jsx";
+import SongView from "../SongView/index.jsx";
 
 const defaultState = {
   currentView: "Edit Playlist",
@@ -121,7 +122,15 @@ class PlaylistEditor extends Component {
     }
 
     if (currentView == "Song View") {
-      return <h1>SongView to Render</h1>;
+      return (
+        <SongView
+          PROP_MUTATION={null}
+          songInput={null}
+          callback={null}
+          assetType={null}
+          searchView={null}
+        />
+      );
     }
   };
 
