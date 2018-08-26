@@ -15,7 +15,7 @@ const defaultState = {
   pageError: false,
   pageErrorMsg: "",
   serverResponse: "",
-  playlistOnDeck: {}
+  playlistToEdit: {}
 };
 
 class PlaylistEditor extends Component {
@@ -43,6 +43,13 @@ class PlaylistEditor extends Component {
     });
   };
 
+  editPlaylist = playlist => {
+    this.setState({
+      playlistToEdit: playlist,
+      currentView: "Song View"
+    });
+  }
+
   handleSubmit = (event, client, songListCount) => {
     event.preventDefault();
 
@@ -53,19 +60,7 @@ class PlaylistEditor extends Component {
           "Whoops! You can't enter a playlist name when you haven't selected a song!"
       });
     } else {
-      /*
-      const playlistName = this.state.playlistName;
 
-      const oldState = client.readQuery({ query: GET_SONG_LIST });
-
-      let newState = { ...oldState.songList };
-
-      newState.name = playlistName;
-
-      newState = Object.assign({}, oldState, { songList: newState });
-
-      client.writeQuery({ query: GET_SONG_LIST, data: newState });
-      */
     }
   };
 
@@ -113,8 +108,30 @@ class PlaylistEditor extends Component {
 
   */
 
+  renderCurrentView = (currentView, currentUser) => {
+    if(currentView == "Edit Playlist") {
+      return (
+        <PlaylistView 
+          scrollView={false}
+          propMutation={null}
+          varObjKey={null}
+          playlists={currentUser.playlists}
+          callback={this.editPlaylist}
+        />
+
+      )
+    }
+
+    if(currentView == "Song View") {
+      return <h1>SongView to Render</h1>
+    }
+    
+  }
+
   render() {
-    const{currentUser, currentlyPlaying} = this.props
+    const{currentUser, currentlyPlaying} = this.props;
+    const{currentView} = this.state;
+
     return (
       <div className="playlist-editor">
         <div className="playlist-editor-header-container">
@@ -148,15 +165,10 @@ class PlaylistEditor extends Component {
           </button>
         </div>
 
-        {console.log("this.props ", this.props)}
+        {console.log("this.props inside PlaylistEditor ", this.props)}
+        {console.log("this.state inside PlaylistEditor ", this.state)}
 
-        <PlaylistView 
-          scrollView={false}
-          propMutation={null}
-          varObjKey={null}
-          playlists={currentUser.playlists}
-          callback={null}
-        />
+        {this.renderCurrentView(currentView, currentUser)}
 
         {/* 
           Have access to 
@@ -165,7 +177,7 @@ class PlaylistEditor extends Component {
 
           Render <PlaylistView />
 
-          //If you click on a Playlist, use <SonvView /> to render songs
+          //If you click on a Playlist, use <SongView /> to render songs
         
         */}
       </div>
