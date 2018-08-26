@@ -114,6 +114,7 @@ class PlaylistEditor extends Component {
   */
 
   render() {
+    const{currentUser, currentlyPlaying} = this.props
     return (
       <div className="playlist-editor">
         <div className="playlist-editor-header-container">
@@ -149,20 +150,21 @@ class PlaylistEditor extends Component {
 
         {console.log("this.props ", this.props)}
 
-        {/* <PlaylistView 
+        <PlaylistView 
           propMutation={null}
           varObjKey={null}
-          playlists={null}
+          playlists={currentUser.playlists}
           callback={null}
-        /> */}
+        />
 
         {/* 
+          Have access to 
+           -currentUser
+           -currentlyPlaying
+
           Render <PlaylistView />
 
           //If you click on a Playlist, use <SonvView /> to render songs
-
-          
-
         
         */}
       </div>

@@ -57,7 +57,7 @@ class Main extends Component {
           {data => {
             return (
               <PlaylistEditor
-                propQuery={data}
+                currentUser={data.currentUser}
                 currentlyPlaying={currentlyPlaying}
               />
             );
