@@ -40,12 +40,6 @@ export const LOAD_PLAYLIST_IN_CACHE = gql`
   }
 `;
 
-
-export const GET_LOCAL_USER_INFO = gql `
-
-
-`
-
 /*
 Note:
 When querying nested resolvers, you MUST tell GraphQL

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { GET_CURRENTLY_PLAYING_SONG } from "./graphql";
+import { GET_CURRENTLY_PLAYING_SONG, GET_LOCAL_USER_INFO } from "./graphql";
 import ReactPlayer from "react-player";
 import Home from "../Home/index.jsx";
 import Search from "../Search/index.jsx";
 import SavePlaylist from "../SavePlaylist/index.jsx";
 import NavSidebar from "./NavSidebar.jsx";
 import PlaylistEditor from "../PlaylistEditor/index.jsx";
+import CustomQuery from "../../Components/CustomQuery.jsx";
 
 const defaultState = {
   currentUser: {},
@@ -51,7 +52,18 @@ class Main extends Component {
     }
 
     if (currentView == "Playlist Editor") {
-      return <PlaylistEditor currentlyPlaying={currentlyPlaying} />;
+      return (
+        <CustomQuery query={GET_LOCAL_USER_INFO}>
+          {data => {
+            return (
+              <PlaylistEditor
+                propQuery={data}
+                currentlyPlaying={currentlyPlaying}
+              />
+            );
+          }}
+        </CustomQuery>
+      );
     }
 
     return null;

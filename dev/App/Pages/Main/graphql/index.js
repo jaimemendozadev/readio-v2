@@ -13,6 +13,18 @@ export const GET_CURRENTLY_PLAYING_SONG = gql`
   }
 `;
 
+export const GET_LOCAL_USER_INFO = gql`
+  query GetLocalUserInfo {
+    currentUser @client {
+      id
+      first_name
+      last_name
+      email
+      playlists
+    }
+  }
+`;
+
 /*
 Note:
 selectedPlaylist was originally an empty {} and 
