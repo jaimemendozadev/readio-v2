@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { ApolloConsumer, Query, Mutation } from "react-apollo";
 import {
   escapeHtml,
   editSongList,
   handlePlaylistEditorView
 } from "./utils.jsx";
 import {
-  GET_SELECTED_PLAYLIST,
-  SAVE_SONGLIST_TO_DB,
   GET_USER_ID
 } from "./graphql";
 import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
+import PlaylistView from "../PlaylistView/index.jsx";
+
+
 
 const defaultState = {
   currentView: "Edit Playlist",
@@ -153,17 +153,18 @@ class PlaylistEditor extends Component {
 
         {console.log("this.props ", this.props)}
 
+        <PlaylistView 
+          propMutation={}
+          varObjKey={}
+          playlists={}
+          callback={}
+        />
+
         {/* 
           Render <PlaylistView />
 
           //If you click on a Playlist, use <SonvView /> to render songs
 
-
-
-
-
-
-        
         
         */}
       </div>

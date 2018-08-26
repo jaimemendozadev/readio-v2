@@ -15,8 +15,6 @@ const mutateOrInvokeCB = (propMutation, varObjKey, callback, playlistInfo) => {
     const variables = {};
     variables[varObjKey] = playlistInfo;
 
-    console.log('INVOKING MUTATION')
-
     propMutation({ variables });
   } else {
     callback();
