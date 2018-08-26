@@ -30,6 +30,12 @@
 }
 
 
+@mixin fixedScrollPlaylistView {
+  height: 60vh;
+  overflow: scroll;
+}
+
+
 @mixin playlistCardStyling {
   height: 250px;
   width: 250px;

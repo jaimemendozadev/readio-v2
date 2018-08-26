@@ -1,12 +1,14 @@
 @import "mixins";
+// @fixedScrollPlaylistView crops playlist view in Home and PlaylistEditor view
+
 
 .playlistview-container {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2em;
   justify-content: center;
-  height: 60vh;
-  overflow: scroll;
+
+  @include fixedScrollPlaylistView; 
 
   .playlistview-header {
     width: 100%;
