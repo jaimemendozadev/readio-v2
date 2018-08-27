@@ -18,7 +18,7 @@
 }
 
 .playlist-ctrl-btn-container {
-  @include buttonContainerStyling;
+  @include buttonContainerStyling(1.5em);
 
   .playlist-ctrl-btn-header {
     width: 50%;

@@ -29,9 +29,9 @@
   }
 }
 
-@mixin buttonContainerStyling {
+@mixin buttonContainerStyling($marginTop: 5em) {
   height: 20%;
-  margin-top: 5em;
+  margin-top: $marginTop;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

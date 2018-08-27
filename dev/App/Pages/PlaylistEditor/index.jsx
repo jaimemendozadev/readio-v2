@@ -168,7 +168,7 @@ class PlaylistEditor extends Component {
             </h1>
           </div>
 
-          {this.renderControls()}
+          {this.renderControls(currentView)}
         </div>
 
         {console.log("this.props inside PlaylistEditor ", this.props)}
