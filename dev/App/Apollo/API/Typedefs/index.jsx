@@ -13,7 +13,7 @@ export const typeDefs = `
 
   input CreatePlaylist {
     name: String
-    list: [Song]
+    songs: [Song]
   }
 
   input SongInput {
@@ -28,6 +28,11 @@ export const typeDefs = `
     id: String!
     name: String!
     songs: [SongInput]!
+  }
+
+  input UpdatePlaylist {
+    name: String
+    songs: [SongInput]! 
   }
 
   type Mutation {

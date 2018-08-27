@@ -78,7 +78,7 @@ class SavePlaylist extends Component {
     // sanitize the playlist BEFORE submitting to DB
     const input = {
       name: escapeHtml(songList.name),
-      list: filteredList
+      songs: filteredList
     };
 
     const userID = currentUser.id;

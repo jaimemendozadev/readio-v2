@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import {Mutation} from "react-apollo";
 import {
   setLocalState,
   escapeHtml,
   editSongList,
-  handlePlaylistEditorView
+  handlePlaylistEditorView,
+  updateLocalPlaylisit
 } from "./utils.jsx";
-import { GET_USER_ID } from "./graphql";
+import { GET_USER_ID, UPDATE_PLAYLIST } from "./graphql";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";
 import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
@@ -60,60 +62,31 @@ class PlaylistEditor extends Component {
   };
 
   deleteSongFromPlaylist = playlistSong => {
-    const { playlistSongs } = this.state;
 
-    const { id_user_id_identifier } = playlistSong;
-
-    const filteredList = playlistSongs.filter(
-      song => song.id_user_id_identifier != id_user_id_identifier
-    );
-
-    this.setState({
-      playlistSongs: filteredList
-    });
   };
 
-  saveToDB = async (saveToDBMutation, client) => {
-    const { songList } = client.readQuery({ query: GET_SONG_LIST });
-    const { currentUser } = client.readQuery({ query: GET_USER_ID });
+  performUpdate = async (saveToDBMutation, client) => {
+    //delete songs from playlist
+    //get update playlist
+    //update cache locally
+    //display message to UI?
 
-    const filteredList = editSongList(songList.list);
 
-    const input = {
-      name: escapeHtml(songList.name),
-      list: filteredList
-    };
-
-    const userID = currentUser.id;
-
-    const { data } = await saveToDBMutation({
-      variables: { userID, input }
-    });
-
-    const { createPlaylist } = data;
-
-    if (!createPlaylist.error) {
-      const defaultSongList = {
-        songList: Object.assign({}, songList, { name: "untitled", list: [] })
-      };
-
-      client.writeQuery({ query: GET_SONG_LIST, data: defaultSongList });
-      console.log("cache after resetting ", client);
-    }
   };
 
   deleteFromDB = () => {};
 
-  renderControls = currentView => {
+  renderControls = (currentView, updatePlaylist) => {
     const { textInput } = this.state;
 
     if (currentView == "Song View") {
       return (
         <PlaylistEditorControls
           textInput={textInput}
-          saveToDB={null}
+          performUpdate={null}
           deleteFromDB={null}
           handleChange={this.handleChange}
+          updatePlaylist={updatePlaylist}
         />
       );
     }
@@ -160,22 +133,26 @@ class PlaylistEditor extends Component {
     const { currentView, textInput } = this.state;
 
     return (
-      <div className="playlist-editor">
-        <div className="playlist-editor-header-container">
-          <div>
-            <h1>
-              Click on a playlist to update or delete it from your account!
-            </h1>
+      <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylisit}>
+        {updatePlaylist => (
+          <div className="playlist-editor">
+            <div className="playlist-editor-header-container">
+              <div>
+                <h1>
+                  Click on a playlist to update or delete it from your account!
+                </h1>
+              </div>
+
+              {this.renderControls(currentView, updatePlaylist )}
+            </div>
+
+            {console.log("this.props inside PlaylistEditor ", this.props)}
+            {console.log("this.state inside PlaylistEditor ", this.state)}
+
+            {this.renderCurrentView(currentView, currentUser)}
           </div>
-
-          {this.renderControls(currentView)}
-        </div>
-
-        {console.log("this.props inside PlaylistEditor ", this.props)}
-        {console.log("this.state inside PlaylistEditor ", this.state)}
-
-        {this.renderCurrentView(currentView, currentUser)}
-      </div>
+        )}
+      </Mutation>
     );
   }
 }

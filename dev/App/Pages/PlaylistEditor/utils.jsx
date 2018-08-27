@@ -110,3 +110,10 @@ export const handlePlaylistEditorView = (
     );
   }
 };
+
+
+export const updateLocalPlaylisit = (cache, data) => {
+
+  console.log('cache is ', cache)
+  console.log("data after update is ", data)
+}

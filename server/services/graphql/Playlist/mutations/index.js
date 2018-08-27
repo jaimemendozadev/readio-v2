@@ -5,7 +5,7 @@ const createPlaylist = async (_, { userID, input }, { models }) => {
     // Save playlist in DB
     const newPlaylist = await new Playlist({
       name: input.name,
-      songs: input.list
+      songs: input.songs
     });
     newPlaylist.save();
 
@@ -46,7 +46,10 @@ const addSongToPlaylist = async (_, { playlistID, input }) => {
   return updatedPlaylist;
 };
 
-const deleteSongFromPlaylist = async (_, { playlistID, songTitle }) => {
+const updatePlaylist = async (
+  _,
+  { playlistID, updatedList }
+) => {
   let deletedSong = await Playlist.findById(playlistID, (err, playlist) => {
     if (err) {
       console.log("err inside deleteSongFromPlaylist resolver ", err);
@@ -77,5 +80,5 @@ const deleteSongFromPlaylist = async (_, { playlistID, songTitle }) => {
 module.exports = {
   createPlaylist,
   addSongToPlaylist,
-  deleteSongFromPlaylist
+  updatePlaylist
 };

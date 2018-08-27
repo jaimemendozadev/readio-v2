@@ -61,7 +61,7 @@ const SongView = ({
   assetType,
   searchView
 }) => {
-  console.log('searchView inside SongView ', searchView)
+  console.log("searchView inside SongView ", searchView);
   return (
     <div
       className={
