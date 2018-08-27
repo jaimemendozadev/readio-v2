@@ -46,10 +46,7 @@ const addSongToPlaylist = async (_, { playlistID, input }) => {
   return updatedPlaylist;
 };
 
-const updatePlaylist = async (
-  _,
-  { playlistID, updatedList }
-) => {
+const updatePlaylist = async (_, { playlistID, updatedList }) => {
   let deletedSong = await Playlist.findById(playlistID, (err, playlist) => {
     if (err) {
       console.log("err inside deleteSongFromPlaylist resolver ", err);

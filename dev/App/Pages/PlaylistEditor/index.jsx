@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Mutation} from "react-apollo";
+import { Mutation } from "react-apollo";
 import {
   setLocalState,
   escapeHtml,
@@ -32,18 +32,18 @@ class PlaylistEditor extends Component {
     this.state = defaultState;
   }
 
-  clearInput = () => {
-    const { playlistName } = this.state;
-    if (playlistName.length) {
+  clearFormInput = () => {
+    const { textInput } = this.state;
+    if (textInput.length) {
       this.setState({
-        playlistName: "",
+        textInput: "",
         pageError: false,
         pageErrorMsg: ""
       });
     }
   };
 
-  handleChange = event => {
+  handleNameChange = event => {
     event.preventDefault();
 
     this.setState({
@@ -52,11 +52,17 @@ class PlaylistEditor extends Component {
   };
 
   selectPlaylistToEdit = playlist => {
+    const playlistDBPayload = {
+      name: playlist.name,
+      songs: playlist.songs
+    };
+
     this.setState({
       playlistToEdit: playlist,
       playlistID: playlist.id,
       playlistName: playlist.name,
       playlistSongs: playlist.songs,
+      playlistDBPayload,
       currentView: "Song View"
     });
   };
@@ -75,47 +81,31 @@ class PlaylistEditor extends Component {
     });
   };
 
-  performUpdate = async (saveToDBMutation, client) => {
-    //delete songs from playlist
-    //get update playlist
-    //update cache locally
-    //display message to UI?
+  performDBUpdate = async saveToDBMutation => {
+    const { playlistID, playlistDBPayload } = this.state;
 
+    const result = await saveToDBMutation({
+      variables: { playlistID, updatedList: playlistDBPayload }
+    });
 
-    const UpdatedPlaylist = {
-        playlistID: null,
-        updatedList: null,
-    }
-    
-    //await saveToDBMutation({variables: {}})
-
-    /*
-
-    UpdatePlaylist($playlistID: ID!, $updatedList: UpdatePlaylist!)
-
-
-    input UpdatePlaylist {
-      name: String
-      songs: [SongInput]! 
-    }
-    */
-
-
+    console.log("result from DB after updating playlist ", result);
   };
 
   deleteFromDB = () => {};
 
   renderControls = (currentView, updatePlaylist) => {
-    const { textInput } = this.state;
+    const { textInput, playlistName } = this.state;
 
     if (currentView == "Song View") {
       return (
         <PlaylistEditorControls
           textInput={textInput}
-          performUpdate={null}
+          playlistName={playlistName}
+          performDBUpdate={this.performDBUpdate}
           deleteFromDB={null}
-          handleChange={this.handleChange}
-          updatePlaylist={updatePlaylist}
+          handleNameChange={this.handleNameChange}
+          clearFormInput={this.clearFormInput}
+          updateMutation={updatePlaylist}
         />
       );
     }
@@ -172,7 +162,7 @@ class PlaylistEditor extends Component {
                 </h1>
               </div>
 
-              {this.renderControls(currentView, updatePlaylist )}
+              {this.renderControls(currentView, updatePlaylist)}
             </div>
 
             {console.log("this.props inside PlaylistEditor ", this.props)}

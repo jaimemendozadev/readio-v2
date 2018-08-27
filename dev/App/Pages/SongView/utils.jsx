@@ -2,7 +2,6 @@ import React from "react";
 import Playlist from "./assets/playlist.png";
 import Trash from "./assets/trash.png";
 
-
 export const getAssetPath = assetType => {
   if (assetType == "playlist") {
     return Playlist;
@@ -53,7 +52,6 @@ export const renderIcon = (
     />
   );
 };
-
 
 const invokeMutation = (propMutation, newSong, assetType) => {
   const { id_user_id_identifier } = newSong;
