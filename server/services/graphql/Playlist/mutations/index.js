@@ -28,7 +28,9 @@ const createPlaylist = async (_, { userID, input }, { models }) => {
   }
 };
 
-const addSongToPlaylist = async (_, { playlistID, input }) => {
+const addSongToPlaylist = async (_, { playlistID, input }, { models }) => {
+  const {Playlist} = models;
+
   const updatedPlaylist = await Playlist.findById(
     playlistID,
     (err, playlist) => {
@@ -46,7 +48,12 @@ const addSongToPlaylist = async (_, { playlistID, input }) => {
   return updatedPlaylist;
 };
 
-const updatePlaylist = async (_, { playlistID, updatedList }) => {
+const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
+  const {Playlist} = models;
+  
+  console.log('playlistID ', playlistID)
+  console.log('updatedList ', updatedList)
+  /*
   let deletedSong = await Playlist.findById(playlistID, (err, playlist) => {
     if (err) {
       console.log("err inside deleteSongFromPlaylist resolver ", err);
@@ -71,7 +78,10 @@ const updatePlaylist = async (_, { playlistID, updatedList }) => {
 
   deletedSong = deletedSong.songs.pop();
 
-  return deletedSong;
+  */
+  return {error: false, message: "Perform successful deletion!"};
+
+
 };
 
 module.exports = {

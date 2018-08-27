@@ -83,12 +83,16 @@ class PlaylistEditor extends Component {
 
   performDBUpdate = async saveToDBMutation => {
     const { playlistID, playlistDBPayload } = this.state;
+    // console.log('playlistDBPayload ', playlistDBPayload)
+    
 
     const result = await saveToDBMutation({
       variables: { playlistID, updatedList: playlistDBPayload }
     });
 
     console.log("result from DB after updating playlist ", result);
+
+    
   };
 
   deleteFromDB = () => {};
