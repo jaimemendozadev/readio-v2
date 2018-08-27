@@ -1,20 +1,74 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, {Component} from "react";
+import { Link, Redirect } from "react-router-dom";
 
-const LandingPage = () => (
-  <div>
-    <header>
-      <div className="main-header">
-        <h1>Read.io - Personalized Music Just For You</h1>
+const defaultState = {
+  authenticated: false,
+}
 
-        <div className="btn-container">
-          <Link className="link-btn" to="/login">
-            Sign Up / Login
-          </Link>
-        </div>
+
+class LandingPage extends Component {
+  constructor(props){
+    super(props);
+    this.state = defaultState;
+
+  }
+  
+  checkForToken = () => {
+    let token = localStorage.getItem("token");
+
+    if (token) {
+      this.setState({
+        authenticated: true
+      });
+    } 
+  };
+  
+
+  componentDidMount() {
+    this.checkForToken();
+  }
+
+  render() {
+    const {authenticated} = this.state
+    return (
+      <div>
+        <header>
+          <div className="main-header">
+            <h1>Read.io - Personalized Music Just For You</h1>
+
+            {authenticated ? <Redirect to={{ pathname: "/main" }} /> : ''}
+    
+            <div className="btn-container">
+              <Link className="link-btn" to="/login">
+                Sign Up / Login
+              </Link>
+            </div>
+          </div>
+        </header>
       </div>
-    </header>
-  </div>
-);
+    )
+  }
+} 
 
 export default LandingPage;
+
+/*
+
+
+checkForToken = () => {
+    let token = localStorage.getItem("token");
+
+    if (token) {
+      this.setState({
+        authenticated: true,
+        checkingAuthentication: false
+      });
+    } else {
+      //At this point, the token was never set, redirect to login
+      this.setState({
+        checkingAuthentication: false
+      });
+    }
+  };
+
+  */
