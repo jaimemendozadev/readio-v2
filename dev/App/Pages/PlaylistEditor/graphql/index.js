@@ -10,7 +10,7 @@ export const GET_USER_ID = gql`
 `;
 
 export const UPDATE_PLAYLIST = gql`
-  mutation UpdatePlaylist($playlistID: ID!, $updatedList: [String]!) {
+  mutation UpdatePlaylist($playlistID: ID!, $updatedList: UpdatePlaylist!) {
     UpdatePlaylist(
       playlistID: $playlistID
       updatedList: $updatedList

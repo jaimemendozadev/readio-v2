@@ -2,7 +2,7 @@ import React from "react";
 import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
 
-const PlaylistEditorControls = props => {
+const PlaylistEditorControls = ({textInput, performUpdate, deleteFromDB, handleChange, updatePlaylist}) => {
   return (
     <div>
       <h2>Your current playlist name is: </h2>
@@ -15,9 +15,9 @@ const PlaylistEditorControls = props => {
           <h1>Remove a song and update, or delete the playlist!</h1>
         </div>
 
-        <button disabled={true} onClick={() => null}>
+        <button disabled={true} onClick={() => performUpdate()}>
           <img src={SaveIcon} />
-          Save
+          Update
         </button>
         <button disabled={true} onClick={() => null}>
           <img src={DeleteIcon} />

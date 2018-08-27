@@ -62,7 +62,17 @@ class PlaylistEditor extends Component {
   };
 
   deleteSongFromPlaylist = playlistSong => {
+    const { playlistSongs } = this.state;
 
+    const { id_user_id_identifier } = playlistSong;
+
+    const filteredList = playlistSongs.filter(
+      song => song.id_user_id_identifier != id_user_id_identifier
+    );
+
+    this.setState({
+      playlistSongs: filteredList
+    });
   };
 
   performUpdate = async (saveToDBMutation, client) => {
@@ -70,6 +80,25 @@ class PlaylistEditor extends Component {
     //get update playlist
     //update cache locally
     //display message to UI?
+
+
+    const UpdatedPlaylist = {
+        playlistID: null,
+        updatedList: null,
+    }
+    
+    //await saveToDBMutation({variables: {}})
+
+    /*
+
+    UpdatePlaylist($playlistID: ID!, $updatedList: UpdatePlaylist!)
+
+
+    input UpdatePlaylist {
+      name: String
+      songs: [SongInput]! 
+    }
+    */
 
 
   };
