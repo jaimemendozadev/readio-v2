@@ -8,6 +8,23 @@
   }
 }
 
-.playlist-edit-save-view-container {
-  margin-bottom: 4em;
+.playlist-ctrl-btn-header {
+  margin-top: 1em;
+  height: 20%;
+
+  input {
+    @include inputStyling;
+  }
+}
+
+.playlist-ctrl-btn-container {
+  @include buttonContainerStyling;
+
+  .playlist-ctrl-btn-header {
+    width: 50%;
+  }
+
+  button {
+    @include playlistButtonStyling;
+  }
 }

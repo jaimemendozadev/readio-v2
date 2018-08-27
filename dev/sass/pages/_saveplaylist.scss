@@ -28,11 +28,7 @@
 }
 
 .save-playlist-btn-container {
-  height: 20%;
-  margin-top: 5em;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  @include buttonContainerStyling;
 
   .save-playlist-btn-header {
     width: 50%;
@@ -45,8 +41,6 @@
 }
 
 
-
-
 .playlist-songs-container {
 
   margin-top: 5em;  // Play around with margin-top
@@ -56,10 +50,6 @@
     margin-bottom: 2em;
   }
 
-}
-
-.playlist-edit-save-view-container {
-  margin-bottom: 4em;
 }
 
 

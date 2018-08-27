@@ -26,6 +26,9 @@ body {
   height: 60vh;
   overflow: scroll; }
 
+.playlist-edit-save-view-container {
+  margin-bottom: 4em; }
+
 .error-msg {
   font-size: 2em;
   margin-top: 2.5em; }
@@ -144,8 +147,40 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
-.playlist-edit-save-view-container {
-  margin-bottom: 4em; }
+.playlist-ctrl-btn-header {
+  margin-top: 1em;
+  height: 20%; }
+  .playlist-ctrl-btn-header input {
+    height: 12vh;
+    width: 95%;
+    border: 1px solid white;
+    font-size: 2.5em;
+    padding-left: .3em; }
+
+.playlist-ctrl-btn-container {
+  height: 20%;
+  margin-top: 5em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; }
+  .playlist-ctrl-btn-container .playlist-ctrl-btn-header {
+    width: 50%; }
+  .playlist-ctrl-btn-container button {
+    border-radius: 25px;
+    border-color: #87546f;
+    width: 180px;
+    margin-right: 1.5em;
+    height: 55px;
+    background-color: #87546f;
+    color: white;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .playlist-ctrl-btn-container button img {
+      width: 30px;
+      height: 30px;
+      margin-right: 5px; }
 
 .save-playlist-editor-main {
   min-height: 150vh;
@@ -199,9 +234,6 @@ header {
   height: 40%; }
   .playlist-songs-container .playlist-name-container {
     margin-bottom: 2em; }
-
-.playlist-edit-save-view-container {
-  margin-bottom: 4em; }
 
 .playlistview-container {
   display: flex;

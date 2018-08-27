@@ -133,16 +133,13 @@ class PlaylistEditor extends Component {
       const { playlistSongs } = this.state;
 
       return (
-        <div>
-          <PlaylistEditorControls />
-          <SongView
-            PROP_MUTATION={null}
-            songInput={playlistSongs}
-            callback={this.deleteSongFromPlaylist}
-            assetType={"trash"}
-            searchView={null}
-          />
-        </div>
+        <SongView
+          PROP_MUTATION={null}
+          songInput={playlistSongs}
+          callback={this.deleteSongFromPlaylist}
+          assetType={"trash"}
+          searchView={null}
+        />
       );
     }
   };
@@ -166,17 +163,9 @@ class PlaylistEditor extends Component {
             <h1>
               Click on a playlist to update or delete it from your account!
             </h1>
-            <h2>Click on a song to load it into the player!</h2>
           </div>
 
-          <form onSubmit={event => null}>
-            <input
-              onClick={this.clearInput}
-              onChange={this.handleChange}
-              type="text"
-              value={this.state.playlistName}
-            />
-          </form>
+          {currentView == "Song View" ? <PlaylistEditorControls /> : ""}
         </div>
 
         {console.log("this.props inside PlaylistEditor ", this.props)}
