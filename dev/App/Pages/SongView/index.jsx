@@ -61,12 +61,13 @@ const SongView = ({
   assetType,
   searchView
 }) => {
+  console.log('searchView inside SongView ', searchView)
   return (
     <div
       className={
         searchView == true
-          ? "search-song-view-container"
-          : "playlist-edit-prevent-overflow"
+          ? "prevent-search-overflow"
+          : "prevent-playlist-editor-overflow"
       }
     >
       {renderResults(PROP_MUTATION, songInput, callback, assetType)}

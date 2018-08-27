@@ -46,7 +46,9 @@
   background-color: rgba(#E84F89, .9); // Change color?
 }
 
-@mixin preventResultsOverflow {
-  height: 45vh;
+
+// preventResultsOverflow prevents song item results from pushing React player to bottom of page
+@mixin prevent-overflow-container($height: 45vh) {
+  height: $height;
   overflow: scroll;
 }

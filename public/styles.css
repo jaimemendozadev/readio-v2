@@ -138,6 +138,10 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
+.prevent-search-overflow {
+  height: 45vh;
+  overflow: scroll; }
+
 .playlist-editor {
   margin-top: 1em; }
   .playlist-editor input {
@@ -182,8 +186,8 @@ header {
       height: 30px;
       margin-right: 5px; }
 
-.playlist-edit-prevent-overflow {
-  height: 45vh;
+.prevent-playlist-editor-overflow {
+  height: 60vh;
   overflow: scroll; }
 
 .save-playlist-editor-main {
@@ -297,10 +301,6 @@ makes the playlist text appear in the front of the card. Used overflow:hidden
 as a compromise.
 
 */
-.search-song-view-container {
-  height: 45vh;
-  overflow: scroll; }
-
 .song-item {
   display: flex;
   justify-content: space-between;

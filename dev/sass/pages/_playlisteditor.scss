@@ -29,6 +29,6 @@
   }
 }
 
-.playlist-edit-prevent-overflow {
-  @include preventResultsOverflow;
+.prevent-playlist-editor-overflow {
+  @include prevent-overflow-container(60vh);
 }

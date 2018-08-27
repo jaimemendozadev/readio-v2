@@ -7,3 +7,7 @@
     @include inputStyling;
   }
 }
+
+.prevent-search-overflow {
+  @include prevent-overflow-container;
+}

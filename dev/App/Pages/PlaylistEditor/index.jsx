@@ -141,7 +141,7 @@ class PlaylistEditor extends Component {
           songInput={playlistSongs}
           callback={this.deleteSongFromPlaylist}
           assetType={"trash"}
-          searchView={null}
+          searchView={false}
         />
       );
     }
