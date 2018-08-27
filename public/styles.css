@@ -182,6 +182,10 @@ header {
       height: 30px;
       margin-right: 5px; }
 
+.playlist-edit-prevent-overflow {
+  height: 45vh;
+  overflow: scroll; }
+
 .save-playlist-editor-main {
   min-height: 150vh;
   flex: 1;

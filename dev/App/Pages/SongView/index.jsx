@@ -66,7 +66,7 @@ const SongView = ({
       className={
         searchView == true
           ? "search-song-view-container"
-          : "playlist-edit-save-view-container"
+          : "playlist-edit-prevent-overflow"
       }
     >
       {renderResults(PROP_MUTATION, songInput, callback, assetType)}

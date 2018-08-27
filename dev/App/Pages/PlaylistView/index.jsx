@@ -22,7 +22,7 @@ const PlaylistView = ({
 }) => (
   <div
     className={`playlistview-container ${
-      scrollView ? `fixedScrollPlaylistView` : ""
+      scrollView == true ? `preventResultsOverflow` : ""
     }`}
   >
     {console.log("playlists inside PlaylistViewer ", playlists)}

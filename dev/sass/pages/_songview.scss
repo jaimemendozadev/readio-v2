@@ -1,7 +1,8 @@
-// Prevents song item results from pushing React player to bottom of page
+@import "mixins";
+
+// preventResultsOverflow prevents song item results from pushing React player to bottom of page
 .search-song-view-container {
-  height: 45vh;
-  overflow: scroll;
+  @include preventResultsOverflow;
 }
 
 .song-item {

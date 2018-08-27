@@ -28,3 +28,7 @@
     @include playlistButtonStyling;
   }
 }
+
+.playlist-edit-prevent-overflow {
+  @include preventResultsOverflow;
+}

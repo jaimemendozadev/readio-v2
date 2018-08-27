@@ -45,3 +45,8 @@
   backface-visibility: hidden;
   background-color: rgba(#E84F89, .9); // Change color?
 }
+
+@mixin preventResultsOverflow {
+  height: 45vh;
+  overflow: scroll;
+}

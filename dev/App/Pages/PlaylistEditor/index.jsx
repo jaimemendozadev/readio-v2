@@ -12,7 +12,8 @@ import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
 
 const defaultState = {
   currentView: "Edit Playlist",
-  playlistName: "Edit the playlist name",
+  playlistName: "",
+  textInput: "",
   pageError: false,
   pageErrorMsg: "",
   serverResponse: "",
@@ -44,7 +45,7 @@ class PlaylistEditor extends Component {
     event.preventDefault();
 
     this.setState({
-      playlistName: event.target.value
+      textInput: event.target.value
     });
   };
 
@@ -70,19 +71,6 @@ class PlaylistEditor extends Component {
     this.setState({
       playlistSongs: filteredList
     });
-  };
-
-  handleSubmit = (event, client, songListCount) => {
-    event.preventDefault();
-
-    if (songListCount == 0) {
-      this.setState({
-        pageError: true,
-        pageErrorMsg:
-          "Whoops! You can't enter a playlist name when you haven't selected a song!"
-      });
-    } else {
-    }
   };
 
   saveToDB = async (saveToDBMutation, client) => {
@@ -116,11 +104,26 @@ class PlaylistEditor extends Component {
 
   deleteFromDB = () => {};
 
+  renderControls = currentView => {
+    const { textInput } = this.state;
+
+    if (currentView == "Song View") {
+      return (
+        <PlaylistEditorControls
+          textInput={textInput}
+          saveToDB={null}
+          deleteFromDB={null}
+          handleChange={this.handleChange}
+        />
+      );
+    }
+  };
+
   renderCurrentView = (currentView, currentUser) => {
     if (currentView == "Edit Playlist") {
       return (
         <PlaylistView
-          scrollView={false}
+          scrollView={true}
           propMutation={null}
           varObjKey={null}
           playlists={currentUser.playlists}
@@ -154,7 +157,7 @@ class PlaylistEditor extends Component {
 
   render() {
     const { currentUser, currentlyPlaying } = this.props;
-    const { currentView } = this.state;
+    const { currentView, textInput } = this.state;
 
     return (
       <div className="playlist-editor">
@@ -165,7 +168,7 @@ class PlaylistEditor extends Component {
             </h1>
           </div>
 
-          {currentView == "Song View" ? <PlaylistEditorControls /> : ""}
+          {this.renderControls()}
         </div>
 
         {console.log("this.props inside PlaylistEditor ", this.props)}
