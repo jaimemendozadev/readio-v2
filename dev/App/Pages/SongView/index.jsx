@@ -40,7 +40,7 @@ const renderResults = (propMutation, songInput, callback, assetType) => {
             </div>
 
             <div className="playlist-icon-container">
-              {renderIcon(propMutation, assetType, newSong, asset)}
+              {renderIcon(propMutation, assetType, newSong, asset, callback)}
             </div>
           </div>
         )}

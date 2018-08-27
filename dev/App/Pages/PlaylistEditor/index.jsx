@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import {
+  setLocalState,
   escapeHtml,
   editSongList,
   handlePlaylistEditorView
 } from "./utils.jsx";
 import { GET_USER_ID } from "./graphql";
-import SaveIcon from "./assets/savesonglist.png";
-import DeleteIcon from "./assets/deletesonglist.png";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";
+import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
 
 const defaultState = {
   currentView: "Edit Playlist",
@@ -16,7 +16,11 @@ const defaultState = {
   pageError: false,
   pageErrorMsg: "",
   serverResponse: "",
-  playlistToEdit: {}
+
+  playlistToEdit: {},
+  playlistID: "",
+  playlistName: "",
+  playlistSongs: []
 };
 
 class PlaylistEditor extends Component {
@@ -44,10 +48,27 @@ class PlaylistEditor extends Component {
     });
   };
 
-  editPlaylist = playlist => {
+  selectPlaylistToEdit = playlist => {
     this.setState({
       playlistToEdit: playlist,
+      playlistID: playlist.id,
+      playlistName: playlist.name,
+      playlistSongs: playlist.songs,
       currentView: "Song View"
+    });
+  };
+
+  deleteSongFromPlaylist = playlistSong => {
+    const { playlistSongs } = this.state;
+
+    const { id_user_id_identifier } = playlistSong;
+
+    const filteredList = playlistSongs.filter(
+      song => song.id_user_id_identifier != id_user_id_identifier
+    );
+
+    this.setState({
+      playlistSongs: filteredList
     });
   };
 
@@ -95,19 +116,6 @@ class PlaylistEditor extends Component {
 
   deleteFromDB = () => {};
 
-  /*
-    Mutation: If User selects a song from playlist => play in React Player
-
-    Mutation: If User deletes song from playlist => update playlist in local cache
-
-    Mutation: If User pushes Save button
-      -If playlist has at least one song, send update to database
-
-    Mutation: If User pushes Delete button, delete playlist locally and in database
-
-
-  */
-
   renderCurrentView = (currentView, currentUser) => {
     if (currentView == "Edit Playlist") {
       return (
@@ -116,22 +124,35 @@ class PlaylistEditor extends Component {
           propMutation={null}
           varObjKey={null}
           playlists={currentUser.playlists}
-          callback={this.editPlaylist}
+          callback={this.selectPlaylistToEdit}
         />
       );
     }
 
     if (currentView == "Song View") {
+      const { playlistSongs } = this.state;
+
       return (
-        <SongView
-          PROP_MUTATION={null}
-          songInput={null}
-          callback={null}
-          assetType={null}
-          searchView={null}
-        />
+        <div>
+          <PlaylistEditorControls />
+          <SongView
+            PROP_MUTATION={null}
+            songInput={playlistSongs}
+            callback={this.deleteSongFromPlaylist}
+            assetType={"trash"}
+            searchView={null}
+          />
+        </div>
       );
     }
+  };
+
+  componentDidMount = () => {
+    const { currentlyPlaying, currentUser } = this.props;
+
+    const state = setLocalState(currentlyPlaying, currentUser);
+
+    this.setState(state);
   };
 
   render() {
@@ -142,7 +163,9 @@ class PlaylistEditor extends Component {
       <div className="playlist-editor">
         <div className="playlist-editor-header-container">
           <div>
-            <h1>Click on a playlist to edit it!</h1>
+            <h1>
+              Click on a playlist to update or delete it from your account!
+            </h1>
             <h2>Click on a song to load it into the player!</h2>
           </div>
 
@@ -156,36 +179,10 @@ class PlaylistEditor extends Component {
           </form>
         </div>
 
-        <div className="save-playlist-btn-container">
-          <div className="save-playlist-btn-header">
-            <h1>Update or Delete the Playlist in Your Account...</h1>
-          </div>
-
-          <button disabled={true} onClick={() => null}>
-            <img src={SaveIcon} />
-            Save
-          </button>
-          <button disabled={true} onClick={this.deleteFromDB}>
-            <img src={DeleteIcon} />
-            Delete
-          </button>
-        </div>
-
         {console.log("this.props inside PlaylistEditor ", this.props)}
         {console.log("this.state inside PlaylistEditor ", this.state)}
 
         {this.renderCurrentView(currentView, currentUser)}
-
-        {/* 
-          Have access to 
-           -currentUser
-           -currentlyPlaying
-
-          Render <PlaylistView />
-
-          //If you click on a Playlist, use <SongView /> to render songs
-        
-        */}
       </div>
     );
   }

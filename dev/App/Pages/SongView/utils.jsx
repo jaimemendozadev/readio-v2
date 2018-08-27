@@ -1,6 +1,18 @@
 import React from "react";
 import Playlist from "./assets/playlist.png";
 import Trash from "./assets/trash.png";
+import { callbackify } from "util";
+
+const invokeMutation = (propMutation, newSong) => {
+  const { id_user_id_identifier } = newSong;
+
+  const variables =
+    assetType == "playlist"
+      ? { songToAdd: newSong }
+      : { songID: id_user_id_identifier };
+
+  propMutation({ variables });
+};
 
 export const getAssetPath = assetType => {
   if (assetType == "playlist") {
@@ -33,17 +45,20 @@ export const handleLoadMutation = url => {
   return playSong;
 };
 
-export const renderIcon = (propMutation, assetType, newSong, asset) => {
-  const { id_user_id_identifier } = newSong;
-
-  const variables =
-    assetType == "playlist"
-      ? { songToAdd: newSong }
-      : { songID: id_user_id_identifier };
-
+export const renderIcon = (
+  propMutation = null,
+  assetType,
+  newSong,
+  asset,
+  callback
+) => {
   return (
     <img
-      onClick={() => propMutation({ variables })}
+      onClick={() =>
+        propMutation != null
+          ? invokeMutation(propMutation, newSong)
+          : callback(newSong)
+      }
       className="playlist-icon"
       src={asset}
     />

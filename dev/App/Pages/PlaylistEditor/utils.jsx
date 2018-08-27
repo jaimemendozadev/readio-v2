@@ -14,6 +14,21 @@ const entityMap = {
   "=": "&#x3D;"
 };
 
+export const setLocalState = (currentlyPlaying, currentUser) => {
+  let currUser = currentUser ? currentUser : null;
+
+  const state = {
+    currentUser: {
+      id: currUser ? currUser.id : currUser,
+      first_name: currUser ? currUser.first_name : currUser,
+      last_name: currUser ? currUser.last_name : currUser,
+      email: currUser ? currUser.email : currUser
+    }
+  };
+
+  return state;
+};
+
 export const escapeHtml = string => {
   return String(string).replace(/[&<>"'`=\/]/g, function(s) {
     return entityMap[s];
