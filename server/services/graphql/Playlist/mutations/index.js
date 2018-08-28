@@ -51,34 +51,9 @@ const addSongToPlaylist = async (_, { playlistID, input }, { models }) => {
 const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
   const {Playlist} = models;
   
-  console.log('playlistID ', playlistID)
-  console.log('updatedList ', updatedList)
-  /*
-  let deletedSong = await Playlist.findById(playlistID, (err, playlist) => {
-    if (err) {
-      console.log("err inside deleteSongFromPlaylist resolver ", err);
-    }
+  let updatedDBPlaylist = await Playlist.findByIdAndUpdate(playlistID, updatedList, {new: true});
 
-    let { songs } = playlist;
-    let deleted;
-
-    songs = songs.filter(song => {
-      if (song.title == songTitle) {
-        deleted = song;
-      }
-
-      return song.title != songTitle;
-    });
-
-    playlist.songs = songs;
-    playlist.save();
-
-    return deleted;
-  });
-
-  deletedSong = deletedSong.songs.pop();
-
-  */
+  
   return {error: false, message: "Perform successful deletion!"};
 
 

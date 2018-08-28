@@ -14,7 +14,7 @@ const entityMap = {
   "=": "&#x3D;"
 };
 
-export const setLocalState = (currentlyPlaying, currentUser) => {
+export const setLocalState = currentUser => {
   let currUser = currentUser ? currentUser : null;
 
   const state = {
@@ -111,7 +111,35 @@ export const handlePlaylistEditorView = (
   }
 };
 
-export const updateLocalPlaylisit = (cache, data) => {
+export const prepPlaylistPayload = (playlistName, playlistSongs) => {
+  // Must delete __typename to avoid Mutation error on Backend
+  // Not the most efficient way
+
+  const songsPayload = playlistSongs.map(song => {
+    let newSong = {};
+    Object.keys(song).forEach(key => {      
+      if(key != "__typename"){
+        newSong[key] = song[key];
+      }
+    });
+    
+    return newSong;
+  });
+
+  const playlistDBPayload = {
+    name: playlistName,
+    songs: songsPayload
+  };
+
+  return playlistDBPayload;
+}
+
+
+
+export const updateLocalPlaylist = (cache, data) => {
   console.log("cache is ", cache);
   console.log("data after update is ", data);
 };
+
+
+

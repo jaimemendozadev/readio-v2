@@ -58,7 +58,6 @@ class Main extends Component {
             return (
               <PlaylistEditor
                 currentUser={data.currentUser}
-                currentlyPlaying={currentlyPlaying}
               />
             );
           }}

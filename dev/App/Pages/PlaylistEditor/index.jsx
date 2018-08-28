@@ -5,7 +5,8 @@ import {
   escapeHtml,
   editSongList,
   handlePlaylistEditorView,
-  updateLocalPlaylisit
+  updateLocalPlaylist,
+  prepPlaylistPayload
 } from "./utils.jsx";
 import { GET_USER_ID, UPDATE_PLAYLIST } from "./graphql";
 import PlaylistView from "../PlaylistView/index.jsx";
@@ -52,17 +53,12 @@ class PlaylistEditor extends Component {
   };
 
   selectPlaylistToEdit = playlist => {
-    const playlistDBPayload = {
-      name: playlist.name,
-      songs: playlist.songs
-    };
 
     this.setState({
       playlistToEdit: playlist,
       playlistID: playlist.id,
       playlistName: playlist.name,
       playlistSongs: playlist.songs,
-      playlistDBPayload,
       currentView: "Song View"
     });
   };
@@ -82,12 +78,12 @@ class PlaylistEditor extends Component {
   };
 
   performDBUpdate = async saveToDBMutation => {
-    const { playlistID, playlistDBPayload } = this.state;
-    // console.log('playlistDBPayload ', playlistDBPayload)
+    const { playlistID, playlistName, playlistSongs } = this.state;
     
+    const updatedList = prepPlaylistPayload(playlistName, playlistSongs);
 
     const result = await saveToDBMutation({
-      variables: { playlistID, updatedList: playlistDBPayload }
+      variables: { playlistID, updatedList }
     });
 
     console.log("result from DB after updating playlist ", result);
@@ -144,19 +140,19 @@ class PlaylistEditor extends Component {
   };
 
   componentDidMount = () => {
-    const { currentlyPlaying, currentUser } = this.props;
+    const { currentUser } = this.props;
 
-    const state = setLocalState(currentlyPlaying, currentUser);
+    const state = setLocalState(currentUser);
 
     this.setState(state);
   };
 
   render() {
-    const { currentUser, currentlyPlaying } = this.props;
-    const { currentView, textInput } = this.state;
+    const { currentUser} = this.props;
+    const { currentView} = this.state;
 
     return (
-      <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylisit}>
+      <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylist}>
         {updatePlaylist => (
           <div className="playlist-editor">
             <div className="playlist-editor-header-container">
