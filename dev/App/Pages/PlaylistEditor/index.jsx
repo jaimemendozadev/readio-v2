@@ -9,6 +9,7 @@ import {
   prepPlaylistPayload
 } from "./utils.jsx";
 import { GET_USER_ID, UPDATE_PLAYLIST } from "./graphql";
+import {Link} from "react-router-dom";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";
 import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
@@ -111,7 +112,12 @@ class PlaylistEditor extends Component {
     }
   };
 
-  renderCurrentView = (currentView, currentUser) => {
+
+
+  renderCurrentView = (currentView, currentUser, updatePlaylist) => {
+    const { textInput, playlistName } = this.state;
+
+
     if (currentView == "Edit Playlist") {
       return (
         <PlaylistView
@@ -128,6 +134,16 @@ class PlaylistEditor extends Component {
       const { playlistSongs } = this.state;
 
       return (
+        <div>
+        <PlaylistEditorControls
+          textInput={textInput}
+          playlistName={playlistName}
+          performDBUpdate={this.performDBUpdate}
+          deleteFromDB={null}
+          handleNameChange={this.handleNameChange}
+          clearFormInput={this.clearFormInput}
+          updateMutation={updatePlaylist}
+        />
         <SongView
           PROP_MUTATION={null}
           songInput={playlistSongs}
@@ -135,6 +151,7 @@ class PlaylistEditor extends Component {
           assetType={"trash"}
           searchView={false}
         />
+        </div>
       );
     }
   };
@@ -154,7 +171,7 @@ class PlaylistEditor extends Component {
     return (
       <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylist}>
         {updatePlaylist => (
-          <div className="playlist-editor">
+          <div id="top" className="playlist-editor">
             <div className="playlist-editor-header-container">
               <div>
                 <h1>
@@ -162,13 +179,13 @@ class PlaylistEditor extends Component {
                 </h1>
               </div>
 
-              {this.renderControls(currentView, updatePlaylist)}
+              {/* {this.renderControls(currentView, updatePlaylist)} */}
             </div>
 
             {console.log("this.props inside PlaylistEditor ", this.props)}
             {console.log("this.state inside PlaylistEditor ", this.state)}
 
-            {this.renderCurrentView(currentView, currentUser)}
+            {this.renderCurrentView(currentView, currentUser, updatePlaylist)}
           </div>
         )}
       </Mutation>

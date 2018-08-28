@@ -29,6 +29,8 @@
   }
 }
 
+// styling originally in SongView
+// deleted className for now
 .prevent-playlist-editor-overflow {
   @include prevent-overflow-container(60vh);
 }

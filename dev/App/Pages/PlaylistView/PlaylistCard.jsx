@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const renderSongNames = songs => {
   return (
@@ -25,6 +26,7 @@ const PlaylistCard = ({ propMutation, varObjKey, callback, playlistInfo }) => {
   const { songs, name } = playlistInfo;
 
   return (
+    <a className="anchor-wrapper" href="#top">
     <div
       onClick={() =>
         mutateOrInvokeCB(propMutation, varObjKey, callback, playlistInfo)
@@ -39,6 +41,7 @@ const PlaylistCard = ({ propMutation, varObjKey, callback, playlistInfo }) => {
         <div className="playlistcard-back">{renderSongNames(songs)}</div>
       </div>
     </div>
+    </a>
   );
 };
 

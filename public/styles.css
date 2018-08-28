@@ -33,6 +33,12 @@ body {
   font-size: 2em;
   margin-top: 2.5em; }
 
+.anchor-wrapper {
+  text-decoration: none; }
+  .anchor-wrapper:link, .anchor-wrapper:visited, .anchor-wrapper:hover, .anchor-wrapper:active {
+    text-decoration: none;
+    color: white; }
+
 /*
   Spinner Citation
 

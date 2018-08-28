@@ -38,7 +38,14 @@ body {
   margin-top: 2.5em;
 }
 
+.anchor-wrapper {
+  text-decoration: none;
 
+  &:link, &:visited, &:hover, &:active {
+    text-decoration: none;
+    color: white;
+  }
+}
 
 /*
   Spinner Citation
