@@ -9,7 +9,7 @@ import {
   prepPlaylistPayload
 } from "./utils.jsx";
 import { GET_USER_ID, UPDATE_PLAYLIST } from "./graphql";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";
 import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
@@ -54,7 +54,6 @@ class PlaylistEditor extends Component {
   };
 
   selectPlaylistToEdit = playlist => {
-
     this.setState({
       playlistToEdit: playlist,
       playlistID: playlist.id,
@@ -80,7 +79,7 @@ class PlaylistEditor extends Component {
 
   performDBUpdate = async saveToDBMutation => {
     const { playlistID, playlistName, playlistSongs } = this.state;
-    
+
     const updatedList = prepPlaylistPayload(playlistName, playlistSongs);
 
     const result = await saveToDBMutation({
@@ -88,8 +87,6 @@ class PlaylistEditor extends Component {
     });
 
     console.log("result from DB after updating playlist ", result);
-
-    
   };
 
   deleteFromDB = () => {};
@@ -112,16 +109,12 @@ class PlaylistEditor extends Component {
     }
   };
 
-
-
   renderCurrentView = (currentView, currentUser, updatePlaylist) => {
     const { textInput, playlistName } = this.state;
-
 
     if (currentView == "Edit Playlist") {
       return (
         <PlaylistView
-          scrollView={true}
           propMutation={null}
           varObjKey={null}
           playlists={currentUser.playlists}
@@ -135,22 +128,22 @@ class PlaylistEditor extends Component {
 
       return (
         <div>
-        <PlaylistEditorControls
-          textInput={textInput}
-          playlistName={playlistName}
-          performDBUpdate={this.performDBUpdate}
-          deleteFromDB={null}
-          handleNameChange={this.handleNameChange}
-          clearFormInput={this.clearFormInput}
-          updateMutation={updatePlaylist}
-        />
-        <SongView
-          PROP_MUTATION={null}
-          songInput={playlistSongs}
-          callback={this.deleteSongFromPlaylist}
-          assetType={"trash"}
-          searchView={false}
-        />
+          <PlaylistEditorControls
+            textInput={textInput}
+            playlistName={playlistName}
+            performDBUpdate={this.performDBUpdate}
+            deleteFromDB={null}
+            handleNameChange={this.handleNameChange}
+            clearFormInput={this.clearFormInput}
+            updateMutation={updatePlaylist}
+          />
+          <SongView
+            PROP_MUTATION={null}
+            songInput={playlistSongs}
+            callback={this.deleteSongFromPlaylist}
+            assetType={"trash"}
+            searchView={false}
+          />
         </div>
       );
     }
@@ -165,8 +158,8 @@ class PlaylistEditor extends Component {
   };
 
   render() {
-    const { currentUser} = this.props;
-    const { currentView} = this.state;
+    const { currentUser } = this.props;
+    const { currentView } = this.state;
 
     return (
       <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylist}>
@@ -178,8 +171,6 @@ class PlaylistEditor extends Component {
                   Click on a playlist to update or delete it from your account!
                 </h1>
               </div>
-
-              {/* {this.renderControls(currentView, updatePlaylist)} */}
             </div>
 
             {console.log("this.props inside PlaylistEditor ", this.props)}

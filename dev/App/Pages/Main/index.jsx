@@ -55,11 +55,7 @@ class Main extends Component {
       return (
         <CustomQuery query={GET_LOCAL_USER_INFO}>
           {data => {
-            return (
-              <PlaylistEditor
-                currentUser={data.currentUser}
-              />
-            );
+            return <PlaylistEditor currentUser={data.currentUser} />;
           }}
         </CustomQuery>
       );

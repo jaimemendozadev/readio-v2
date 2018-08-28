@@ -63,13 +63,7 @@ const SongView = ({
 }) => {
   console.log("searchView inside SongView ", searchView);
   return (
-    <div
-      className={
-        searchView == true
-          ? "prevent-search-overflow"
-          : ""
-      }
-    >
+    <div className={searchView == true ? "prevent-search-overflow" : ""}>
       {renderResults(PROP_MUTATION, songInput, callback, assetType)}
     </div>
   );

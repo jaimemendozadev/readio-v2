@@ -117,12 +117,12 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
 
   const songsPayload = playlistSongs.map(song => {
     let newSong = {};
-    Object.keys(song).forEach(key => {      
-      if(key != "__typename"){
+    Object.keys(song).forEach(key => {
+      if (key != "__typename") {
         newSong[key] = song[key];
       }
     });
-    
+
     return newSong;
   });
 
@@ -132,14 +132,9 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
   };
 
   return playlistDBPayload;
-}
-
-
+};
 
 export const updateLocalPlaylist = (cache, data) => {
   console.log("cache is ", cache);
   console.log("data after update is ", data);
 };
-
-
-

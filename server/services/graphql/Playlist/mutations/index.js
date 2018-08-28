@@ -29,7 +29,7 @@ const createPlaylist = async (_, { userID, input }, { models }) => {
 };
 
 const addSongToPlaylist = async (_, { playlistID, input }, { models }) => {
-  const {Playlist} = models;
+  const { Playlist } = models;
 
   const updatedPlaylist = await Playlist.findById(
     playlistID,
@@ -49,14 +49,15 @@ const addSongToPlaylist = async (_, { playlistID, input }, { models }) => {
 };
 
 const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
-  const {Playlist} = models;
-  
-  let updatedDBPlaylist = await Playlist.findByIdAndUpdate(playlistID, updatedList, {new: true});
+  const { Playlist } = models;
 
-  
-  return {error: false, message: "Perform successful deletion!"};
+  let updatedDBPlaylist = await Playlist.findByIdAndUpdate(
+    playlistID,
+    updatedList,
+    { new: true }
+  );
 
-
+  return { error: false, message: "Perform successful deletion!" };
 };
 
 module.exports = {
