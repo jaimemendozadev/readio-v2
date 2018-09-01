@@ -17,3 +17,12 @@ export const UPDATE_PLAYLIST = gql`
     }
   }
 `;
+
+export const DELETE_PLAYLIST = gql`
+  mutation DeletePlaylist($playlistID: ID!, $userID: ID!) {
+    deletePlaylist(playlistID: $playlistID, userID: $userID) {
+      error
+      message
+    }
+  }
+`;

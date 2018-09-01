@@ -27,7 +27,7 @@ extend type Mutation {
   # making a new version of addSongToPlaylist for testing
   # createPlaylist(userID: ID!, input: CreatePlaylist): Playlist!
   addSongToPlaylist(playlistID: ID!, input: CreateSong!): Playlist!
-
   updatePlaylist(playlistID: ID!, updatedList: UpdatePlaylist!): ServerResponse!
+  deletePlaylist(playlistID: ID!, userID: ID!): ServerResponse!
 
 }

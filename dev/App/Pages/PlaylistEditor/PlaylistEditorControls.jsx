@@ -9,12 +9,13 @@ const PlaylistEditorControls = ({
   deleteFromDB,
   handleNameChange,
   clearFormInput,
+  deleteMutation,
   updateMutation
 }) => {
   return (
     <div>
       <h2>Update the playlist name in the text field!</h2>
-      <form onSubmit={event => null}>
+      <form onSubmit={event => event.preventDefault()}>
         <input
           onClick={clearFormInput}
           onChange={handleNameChange}
@@ -34,7 +35,7 @@ const PlaylistEditorControls = ({
           <img src={SaveIcon} />
           Update
         </button>
-        <button onClick={() => null}>
+        <button onClick={() => deleteFromDB(deleteMutation)}>
           <img src={DeleteIcon} />
           Delete
         </button>

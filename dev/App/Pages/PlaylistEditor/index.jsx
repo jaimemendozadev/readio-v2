@@ -8,15 +8,14 @@ import {
   updateLocalPlaylist,
   prepPlaylistPayload
 } from "./utils.jsx";
-import { GET_USER_ID, UPDATE_PLAYLIST } from "./graphql";
-import { Link } from "react-router-dom";
+import { UPDATE_PLAYLIST, DELETE_PLAYLIST } from "./graphql";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";
 import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
 
 const defaultState = {
   currentView: "Edit Playlist",
-  playlistName: "",
+
   textInput: "",
   pageError: false,
   pageErrorMsg: "",
@@ -89,7 +88,15 @@ class PlaylistEditor extends Component {
     console.log("result from DB after updating playlist ", result);
   };
 
-  deleteFromDB = () => {};
+  deleteFromDB = async deletePlaylistMutation => {
+    const { currentUser, playlistID } = this.state;
+
+    const result = await deletePlaylistMutation({
+      variables: { playlistID, userID: currentUser.id }
+    });
+
+    console.log("message from deletePlaylist mutation ", result);
+  };
 
   renderControls = (currentView, updatePlaylist) => {
     const { textInput, playlistName } = this.state;
@@ -109,7 +116,12 @@ class PlaylistEditor extends Component {
     }
   };
 
-  renderCurrentView = (currentView, currentUser, updatePlaylist) => {
+  renderCurrentView = (
+    currentView,
+    currentUser,
+    updatePlaylist,
+    deletePlaylist
+  ) => {
     const { textInput, playlistName } = this.state;
 
     if (currentView == "Edit Playlist") {
@@ -132,9 +144,10 @@ class PlaylistEditor extends Component {
             textInput={textInput}
             playlistName={playlistName}
             performDBUpdate={this.performDBUpdate}
-            deleteFromDB={null}
+            deleteFromDB={this.deleteFromDB}
             handleNameChange={this.handleNameChange}
             clearFormInput={this.clearFormInput}
+            deleteMutation={deletePlaylist}
             updateMutation={updatePlaylist}
           />
           <SongView
@@ -160,24 +173,34 @@ class PlaylistEditor extends Component {
   render() {
     const { currentUser } = this.props;
     const { currentView } = this.state;
-
+    // DELETE_PLAYLIST
     return (
       <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylist}>
         {updatePlaylist => (
-          <div id="top" className="playlist-editor">
-            <div className="playlist-editor-header-container">
-              <div>
-                <h1>
-                  Click on a playlist to update or delete it from your account!
-                </h1>
+          <Mutation mutation={DELETE_PLAYLIST}>
+            {deletePlaylist => (
+              <div id="top" className="playlist-editor">
+                <div className="playlist-editor-header-container">
+                  <div>
+                    <h1>
+                      Click on a playlist to update or delete it from your
+                      account!
+                    </h1>
+                  </div>
+                </div>
+
+                {console.log("this.props inside PlaylistEditor ", this.props)}
+                {console.log("this.state inside PlaylistEditor ", this.state)}
+
+                {this.renderCurrentView(
+                  currentView,
+                  currentUser,
+                  updatePlaylist,
+                  deletePlaylist
+                )}
               </div>
-            </div>
-
-            {console.log("this.props inside PlaylistEditor ", this.props)}
-            {console.log("this.state inside PlaylistEditor ", this.state)}
-
-            {this.renderCurrentView(currentView, currentUser, updatePlaylist)}
-          </div>
+            )}
+          </Mutation>
         )}
       </Mutation>
     );

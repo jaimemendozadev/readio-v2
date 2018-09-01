@@ -60,8 +60,15 @@ const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
   return { error: false, message: "Perform successful deletion!" };
 };
 
+const deletePlaylist = (_, { playlistID, userID }, { models }) => {
+  const { Playlist, User } = models;
+
+  return { error: false, message: "HIT THE DELETE_PLAYLIST MUTATION!" };
+};
+
 module.exports = {
   createPlaylist,
   addSongToPlaylist,
-  updatePlaylist
+  updatePlaylist,
+  deletePlaylist
 };

@@ -2,7 +2,8 @@ const { getPlaylist } = require("./queries");
 const {
   createPlaylist,
   addSongToPlaylist,
-  updatePlaylist
+  updatePlaylist,
+  deletePlaylist
 } = require("./mutations");
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
   Mutation: {
     createPlaylist,
     addSongToPlaylist,
-    updatePlaylist
+    updatePlaylist,
+    deletePlaylist
   }
 };
