@@ -2,7 +2,6 @@ const DB = require("./DB");
 const { User, Song, Playlist } = require("./DB/Schemas");
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
 const path = require("path");
 const schema = require("./services/graphql");
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
