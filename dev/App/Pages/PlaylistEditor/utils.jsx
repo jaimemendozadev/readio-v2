@@ -115,16 +115,7 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
   // Must delete __typename to avoid Mutation error on Backend
   // Not the most efficient way
 
-  const songsPayload = playlistSongs.map(song => {
-    let newSong = {};
-    Object.keys(song).forEach(key => {
-      if (key != "__typename") {
-        newSong[key] = song[key];
-      }
-    });
-
-    return newSong;
-  });
+  const songsPayload = editSongList(playlistSongs);
 
   const playlistDBPayload = {
     name: playlistName,
@@ -133,6 +124,8 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
 
   return playlistDBPayload;
 };
+
+
 
 export const updateLocalPlaylist = (cache, data) => {
   console.log("cache is ", cache);

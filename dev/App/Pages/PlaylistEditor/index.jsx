@@ -3,7 +3,6 @@ import { Mutation } from "react-apollo";
 import {
   setLocalState,
   escapeHtml,
-  editSongList,
   handlePlaylistEditorView,
   updateLocalPlaylist,
   prepPlaylistPayload
@@ -79,7 +78,9 @@ class PlaylistEditor extends Component {
   performDBUpdate = async saveToDBMutation => {
     const { playlistID, playlistName, playlistSongs } = this.state;
 
-    const updatedList = prepPlaylistPayload(playlistName, playlistSongs);
+    const sanitizedName = escapeHtml(playlistName);
+
+    const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
 
     const result = await saveToDBMutation({
       variables: { playlistID, updatedList }
@@ -95,9 +96,16 @@ class PlaylistEditor extends Component {
       variables: { playlistID, userID: currentUser.id }
     });
 
+
     console.log("message from deletePlaylist mutation ", result);
   };
 
+  handleSongViewRendering = (updateResponse, deleteResponse) => {
+    console.log('updateResponse is ', updateResponse)
+    console.log('deleteResponse is ', deleteResponse);
+
+  }
+  
   renderControls = (currentView, updatePlaylist) => {
     const { textInput, playlistName } = this.state;
 
@@ -119,8 +127,10 @@ class PlaylistEditor extends Component {
   renderCurrentView = (
     currentView,
     currentUser,
-    updatePlaylist,
-    deletePlaylist
+    updatePlaylistMutation,
+    deletePlaylistMutation,
+    updatePlaylistResponse,
+    deletePlaylistResponse
   ) => {
     const { textInput, playlistName } = this.state;
 
@@ -147,9 +157,12 @@ class PlaylistEditor extends Component {
             deleteFromDB={this.deleteFromDB}
             handleNameChange={this.handleNameChange}
             clearFormInput={this.clearFormInput}
-            deleteMutation={deletePlaylist}
-            updateMutation={updatePlaylist}
+            deleteMutation={deletePlaylistMutation}
+            updateMutation={updatePlaylistMutation}
           />
+
+          {this.handleSongViewRendering(updatePlaylistResponse, deletePlaylistResponse)}
+          
           <SongView
             PROP_MUTATION={null}
             songInput={playlistSongs}
@@ -173,12 +186,12 @@ class PlaylistEditor extends Component {
   render() {
     const { currentUser } = this.props;
     const { currentView } = this.state;
-    // DELETE_PLAYLIST
+    
     return (
       <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylist}>
-        {updatePlaylist => (
+        {(updatePlaylistMutation, {data: updatePlaylistResponse}) => (
           <Mutation mutation={DELETE_PLAYLIST}>
-            {deletePlaylist => (
+            {(deletePlaylistMutation, {data: deletePlaylistResponse}) => (
               <div id="top" className="playlist-editor">
                 <div className="playlist-editor-header-container">
                   <div>
@@ -195,8 +208,10 @@ class PlaylistEditor extends Component {
                 {this.renderCurrentView(
                   currentView,
                   currentUser,
-                  updatePlaylist,
-                  deletePlaylist
+                  updatePlaylistMutation,
+                  deletePlaylistMutation,
+                  updatePlaylistResponse,
+                  deletePlaylistResponse
                 )}
               </div>
             )}
