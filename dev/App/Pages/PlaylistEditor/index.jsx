@@ -32,6 +32,12 @@ class PlaylistEditor extends Component {
     this.state = defaultState;
   }
 
+  changeView = view => {
+    this.setState({
+      currentView: view
+    });
+  };
+
   clearFormInput = () => {
     const { textInput } = this.state;
     if (textInput.length) {
@@ -96,16 +102,14 @@ class PlaylistEditor extends Component {
       variables: { playlistID, userID: currentUser.id }
     });
 
-
     console.log("message from deletePlaylist mutation ", result);
   };
 
   handleSongViewRendering = (updateResponse, deleteResponse) => {
-    console.log('updateResponse is ', updateResponse)
-    console.log('deleteResponse is ', deleteResponse);
+    console.log("updateResponse is ", updateResponse);
+    console.log("deleteResponse is ", deleteResponse);
+  };
 
-  }
-  
   renderControls = (currentView, updatePlaylist) => {
     const { textInput, playlistName } = this.state;
 
@@ -159,10 +163,14 @@ class PlaylistEditor extends Component {
             clearFormInput={this.clearFormInput}
             deleteMutation={deletePlaylistMutation}
             updateMutation={updatePlaylistMutation}
+            changeView={this.changeView}
           />
 
-          {this.handleSongViewRendering(updatePlaylistResponse, deletePlaylistResponse)}
-          
+          {this.handleSongViewRendering(
+            updatePlaylistResponse,
+            deletePlaylistResponse
+          )}
+
           <SongView
             PROP_MUTATION={null}
             songInput={playlistSongs}
@@ -186,12 +194,12 @@ class PlaylistEditor extends Component {
   render() {
     const { currentUser } = this.props;
     const { currentView } = this.state;
-    
+
     return (
       <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylist}>
-        {(updatePlaylistMutation, {data: updatePlaylistResponse}) => (
+        {(updatePlaylistMutation, { data: updatePlaylistResponse }) => (
           <Mutation mutation={DELETE_PLAYLIST}>
-            {(deletePlaylistMutation, {data: deletePlaylistResponse}) => (
+            {(deletePlaylistMutation, { data: deletePlaylistResponse }) => (
               <div id="top" className="playlist-editor">
                 <div className="playlist-editor-header-container">
                   <div>

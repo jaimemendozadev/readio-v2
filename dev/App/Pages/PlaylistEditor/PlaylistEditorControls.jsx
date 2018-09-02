@@ -1,6 +1,7 @@
 import React from "react";
 import SaveIcon from "./assets/savesonglist.png";
 import DeleteIcon from "./assets/deletesonglist.png";
+import BackIcon from "./assets/back.png";
 
 const PlaylistEditorControls = ({
   textInput,
@@ -10,11 +11,14 @@ const PlaylistEditorControls = ({
   handleNameChange,
   clearFormInput,
   deleteMutation,
-  updateMutation
+  updateMutation,
+  changeView
 }) => {
   return (
     <div>
       <h2>Update the playlist name in the text field!</h2>
+      <h3>Your current playlist name is: {playlistName}</h3>
+      <h3>Your new playlist name is: {textInput}</h3>
       <form onSubmit={event => event.preventDefault()}>
         <input
           onClick={clearFormInput}
@@ -24,11 +28,9 @@ const PlaylistEditorControls = ({
         />
       </form>
 
-      <h2>Your current playlist name is: {playlistName}</h2>
-      <h2>Your new playlist name is: {textInput}</h2>
       <div className="playlist-ctrl-btn-container">
         <div className="playlist-ctrl-btn-header">
-          <h1>Remove a song and update, or delete the playlist!</h1>
+          <h2>Remove a song and update, or delete the playlist!</h2>
         </div>
 
         <button onClick={() => performDBUpdate(updateMutation)}>
@@ -38,6 +40,11 @@ const PlaylistEditorControls = ({
         <button onClick={() => deleteFromDB(deleteMutation)}>
           <img src={DeleteIcon} />
           Delete
+        </button>
+
+        <button onClick={() => changeView("Edit Playlist")}>
+          <img src={BackIcon} />
+          Edit All Playlists
         </button>
       </div>
     </div>

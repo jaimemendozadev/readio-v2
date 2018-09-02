@@ -125,8 +125,6 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
   return playlistDBPayload;
 };
 
-
-
 export const updateLocalPlaylist = (cache, data) => {
   console.log("cache is ", cache);
   console.log("data after update is ", data);

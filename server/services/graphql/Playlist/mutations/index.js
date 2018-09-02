@@ -60,10 +60,9 @@ const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
   return { error: false, message: "Perform successful deletion!" };
 };
 
-const deletePlaylist = async(_, { playlistID, userID }, { models }) => {
+const deletePlaylist = async (_, { playlistID, userID }, { models }) => {
   const { Playlist, User } = models;
 
-  
   try {
     // Delete the playlist
     const deletedPlaylist = await Playlist.findByIdAndDelete(playlistID);
@@ -71,25 +70,21 @@ const deletePlaylist = async(_, { playlistID, userID }, { models }) => {
     // Delete the playlist from User's Playlist array
     const foundUser = await User.findById(userID);
 
-
-    const filteredPlaylists = foundUser.playlists.filter(playlist => playlist != playlistID);
+    const filteredPlaylists = foundUser.playlists.filter(
+      playlist => playlist != playlistID
+    );
 
     foundUser.playlists = filteredPlaylists;
     foundUser.save();
 
     return { error: false, message: "Your playlist was successfully deleted!" };
-
   } catch (error) {
-    console.log(
-      "Error deleting playlist in Playlist and User schema ",
-      error
-    );
+    console.log("Error deleting playlist in Playlist and User schema ", error);
     return {
       error: true,
       message: "There was an error deleting the playlist in the DB."
     };
   }
-
 };
 
 module.exports = {
