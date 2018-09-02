@@ -167,15 +167,19 @@ header {
     font-size: 2.5em;
     padding-left: .3em; }
 
-.playlist-ctrl-btn-container {
+.playlist-ctrl-parent-btn-container {
   height: 20%;
   margin-top: 1.5em;
+  margin-bottom: 5em;
   display: flex;
   flex-wrap: wrap;
   align-items: center; }
-  .playlist-ctrl-btn-container .playlist-ctrl-btn-header {
-    width: 50%; }
-  .playlist-ctrl-btn-container button {
+  .playlist-ctrl-parent-btn-container .playlist-ctrl-btn-header {
+    width: 100%; }
+  .playlist-ctrl-parent-btn-container .playlist-ctrl-btns {
+    display: flex;
+    justify-content: space-around; }
+  .playlist-ctrl-parent-btn-container button {
     border-radius: 25px;
     border-color: #87546f;
     width: 180px;
@@ -187,7 +191,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center; }
-    .playlist-ctrl-btn-container button img {
+    .playlist-ctrl-parent-btn-container button img {
       width: 30px;
       height: 30px;
       margin-right: 5px; }
@@ -221,6 +225,7 @@ header {
 .save-playlist-btn-container {
   height: 20%;
   margin-top: 5em;
+  margin-bottom: 5em;
   display: flex;
   flex-wrap: wrap;
   align-items: center; }

@@ -28,24 +28,26 @@ const PlaylistEditorControls = ({
         />
       </form>
 
-      <div className="playlist-ctrl-btn-container">
+      <div className="playlist-ctrl-parent-btn-container">
         <div className="playlist-ctrl-btn-header">
-          <h2>Remove a song and update, or delete the playlist!</h2>
+          <h2>Remove a song, delete the playlist, or go back!</h2>
         </div>
 
-        <button onClick={() => performDBUpdate(updateMutation)}>
-          <img src={SaveIcon} />
-          Update
-        </button>
-        <button onClick={() => deleteFromDB(deleteMutation)}>
-          <img src={DeleteIcon} />
-          Delete
-        </button>
+        <div className="playlist-ctrl-btns">
+          <button onClick={() => performDBUpdate(updateMutation)}>
+            <img src={SaveIcon} />
+            Update
+          </button>
+          <button onClick={() => deleteFromDB(deleteMutation)}>
+            <img src={DeleteIcon} />
+            Delete
+          </button>
 
-        <button onClick={() => changeView("Edit Playlist")}>
-          <img src={BackIcon} />
-          Edit All Playlists
-        </button>
+          <button onClick={() => changeView("Edit Playlist")}>
+            <img src={BackIcon} />
+            Edit All Playlists
+          </button>
+        </div>
       </div>
     </div>
   );

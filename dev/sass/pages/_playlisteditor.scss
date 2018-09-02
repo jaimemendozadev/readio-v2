@@ -17,11 +17,16 @@
   }
 }
 
-.playlist-ctrl-btn-container {
+.playlist-ctrl-parent-btn-container {
   @include buttonContainerStyling(1.5em);
 
   .playlist-ctrl-btn-header {
-    width: 50%;
+    width: 100%;
+  }
+
+  .playlist-ctrl-btns {
+    display: flex;
+    justify-content: space-around;
   }
 
   button {
