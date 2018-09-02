@@ -3,7 +3,6 @@ import { Mutation } from "react-apollo";
 import {
   setLocalState,
   escapeHtml,
-  handlePlaylistEditorView,
   updateLocalPlaylist,
   prepPlaylistPayload
 } from "./utils.jsx";
@@ -105,9 +104,30 @@ class PlaylistEditor extends Component {
     console.log("message from deletePlaylist mutation ", result);
   };
 
-  handleSongViewRendering = (updateResponse, deleteResponse) => {
-    console.log("updateResponse is ", updateResponse);
-    console.log("deleteResponse is ", deleteResponse);
+  handleSongViewRendering = (updateResponse, deleteResponse, playlistSongs) => {
+    //deletePlaylist, updatePlaylist
+
+    if (updateResponse || deleteResponse) {
+      if (updateResponse) {
+        const { updatePlaylist } = updateResponse;
+
+        return <h1>{updatePlaylist.message}</h1>;
+      } else {
+        const { deletePlaylist } = updateResponse;
+
+        return <h1>{deletePlaylist.message}</h1>;
+      }
+    }
+
+    return (
+      <SongView
+        PROP_MUTATION={null}
+        songInput={playlistSongs}
+        callback={this.deleteSongFromPlaylist}
+        assetType={"trash"}
+        searchView={false}
+      />
+    );
   };
 
   renderControls = (currentView, updatePlaylist) => {
@@ -168,16 +188,9 @@ class PlaylistEditor extends Component {
 
           {this.handleSongViewRendering(
             updatePlaylistResponse,
-            deletePlaylistResponse
+            deletePlaylistResponse,
+            playlistSongs
           )}
-
-          <SongView
-            PROP_MUTATION={null}
-            songInput={playlistSongs}
-            callback={this.deleteSongFromPlaylist}
-            assetType={"trash"}
-            searchView={false}
-          />
         </div>
       );
     }

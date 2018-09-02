@@ -57,7 +57,10 @@ const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
     { new: true }
   );
 
-  return { error: false, message: "Perform successful deletion!" };
+  return {
+    error: false,
+    message: "You've successfully updated your playlist!"
+  };
 };
 
 const deletePlaylist = async (_, { playlistID, userID }, { models }) => {
