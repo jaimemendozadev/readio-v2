@@ -135,19 +135,6 @@ header {
     .page-container .main-content .react-player {
       margin-bottom: .5em; }
 
-.search-page {
-  margin-top: 1em; }
-  .search-page input {
-    height: 12vh;
-    width: 95%;
-    border: 1px solid white;
-    font-size: 2.5em;
-    padding-left: .3em; }
-
-.prevent-search-overflow {
-  height: 45vh;
-  overflow: scroll; }
-
 .playlist-editor {
   margin-top: 1em; }
   .playlist-editor input {
@@ -199,60 +186,6 @@ header {
 .prevent-playlist-editor-overflow {
   height: 60vh;
   overflow: scroll; }
-
-.save-playlist-editor-main {
-  min-height: 150vh;
-  flex: 1;
-  color: white;
-  padding: 1em;
-  background: linear-gradient(to bottom, #55728C, #1B242C, black);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; }
-  .save-playlist-editor-main .react-player {
-    margin-bottom: .5em; }
-
-.save-playlist-header-container {
-  margin-top: 1em;
-  height: 20%; }
-  .save-playlist-header-container input {
-    height: 12vh;
-    width: 95%;
-    border: 1px solid white;
-    font-size: 2.5em;
-    padding-left: .3em; }
-
-.save-playlist-btn-container {
-  height: 20%;
-  margin-top: 5em;
-  margin-bottom: 5em;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center; }
-  .save-playlist-btn-container .save-playlist-btn-header {
-    width: 50%; }
-  .save-playlist-btn-container button {
-    border-radius: 25px;
-    border-color: #87546f;
-    width: 180px;
-    margin-right: 1.5em;
-    height: 55px;
-    background-color: #87546f;
-    color: white;
-    font-size: 1em;
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-    .save-playlist-btn-container button img {
-      width: 30px;
-      height: 30px;
-      margin-right: 5px; }
-
-.playlist-songs-container {
-  margin-top: 5em;
-  height: 40%; }
-  .playlist-songs-container .playlist-name-container {
-    margin-bottom: 2em; }
 
 .playlistview-container {
   display: flex;
@@ -321,6 +254,73 @@ makes the playlist text appear in the front of the card. Used overflow:hidden
 as a compromise.
 
 */
+.save-playlist-editor-main {
+  min-height: 150vh;
+  flex: 1;
+  color: white;
+  padding: 1em;
+  background: linear-gradient(to bottom, #55728C, #1B242C, black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+  .save-playlist-editor-main .react-player {
+    margin-bottom: .5em; }
+
+.save-playlist-header-container {
+  margin-top: 1em;
+  height: 20%; }
+  .save-playlist-header-container input {
+    height: 12vh;
+    width: 95%;
+    border: 1px solid white;
+    font-size: 2.5em;
+    padding-left: .3em; }
+
+.save-playlist-btn-container {
+  height: 20%;
+  margin-top: 5em;
+  margin-bottom: 5em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; }
+  .save-playlist-btn-container .save-playlist-btn-header {
+    width: 50%; }
+  .save-playlist-btn-container button {
+    border-radius: 25px;
+    border-color: #87546f;
+    width: 180px;
+    margin-right: 1.5em;
+    height: 55px;
+    background-color: #87546f;
+    color: white;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .save-playlist-btn-container button img {
+      width: 30px;
+      height: 30px;
+      margin-right: 5px; }
+
+.playlist-songs-container {
+  margin-top: 5em;
+  height: 40%; }
+  .playlist-songs-container .playlist-name-container {
+    margin-bottom: 2em; }
+
+.search-page {
+  margin-top: 1em; }
+  .search-page input {
+    height: 12vh;
+    width: 95%;
+    border: 1px solid white;
+    font-size: 2.5em;
+    padding-left: .3em; }
+
+.prevent-search-overflow {
+  height: 45vh;
+  overflow: scroll; }
+
 .song-item {
   display: flex;
   justify-content: space-between;

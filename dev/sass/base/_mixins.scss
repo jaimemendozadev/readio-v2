@@ -1,3 +1,8 @@
+@mixin adjustPosition($top, $left) {
+  top: $top;
+  left: $left;
+}
+
 @mixin inputStyling {
   height: 12vh;
   width: 95%;
@@ -40,9 +45,9 @@
 }
 
 
-@mixin playlistCardStyling {
-  height: 250px;
-  width: 250px;
+@mixin frontPlaylistCardStyling($height: 250px, $width: 250px) {
+  height: $height;
+  width: $width;
   position: absolute;
   backface-visibility: hidden;
   background-color: rgba(#E84F89, .9); // Change color?

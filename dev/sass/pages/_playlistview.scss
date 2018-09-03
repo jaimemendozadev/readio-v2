@@ -1,4 +1,4 @@
-@import "mixins";
+@import "../base/mixins";
 
 .playlistview-container {
   display: flex;
@@ -29,7 +29,7 @@
    
 
     .playlistcard-front {
-      @include playlistCardStyling;
+      @include frontPlaylistCardStyling;
       overflow: hidden;
       display: flex;
       flex-wrap: wrap;
@@ -56,7 +56,7 @@
 
   
     .playlistcard-back {
-      @include playlistCardStyling;
+      @include frontPlaylistCardStyling;
       transform: rotateY(-180deg);
       
       overflow: hidden; // See notes
