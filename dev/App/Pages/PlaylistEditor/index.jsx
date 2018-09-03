@@ -3,9 +3,9 @@ import { Mutation } from "react-apollo";
 import {
   setLocalState,
   escapeHtml,
-  updateLocalPlaylist,
+  checkPlaylistName,
   prepPlaylistPayload,
-  checkPlaylistName
+  resetLocalPlaylistState
 } from "./utils.jsx";
 import { UPDATE_PLAYLIST, DELETE_PLAYLIST, GET_USER_INFO } from "./graphql";
 import PlaylistView from "../PlaylistView/index.jsx";
@@ -83,7 +83,7 @@ class PlaylistEditor extends Component {
 
   performDBUpdate = async saveToDBMutation => {
     const { textInput, playlistID, playlistName, playlistSongs } = this.state;
-    
+
     const nameInput = checkPlaylistName(textInput, playlistName);
 
     const sanitizedName = escapeHtml(nameInput);
@@ -104,27 +104,22 @@ class PlaylistEditor extends Component {
       variables: { playlistID, userID: currentUser.id }
     });
 
+    const resetState = resetLocalPlaylistState();
+
+    this.setState(resetState);
+
     console.log("message from deletePlaylist mutation ", result);
   };
 
   handleSongViewRendering = (updateResponse, deleteResponse, playlistSongs) => {
     //deletePlaylist, updatePlaylist
 
-    if (updateResponse || deleteResponse) {
-      /*
-      if (updateResponse) {
-        const { updatePlaylist } = updateResponse;
+    if (updateResponse) {
+      return <h1>{updateResponse.updatePlaylist.message}</h1>;
+    }
 
-        return <h1>{updatePlaylist.message}</h1>;
-      } else {
-        const { deletePlaylist } = updateResponse;
-
-        return <h1>{deletePlaylist.message}</h1>;
-      }
-      */
-
-      console.log('updateResponse is ', updateResponse)
-      console.log('deleteResponse is ', deleteResponse)
+    if (deleteResponse) {
+      return <h1>{deleteResponse.deletePlaylist.message}</h1>;
     }
 
     return (
@@ -216,9 +211,15 @@ class PlaylistEditor extends Component {
     const { currentUser } = this.props;
     const { currentView } = this.state;
     return (
-      <Mutation mutation={UPDATE_PLAYLIST} refetchQueries={() => [ {query: GET_USER_INFO}  ]} update={updateLocalPlaylist}>
+      <Mutation
+        mutation={UPDATE_PLAYLIST}
+        refetchQueries={() => [{ query: GET_USER_INFO }]}
+      >
         {(updatePlaylistMutation, { data: updatePlaylistResponse }) => (
-          <Mutation mutation={DELETE_PLAYLIST} refetchQueries={() => [ {query: GET_USER_INFO}  ]}>
+          <Mutation
+            mutation={DELETE_PLAYLIST}
+            refetchQueries={() => [{ query: GET_USER_INFO }]}
+          >
             {(deletePlaylistMutation, { data: deletePlaylistResponse }) => (
               <div id="top" className="playlist-editor">
                 <div className="playlist-editor-header-container">

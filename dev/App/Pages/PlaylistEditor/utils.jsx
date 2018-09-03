@@ -1,8 +1,3 @@
-import React from "react";
-import Spinner from "../../Components/Spinner.jsx";
-import SongView from "../SongView/index.jsx";
-import { DELETE_FROM_SONG_LIST } from "./graphql";
-
 const entityMap = {
   "&": "&amp;",
   "<": "&lt;",
@@ -54,70 +49,13 @@ export const editSongList = songList => {
   return filteredList;
 };
 
-export const handlePlaylistEditorView = (
-  data,
-  loading,
-  error,
-  mutationData,
-  pageError,
-  pageErrorMsg
-) => {
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    console.log("Error querying cache mutation for songList ", error);
-
-    return (
-      <div className="error-msg">
-        Whoops! There was an error processing your request. Try again later.
-      </div>
-    );
-  }
-
-  if (mutationData) {
-    return <h1>{mutationData.createPlaylist.message}</h1>;
-  }
-
-  if (pageError) {
-    return <div className="error-msg">{pageErrorMsg}</div>;
-  }
-
-  if (data.songList.name == "untitled" && data.songList.list.length == 0) {
-    return (
-      <div className="error-msg">
-        You haven't saved any songs in your playlist. Go SEARCH for a song!
-      </div>
-    );
-  }
-
-  if (data) {
-    return (
-      <div className="playlist-songs-container">
-        <div className="playlist-name-container">
-          <h2>Your current playlist name is: {data.songList.name}</h2>
-        </div>
-
-        <SongView
-          PROP_MUTATION={DELETE_FROM_SONG_LIST}
-          songInput={data.songList.list}
-          callback={null}
-          assetType="trash"
-          searchView={false}
-        />
-      </div>
-    );
-  }
-};
-
 export const checkPlaylistName = (textInput, playlistName) => {
   if (textInput != playlistName && textInput.length > 0) {
     return textInput;
   }
 
   return playlistName;
-}
+};
 
 export const prepPlaylistPayload = (playlistName, playlistSongs) => {
   // Must delete __typename to avoid Mutation error on Backend
@@ -133,7 +71,11 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
   return playlistDBPayload;
 };
 
-export const updateLocalPlaylist = (cache, data) => {
-  console.log("cache is ", cache);
-  console.log("data after update is ", data);
+export const resetLocalPlaylistState = () => {
+  return {
+    playlistID: "",
+    playlistName: "",
+    playlistToEdit: {},
+    playlistSongs: []
+  };
 };

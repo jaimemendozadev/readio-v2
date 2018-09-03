@@ -41,10 +41,9 @@ class Main extends Component {
     client.resetStore();
 
     localStorage.clear();
-    
-    return <Redirect to={{ pathname: "/" }} />;
 
-  }
+    return <Redirect to={{ pathname: "/" }} />;
+  };
 
   renderCurrentView = (currentlyPlaying, client) => {
     const { currentView } = this.state;
