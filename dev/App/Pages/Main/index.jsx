@@ -44,9 +44,7 @@ class Main extends Component {
     }
 
     if (currentView == "Search") {
-      return (
-        <Search />
-      );
+      return <Search />;
     }
 
     if (currentView == "Save Playlist") {
