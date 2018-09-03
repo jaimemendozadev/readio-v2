@@ -111,6 +111,14 @@ export const handlePlaylistEditorView = (
   }
 };
 
+export const checkPlaylistName = (textInput, playlistName) => {
+  if (textInput != playlistName && textInput.length > 0) {
+    return textInput;
+  }
+
+  return playlistName;
+}
+
 export const prepPlaylistPayload = (playlistName, playlistSongs) => {
   // Must delete __typename to avoid Mutation error on Backend
   // Not the most efficient way

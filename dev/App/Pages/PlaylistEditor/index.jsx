@@ -4,7 +4,8 @@ import {
   setLocalState,
   escapeHtml,
   updateLocalPlaylist,
-  prepPlaylistPayload
+  prepPlaylistPayload,
+  checkPlaylistName
 } from "./utils.jsx";
 import { UPDATE_PLAYLIST, DELETE_PLAYLIST } from "./graphql";
 import PlaylistView from "../PlaylistView/index.jsx";
@@ -81,9 +82,11 @@ class PlaylistEditor extends Component {
   };
 
   performDBUpdate = async saveToDBMutation => {
-    const { playlistID, playlistName, playlistSongs } = this.state;
+    const { textInput, playlistID, playlistName, playlistSongs } = this.state;
+    
+    const nameInput = checkPlaylistName(textInput, playlistName);
 
-    const sanitizedName = escapeHtml(playlistName);
+    const sanitizedName = escapeHtml(nameInput);
 
     const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
 
@@ -108,6 +111,7 @@ class PlaylistEditor extends Component {
     //deletePlaylist, updatePlaylist
 
     if (updateResponse || deleteResponse) {
+      /*
       if (updateResponse) {
         const { updatePlaylist } = updateResponse;
 
@@ -117,6 +121,10 @@ class PlaylistEditor extends Component {
 
         return <h1>{deletePlaylist.message}</h1>;
       }
+      */
+
+      console.log('updateResponse is ', updateResponse)
+      console.log('deleteResponse is ', deleteResponse)
     }
 
     return (
