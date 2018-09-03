@@ -35,7 +35,7 @@
   }
 
   button {
-    @include playlistButtonStyling;
+    @include baseButtonStyling;
   }
 
 }
