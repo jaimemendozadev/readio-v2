@@ -5,7 +5,7 @@ import {
   editSongList,
   handlePlaylistEditorView
 } from "./utils.jsx";
-import { GET_SONG_LIST, SAVE_SONGLIST_TO_DB, GET_USER_ID } from "./graphql";
+import { GET_SONG_LIST, SAVE_SONGLIST_TO_DB, GET_USER_ID, GET_USER_INFO } from "./graphql";
 import SaveIcon from "../assets/savesonglist.png";
 
 const defaultState = {
@@ -107,7 +107,7 @@ class SavePlaylist extends Component {
     return (
       <ApolloConsumer>
         {client => (
-          <Mutation mutation={SAVE_SONGLIST_TO_DB}>
+          <Mutation mutation={SAVE_SONGLIST_TO_DB} refetchQueries={() => [ {query: GET_USER_INFO}  ]}>
             {(saveSonglistToDB, { data: mutationData }) => (
               <Query query={GET_SONG_LIST}>
                 {({ data, loading, error }) => {
