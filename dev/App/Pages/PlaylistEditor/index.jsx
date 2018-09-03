@@ -139,7 +139,7 @@ class PlaylistEditor extends Component {
           textInput={textInput}
           playlistName={playlistName}
           performDBUpdate={this.performDBUpdate}
-          deleteFromDB={null}
+          deleteFromDB={this.deleteFromDB}
           handleNameChange={this.handleNameChange}
           clearFormInput={this.clearFormInput}
           updateMutation={updatePlaylist}
