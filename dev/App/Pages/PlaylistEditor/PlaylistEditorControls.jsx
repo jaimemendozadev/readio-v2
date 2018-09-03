@@ -34,6 +34,10 @@ const PlaylistEditorControls = ({
         </div>
 
         <div className="playlist-ctrl-btns">
+          <button onClick={() => changeView("Edit Playlist")}>
+            <img src={BackIcon} />
+            Edit All Playlists
+          </button>
           <button onClick={() => performDBUpdate(updateMutation)}>
             <img src={SaveIcon} />
             Update
@@ -41,11 +45,6 @@ const PlaylistEditorControls = ({
           <button onClick={() => deleteFromDB(deleteMutation)}>
             <img src={DeleteIcon} />
             Delete
-          </button>
-
-          <button onClick={() => changeView("Edit Playlist")}>
-            <img src={BackIcon} />
-            Edit All Playlists
           </button>
         </div>
       </div>

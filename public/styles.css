@@ -279,9 +279,18 @@ header {
       position: absolute;
       backface-visibility: hidden;
       background-color: rgba(232, 79, 137, 0.9);
-      overflow: hidden; }
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center; }
+      .playlistview-container .playlistcard .playlistcard-front img {
+        width: 100px;
+        height: 100px;
+        margin-right: 2em; }
       .playlistview-container .playlistcard .playlistcard-front h3 {
-        margin: 2em auto; }
+        margin: 2em auto;
+        width: 100%; }
       .playlistview-container .playlistcard .playlistcard-front ul li {
         list-style-type: none;
         color: white; }

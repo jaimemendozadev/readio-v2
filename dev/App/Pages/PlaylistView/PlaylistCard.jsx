@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SongIcon from "./assets/song-256.png";
 
 const renderSongNames = songs => {
   return (
@@ -36,6 +37,7 @@ const PlaylistCard = ({ propMutation, varObjKey, callback, playlistInfo }) => {
         <div className="playlistcard">
           <div className="playlistcard-front">
             <h3>{name}</h3>
+            <img src={SongIcon} />
           </div>
 
           <div className="playlistcard-back">{renderSongNames(songs)}</div>
