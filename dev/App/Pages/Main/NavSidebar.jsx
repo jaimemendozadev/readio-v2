@@ -18,6 +18,10 @@ const NavSidebar = ({ callback }) => (
       >
         Edit All Playlists
       </div>
+
+      <div onClick={() => callback("Log Out")} className="side-bar-link">
+        Logout
+      </div>
     </nav>
   </div>
 );

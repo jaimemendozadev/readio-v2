@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
+import { Redirect } from "react-router-dom";
 import { GET_CURRENTLY_PLAYING_SONG, GET_LOCAL_USER_INFO } from "./graphql";
 import ReactPlayer from "react-player";
 import Home from "../Home/index.jsx";
@@ -39,6 +40,11 @@ class Main extends Component {
   renderCurrentView = currentlyPlaying => {
     const { currentView } = this.state;
 
+    if (currentView == "Log Out") {
+      localStorage.clear();
+      return <Redirect to={{ pathname: "/" }} />;
+    }
+
     if (currentView == "Home") {
       return <Home />;
     }
@@ -60,6 +66,8 @@ class Main extends Component {
         </CustomQuery>
       );
     }
+
+    
 
     return null;
   };
