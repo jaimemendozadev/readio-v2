@@ -45,7 +45,7 @@ class Main extends Component {
     return <Redirect to={{ pathname: "/" }} />;
   };
 
-  renderCurrentView = (currentlyPlaying, client) => {
+  renderCurrentView = (client) => {
     const { currentView } = this.state;
 
     if (currentView == "Log Out") {
@@ -68,7 +68,7 @@ class Main extends Component {
       return (
         <CustomQuery query={GET_LOCAL_USER_INFO}>
           {data => {
-            return <PlaylistEditor currentUser={data.currentUser} />;
+            return <PlaylistEditor viewSwitchCB={this.viewSwitch} currentUser={data.currentUser} />;
           }}
         </CustomQuery>
       );
@@ -103,7 +103,7 @@ class Main extends Component {
                         : "main-content"
                     }
                   >
-                    {this.renderCurrentView(currentlyPlaying, client)}
+                    {this.renderCurrentView(client)}
 
                     <div className="react-player">
                       <ReactPlayer

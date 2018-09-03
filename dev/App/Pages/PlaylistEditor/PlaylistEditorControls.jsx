@@ -12,7 +12,7 @@ const PlaylistEditorControls = ({
   clearFormInput,
   deleteMutation,
   updateMutation,
-  changeView
+  sendToHomeView
 }) => {
   return (
     <div>
@@ -34,9 +34,9 @@ const PlaylistEditorControls = ({
         </div>
 
         <div className="playlist-ctrl-btns">
-          <button onClick={() => changeView("Edit Playlist")}>
+          <button onClick={sendToHomeView}>
             <img src={BackIcon} />
-            Edit All Playlists
+            Back to Home
           </button>
           <button onClick={() => performDBUpdate(updateMutation)}>
             <img src={SaveIcon} />

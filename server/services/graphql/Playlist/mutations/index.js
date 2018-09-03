@@ -51,13 +51,16 @@ const addSongToPlaylist = async (_, { playlistID, input }, { models }) => {
 const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
   const { Playlist } = models;
 
-  const updatedPlaylist = await Playlist.findByIdAndUpdate(
+  let updatedPlaylist = await Playlist.findByIdAndUpdate(
     playlistID,
     updatedList,
     { new: true }
   );
 
-  updatedPlaylist.save();
+  updatedPlaylist = await updatedPlaylist.save();
+
+  console.log('updatedPlaylist in DB is ', updatedPlaylist);
+  
 
   return {
     error: false,

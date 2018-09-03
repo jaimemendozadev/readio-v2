@@ -11,14 +11,17 @@ const entityMap = {
 
 export const setLocalState = currentUser => {
   let currUser = currentUser ? currentUser : null;
-
+  
   const state = {
     currentUser: {
       id: currUser ? currUser.id : currUser,
       first_name: currUser ? currUser.first_name : currUser,
       last_name: currUser ? currUser.last_name : currUser,
-      email: currUser ? currUser.email : currUser
-    }
+      email: currUser ? currUser.email : currUser,
+      playlists: currUser ? currUser.playlists : []
+    },
+    setUserFromProps: true,
+
   };
 
   return state;

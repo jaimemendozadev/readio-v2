@@ -14,12 +14,8 @@ import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
 
 const defaultState = {
   currentView: "Edit Playlist",
-
   textInput: "",
-  pageError: false,
-  pageErrorMsg: "",
-  serverResponse: "",
-
+  setUserFromProps: false,
   playlistToEdit: {},
   playlistID: "",
   playlistName: "",
@@ -32,10 +28,9 @@ class PlaylistEditor extends Component {
     this.state = defaultState;
   }
 
-  changeView = view => {
-    this.setState({
-      currentView: view
-    });
+  sendToHomeView = () => {
+    const {viewSwitchCB} = this.props;
+    viewSwitchCB("Home")
   };
 
   clearFormInput = () => {
@@ -133,24 +128,6 @@ class PlaylistEditor extends Component {
     );
   };
 
-  renderControls = (currentView, updatePlaylist) => {
-    const { textInput, playlistName } = this.state;
-
-    if (currentView == "Song View") {
-      return (
-        <PlaylistEditorControls
-          textInput={textInput}
-          playlistName={playlistName}
-          performDBUpdate={this.performDBUpdate}
-          deleteFromDB={this.deleteFromDB}
-          handleNameChange={this.handleNameChange}
-          clearFormInput={this.clearFormInput}
-          updateMutation={updatePlaylist}
-        />
-      );
-    }
-  };
-
   renderCurrentView = (
     currentView,
     currentUser,
@@ -162,6 +139,7 @@ class PlaylistEditor extends Component {
     const { textInput, playlistName } = this.state;
 
     if (currentView == "Edit Playlist") {
+
       return (
         <PlaylistView
           propMutation={null}
@@ -186,7 +164,7 @@ class PlaylistEditor extends Component {
             clearFormInput={this.clearFormInput}
             deleteMutation={deletePlaylistMutation}
             updateMutation={updatePlaylistMutation}
-            changeView={this.changeView}
+            sendToHomeView={this.sendToHomeView}
           />
 
           {this.handleSongViewRendering(
@@ -208,8 +186,14 @@ class PlaylistEditor extends Component {
   };
 
   render() {
-    const { currentUser } = this.props;
+    const {setUserFromProps} = this.state;
+
+    //NOTE: Checks if we're getting currentUser for first time from props, else get from localState
+    const currentUser = setUserFromProps == true ? this.state.currentUser : this.props.currentUser;
+    
     const { currentView } = this.state;
+
+    console.log('PlaylistEditor this.state before return ', this.state)
     return (
       <Mutation
         mutation={UPDATE_PLAYLIST}
