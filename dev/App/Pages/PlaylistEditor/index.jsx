@@ -7,7 +7,7 @@ import {
   prepPlaylistPayload,
   checkPlaylistName
 } from "./utils.jsx";
-import { UPDATE_PLAYLIST, DELETE_PLAYLIST } from "./graphql";
+import { UPDATE_PLAYLIST, DELETE_PLAYLIST, GET_USER_INFO } from "./graphql";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";
 import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
@@ -215,11 +215,10 @@ class PlaylistEditor extends Component {
   render() {
     const { currentUser } = this.props;
     const { currentView } = this.state;
-
     return (
-      <Mutation mutation={UPDATE_PLAYLIST} update={updateLocalPlaylist}>
+      <Mutation mutation={UPDATE_PLAYLIST} refetchQueries={() => [ {query: GET_USER_INFO}  ]} update={updateLocalPlaylist}>
         {(updatePlaylistMutation, { data: updatePlaylistResponse }) => (
-          <Mutation mutation={DELETE_PLAYLIST}>
+          <Mutation mutation={DELETE_PLAYLIST} refetchQueries={() => [ {query: GET_USER_INFO}  ]}>
             {(deletePlaylistMutation, { data: deletePlaylistResponse }) => (
               <div id="top" className="playlist-editor">
                 <div className="playlist-editor-header-container">

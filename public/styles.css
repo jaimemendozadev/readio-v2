@@ -123,6 +123,8 @@ header {
         color: grey;
         font-size: 1.5em;
         text-decoration: none; }
+        .page-container .side-bar nav .side-bar-link:last-child {
+          margin-top: 1em; }
   .page-container .main-content {
     min-height: 100vh;
     flex: 1;

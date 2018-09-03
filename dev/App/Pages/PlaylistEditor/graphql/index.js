@@ -26,3 +26,24 @@ export const DELETE_PLAYLIST = gql`
     }
   }
 `;
+
+export const GET_USER_INFO = gql`
+  query getUserInfo {
+    getUser {
+      id
+      first_name
+      last_name
+      email
+      playlists {
+        id
+        name
+        songs {
+          id_user_id_identifier
+          title
+          permalink_url
+          artwork_url
+        }
+      }
+    }
+  }
+`;
