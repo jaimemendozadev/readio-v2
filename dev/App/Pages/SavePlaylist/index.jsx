@@ -6,7 +6,7 @@ import {
   handlePlaylistEditorView
 } from "./utils.jsx";
 import { GET_SONG_LIST, SAVE_SONGLIST_TO_DB, GET_USER_ID } from "./graphql";
-import SaveIcon from "./assets/savesonglist.png";
+import SaveIcon from "../assets/savesonglist.png";
 
 const defaultState = {
   playlistName: "Give your playlist a name!",

@@ -44,7 +44,9 @@ class Main extends Component {
     }
 
     if (currentView == "Search") {
-      return <Search />;
+      return (
+        <Search savePlaylistView={() => this.viewSwitch("Save Playlist")} />
+      );
     }
 
     if (currentView == "Save Playlist") {

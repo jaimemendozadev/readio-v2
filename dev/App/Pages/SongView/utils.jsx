@@ -1,6 +1,6 @@
 import React from "react";
-import Playlist from "./assets/playlist.png";
-import Trash from "./assets/trash.png";
+import Playlist from "../assets/playlist.png";
+import Trash from "../assets/trash.png";
 
 export const getAssetPath = assetType => {
   if (assetType == "playlist") {

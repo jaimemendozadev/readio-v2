@@ -1,7 +1,7 @@
 import React from "react";
-import SaveIcon from "./assets/savesonglist.png";
-import DeleteIcon from "./assets/deletesonglist.png";
-import BackIcon from "./assets/back.png";
+import SaveIcon from "../assets/savesonglist.png";
+import DeleteIcon from "../assets/deletesonglist.png";
+import BackIcon from "../assets/back.png";
 
 const PlaylistEditorControls = ({
   textInput,

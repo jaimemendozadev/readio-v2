@@ -45,6 +45,14 @@ class Search extends Component {
     });
   };
 
+  handleNavigation = () => {
+    return (
+      <button onClick={() => changeView("Edit Playlist")}>
+        Save Playlist!
+      </button>
+    );
+  };
+
   handleSongView = (startSearch, data, loading, error) => {
     if (!startSearch) {
       return null;
