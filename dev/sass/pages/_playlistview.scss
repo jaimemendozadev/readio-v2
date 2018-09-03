@@ -29,7 +29,7 @@
    
 
     .playlistcard-front {
-      @include frontPlaylistCardStyling;
+      @include PlaylistCardStyling;
       overflow: hidden;
       display: flex;
       flex-wrap: wrap;
@@ -56,7 +56,7 @@
 
   
     .playlistcard-back {
-      @include frontPlaylistCardStyling;
+      @include PlaylistCardStyling;
       transform: rotateY(-180deg);
       
       overflow: hidden; // See notes

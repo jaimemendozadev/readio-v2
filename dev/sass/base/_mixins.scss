@@ -45,7 +45,7 @@
 }
 
 
-@mixin frontPlaylistCardStyling($height: 250px, $width: 250px) {
+@mixin PlaylistCardStyling($height: 250px, $width: 250px) {
   height: $height;
   width: $width;
   position: absolute;
