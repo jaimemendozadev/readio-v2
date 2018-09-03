@@ -59,8 +59,7 @@ const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
 
   updatedPlaylist = await updatedPlaylist.save();
 
-  console.log('updatedPlaylist in DB is ', updatedPlaylist);
-  
+  console.log("updatedPlaylist in DB is ", updatedPlaylist);
 
   return {
     error: false,

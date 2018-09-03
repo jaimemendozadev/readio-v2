@@ -7,8 +7,16 @@ import { prepSongObject } from "./utils.jsx";
 import { handleLoadMutation } from "./utils.jsx";
 import { renderIcon } from "./utils.jsx";
 
-const renderResults = (propMutation, songInput, callback, assetType) => {
-  if (songInput.length == 0) {
+const renderResults = (
+  propMutation,
+  songInput,
+  callback,
+  assetType,
+  hasOneSong = false,
+  searchView = false
+) => {
+  //Note: Should only happen if we're in SearchView
+  if (songInput.length == 0 && searchView == true) {
     return (
       <div className="error-msg">
         Whoops! We couldn't find any results for your search. Try something
@@ -40,7 +48,9 @@ const renderResults = (propMutation, songInput, callback, assetType) => {
             </div>
 
             <div className="playlist-icon-container">
-              {renderIcon(propMutation, assetType, newSong, asset, callback)}
+              {hasOneSong == true && !searchView
+                ? ""
+                : renderIcon(propMutation, assetType, newSong, asset, callback)}
             </div>
           </div>
         )}
@@ -53,18 +63,27 @@ const renderResults = (propMutation, songInput, callback, assetType) => {
 // SearchView enables adding song to SongList
 // PlaylistEditor enables deleting song from SongList
 // searchView checks if SongView nested in Search View to use Search View styling
+// if we're not in searchView and playlist has only one song, disable delete song Icon for user.
 
 const SongView = ({
   PROP_MUTATION,
   songInput,
   callback,
   assetType,
-  searchView
+  searchView,
+  hasOneSong
 }) => {
   console.log("searchView inside SongView ", searchView);
   return (
     <div className={searchView == true ? "prevent-search-overflow" : ""}>
-      {renderResults(PROP_MUTATION, songInput, callback, assetType)}
+      {renderResults(
+        PROP_MUTATION,
+        songInput,
+        callback,
+        assetType,
+        hasOneSong,
+        searchView
+      )}
     </div>
   );
 };

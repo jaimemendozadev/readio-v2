@@ -29,8 +29,8 @@ class PlaylistEditor extends Component {
   }
 
   sendToHomeView = () => {
-    const {viewSwitchCB} = this.props;
-    viewSwitchCB("Home")
+    const { viewSwitchCB } = this.props;
+    viewSwitchCB("Home");
   };
 
   clearFormInput = () => {
@@ -124,6 +124,7 @@ class PlaylistEditor extends Component {
         callback={this.deleteSongFromPlaylist}
         assetType={"trash"}
         searchView={false}
+        hasOneSong={playlistSongs.length == 1 ? true : false}
       />
     );
   };
@@ -139,7 +140,6 @@ class PlaylistEditor extends Component {
     const { textInput, playlistName } = this.state;
 
     if (currentView == "Edit Playlist") {
-
       return (
         <PlaylistView
           propMutation={null}
@@ -186,14 +186,17 @@ class PlaylistEditor extends Component {
   };
 
   render() {
-    const {setUserFromProps} = this.state;
+    const { setUserFromProps } = this.state;
 
     //NOTE: Checks if we're getting currentUser for first time from props, else get from localState
-    const currentUser = setUserFromProps == true ? this.state.currentUser : this.props.currentUser;
-    
+    const currentUser =
+      setUserFromProps == true
+        ? this.state.currentUser
+        : this.props.currentUser;
+
     const { currentView } = this.state;
 
-    console.log('PlaylistEditor this.state before return ', this.state)
+    console.log("PlaylistEditor this.state before return ", this.state);
     return (
       <Mutation
         mutation={UPDATE_PLAYLIST}
