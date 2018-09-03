@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Query } from "react-apollo";
+import { Query, ApolloConsumer } from "react-apollo";
 import { Redirect } from "react-router-dom";
 import { GET_CURRENTLY_PLAYING_SONG, GET_LOCAL_USER_INFO } from "./graphql";
 import ReactPlayer from "react-player";
@@ -37,12 +37,20 @@ class Main extends Component {
     }
   };
 
-  renderCurrentView = currentlyPlaying => {
+  handleLogOut = client => {
+    client.resetStore();
+
+    localStorage.clear();
+    
+    return <Redirect to={{ pathname: "/" }} />;
+
+  }
+
+  renderCurrentView = (currentlyPlaying, client) => {
     const { currentView } = this.state;
 
     if (currentView == "Log Out") {
-      localStorage.clear();
-      return <Redirect to={{ pathname: "/" }} />;
+      return this.handleLogOut(client);
     }
 
     if (currentView == "Home") {
@@ -67,63 +75,65 @@ class Main extends Component {
       );
     }
 
-    
-
     return null;
   };
 
   render() {
     const { currentSong, currentView } = this.state;
     return (
-      <Query query={GET_CURRENTLY_PLAYING_SONG}>
-        {({ data, loading, error }) => {
-          console.log("CURRENTLY_PLYAING_SONG inside Main is ", data);
+      <ApolloConsumer>
+        {client => (
+          <Query query={GET_CURRENTLY_PLAYING_SONG}>
+            {({ data, loading, error }) => {
+              console.log("CURRENTLY_PLYAING_SONG inside Main is ", data);
 
-          if (error) {
-            this.logError(error);
-          }
+              if (error) {
+                this.logError(error);
+              }
 
-          const { currentlyPlaying } = data;
+              const { currentlyPlaying } = data;
 
-          return (
-            <div className="page-container">
-              <NavSidebar callback={this.viewSwitch} />
+              return (
+                <div className="page-container">
+                  <NavSidebar callback={this.viewSwitch} />
 
-              <div
-                className={
-                  currentView == "Save Playlist"
-                    ? "save-playlist-editor-main"
-                    : "main-content"
-                }
-              >
-                {this.renderCurrentView(currentlyPlaying)}
-
-                <div className="react-player">
-                  <ReactPlayer
-                    url={
-                      currentlyPlaying
-                        ? currentlyPlaying.currentSong
-                        : currentSong
+                  <div
+                    className={
+                      currentView == "Save Playlist"
+                        ? "save-playlist-editor-main"
+                        : "main-content"
                     }
-                    playing={
-                      currentlyPlaying ? currentlyPlaying.playing : false
-                    }
-                    width="100%"
-                    height="20%"
-                    config={{
-                      soundcloud: {
-                        options: {
-                          color: "#55728C"
+                  >
+                    {this.renderCurrentView(currentlyPlaying, client)}
+
+                    <div className="react-player">
+                      <ReactPlayer
+                        url={
+                          currentlyPlaying
+                            ? currentlyPlaying.currentSong
+                            : currentSong
                         }
-                      }
-                    }}
-                  />
+                        playing={
+                          currentlyPlaying ? currentlyPlaying.playing : false
+                        }
+                        width="100%"
+                        height="20%"
+                        config={{
+                          soundcloud: {
+                            options: {
+                              color: "#55728C"
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        }}
-      </Query>
+              );
+            }}
+          </Query>
+        )}
+      </ApolloConsumer>
     );
   }
 }
