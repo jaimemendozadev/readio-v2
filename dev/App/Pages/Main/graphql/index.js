@@ -25,6 +25,16 @@ export const GET_LOCAL_USER_INFO = gql`
   }
 `;
 
+export const LOAD_SONG_IN_PLAYER = gql`
+  mutation LoadSongInPlayer($songArg: UrlInput!) {
+    loadSongInPlayer(songArg: $songArg) @client {
+      __typename
+      currentSong
+      playing
+    }
+  }
+`;
+
 /*
 Note:
 selectedPlaylist was originally an empty {} and 

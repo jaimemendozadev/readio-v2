@@ -9,6 +9,7 @@ import SavePlaylist from "../SavePlaylist/index.jsx";
 import NavSidebar from "./NavSidebar.jsx";
 import PlaylistEditor from "../PlaylistEditor/index.jsx";
 import CustomQuery from "../../Components/CustomQuery.jsx";
+import { queueNextSongInPlayer } from "./utils.jsx";
 
 const defaultState = {
   currentUser: {},
@@ -129,6 +130,7 @@ class Main extends Component {
                             }
                           }
                         }}
+                        onEnded={() => queueNextSongInPlayer(client)}
                       />
                     </div>
                   </div>
