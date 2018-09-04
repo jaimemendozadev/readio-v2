@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Query, ApolloConsumer } from "react-apollo";
 import { Redirect } from "react-router-dom";
-import { GET_CURRENTLY_PLAYING_SONG, GET_LOCAL_USER_INFO } from "./graphql";
 import ReactPlayer from "react-player";
 import Home from "../Home/index.jsx";
 import Search from "../Search/index.jsx";
@@ -10,6 +9,7 @@ import NavSidebar from "./NavSidebar.jsx";
 import PlaylistEditor from "../PlaylistEditor/index.jsx";
 import CustomQuery from "../../Components/CustomQuery.jsx";
 import { queueNextSongInPlayer } from "./utils.jsx";
+import { GET_CURRENTLY_PLAYING_SONG, GET_LOCAL_USER_INFO } from "../../Apollo/API/graphql/index.js";
 
 const defaultState = {
   currentUser: {},

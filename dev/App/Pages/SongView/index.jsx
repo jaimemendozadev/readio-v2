@@ -1,7 +1,7 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 
-import { LOAD_SONG_IN_PLAYER } from "./graphql";
+import { LOAD_SONG_IN_PLAYER } from "../../Apollo/API/graphql/index.js";
 import { getAssetPath } from "./utils.jsx";
 import { prepSongObject } from "./utils.jsx";
 import { handleLoadMutation } from "./utils.jsx";

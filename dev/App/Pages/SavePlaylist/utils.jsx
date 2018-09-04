@@ -2,7 +2,7 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import Spinner from "../../Components/Spinner.jsx";
 import SongView from "../SongView/index.jsx";
-import { DELETE_FROM_SONG_LIST } from "./graphql";
+import { DELETE_FROM_SONG_LIST } from "../../Apollo/API/graphql/index.js";
 
 const entityMap = {
   "&": "&amp;",

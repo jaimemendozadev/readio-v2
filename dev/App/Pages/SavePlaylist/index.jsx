@@ -10,7 +10,7 @@ import {
   SAVE_SONGLIST_TO_DB,
   GET_USER_ID,
   GET_USER_INFO
-} from "./graphql";
+} from "../../Apollo/API/graphql/index.js";
 import SaveIcon from "../assets/savesonglist.png";
 
 const defaultState = {

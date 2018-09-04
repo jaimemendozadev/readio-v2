@@ -5,7 +5,7 @@ import {
   SAVE_USER_IN_CACHE,
   LOAD_PLAYLIST_IN_CACHE,
   GET_STORED_PLAYLIST
-} from "./graphql";
+} from "../../Apollo/API/graphql/index.js";
 import Spinner from "../../Components/Spinner.jsx";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";

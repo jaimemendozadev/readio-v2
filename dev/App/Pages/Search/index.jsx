@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import SongView from "../SongView/index.jsx";
 import { escapeHtml } from "./utils";
-import { SEARCH_SOUND_CLOUD, ADD_TO_SONG_LIST } from "./graphql";
+import { SEARCH_SOUND_CLOUD, ADD_TO_SONG_LIST } from "../../Apollo/API/graphql/index.js";
 import Spinner from "../../Components/Spinner.jsx";
 
 const defaultState = {

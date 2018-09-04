@@ -1,4 +1,4 @@
-import { GET_CURRENTLY_PLAYING_SONG } from "./graphql";
+import { GET_CURRENTLY_PLAYING_SONG } from "../../Apollo/API/graphql/index.js";
 
 export const queueNextSongInPlayer = client => {
 
