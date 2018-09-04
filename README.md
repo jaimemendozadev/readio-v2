@@ -1,6 +1,8 @@
 # [Read.io React Player (ver2)](https://github.com/jaimemendozadev/readio-v2)
 An updated version of my Read.io React Player with a GraphQL Backend API
 
+Deployed App URL: [https://readio.herokuapp.com/](https://readio.herokuapp.com/)
+
 ## Table of contents
 
 - Initial Setup
