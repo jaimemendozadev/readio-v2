@@ -40,6 +40,14 @@ export const LOAD_PLAYLIST_IN_CACHE = gql`
   }
 `;
 
+export const GET_STORED_PLAYLIST = gql`
+  query GetStoredPlaylist {
+    currentlyPlaying @client {
+      storedPlaylist
+    }
+  }
+`;
+
 /*
 Note:
 When querying nested resolvers, you MUST tell GraphQL

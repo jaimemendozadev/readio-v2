@@ -8,10 +8,10 @@ import { handleLoadMutation } from "./utils.jsx";
 import { renderIcon } from "./utils.jsx";
 
 const renderResults = (
-  propMutation,
+  propMutation = null,
   songInput,
-  callback,
-  assetType,
+  callback = null,
+  assetType = "none",
   hasOneSong = false,
   searchView = false
 ) => {
@@ -48,7 +48,7 @@ const renderResults = (
             </div>
 
             <div className="playlist-icon-container">
-              {hasOneSong == true && !searchView
+              {(hasOneSong == true && !searchView) || assetType == "none"
                 ? ""
                 : renderIcon(propMutation, assetType, newSong, asset, callback)}
             </div>
@@ -66,10 +66,10 @@ const renderResults = (
 // if we're not in searchView and playlist has only one song, disable delete song Icon for user.
 
 const SongView = ({
-  PROP_MUTATION,
+  PROP_MUTATION = null,
   songInput,
-  callback,
-  assetType,
+  callback = null,
+  assetType = "none",
   searchView,
   hasOneSong
 }) => {

@@ -3,10 +3,12 @@ import { Query, Mutation } from "react-apollo";
 import {
   GET_USER_INFO,
   SAVE_USER_IN_CACHE,
-  LOAD_PLAYLIST_IN_CACHE
+  LOAD_PLAYLIST_IN_CACHE,
+  GET_STORED_PLAYLIST
 } from "./graphql";
 import Spinner from "../../Components/Spinner.jsx";
 import PlaylistView from "../PlaylistView/index.jsx";
+import SongView from "../SongView/index.jsx";
 
 const defaultState = {
   currentUser: {}
@@ -17,6 +19,27 @@ class Home extends Component {
     super(props);
     this.state = defaultState;
   }
+
+  checkForStoredPlaylist = (data, loading, error) => {
+    if (data.currentlyPlaying.storedPlaylist.length) {
+      const { songs, name } = data.currentlyPlaying.storedPlaylist[0];
+
+      return (
+        <div className="stored-playlist-container">
+          <h2>Or pick a song from your currently selected playlist!</h2>
+
+          <h3>Playlist Name: {name}</h3>
+          <SongView
+            PROP_MUTATION={null}
+            songInput={songs}
+            callback={null}
+            assetType={"none"}
+            searchView={false}
+          />
+        </div>
+      );
+    }
+  };
 
   saveFetchedUser = (getUser, client) => {
     const oldState = client.readQuery({ query: SAVE_USER_IN_CACHE });
@@ -56,16 +79,24 @@ class Home extends Component {
         <h1>
           Your Current Playlists: Click on a playlist to load it in the player!
         </h1>
-        <Mutation mutation={LOAD_PLAYLIST_IN_CACHE}>
-          {loadPlaylistInCache => (
-            <PlaylistView
-              propMutation={loadPlaylistInCache}
-              varObjKey={"playlistArg"}
-              playlists={playlists}
-              callback={null}
-            />
+        <Query query={GET_STORED_PLAYLIST}>
+          {({ data, loading, error }) => (
+            <Mutation mutation={LOAD_PLAYLIST_IN_CACHE}>
+              {loadPlaylistInCache => (
+                <div className="main-home-container">
+                  {this.checkForStoredPlaylist(data, loading, error)}
+
+                  <PlaylistView
+                    propMutation={loadPlaylistInCache}
+                    varObjKey={"playlistArg"}
+                    playlists={playlists}
+                    callback={null}
+                  />
+                </div>
+              )}
+            </Mutation>
           )}
-        </Mutation>
+        </Query>
       </div>
     );
   };
