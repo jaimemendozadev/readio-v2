@@ -6,6 +6,7 @@ An updated version of my Read.io React Player with a GraphQL Backend API
 - Initial Setup
 - Create a `.env` File
 - Starting the App
+- Future +Plus Features
 - Created By
 
 ## Initial Setup
@@ -55,6 +56,14 @@ Finally in another opened terminal tab, run the command `$ yarn run start` to st
 Go to `http://localhost:3000` in your favorite browser to view the website. 
 
 Remember, you can always stop the server from running by typing `Control + z` in the terminal window you used to start the app.
+
+
+## Future +Plus Features
+- Give Users the ability to add songs to an already created playlist.
+- Enable scrolling of entire playlist on the back of playlist card.
+- Create responsive design for mobile.
+- Add Facebook Social Authentication.
+
 
 ## Created By
 

@@ -6,6 +6,7 @@
   "scripts": {
     "dev:start": "nodemon index.js",
     "dev:build": "webpack --mode development -w",
+    "prod:build": "webpack --mode production",
     "start": "node index.js",
     "dev:format": "prettier --write './dev/**/*.{js,jsx}' && prettier --write './server/**/*.{js, graphql}'"
   },
