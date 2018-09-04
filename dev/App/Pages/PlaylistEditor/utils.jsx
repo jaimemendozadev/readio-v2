@@ -37,7 +37,7 @@ export const editSongList = songList => {
 
   const songKeys = Object.keys(songList[0]);
 
-  // Not most optimal solution to delete __typename
+
   songList.forEach(song => {
     const fileredSongObj = {};
     songKeys.forEach(key => {
@@ -60,8 +60,6 @@ export const checkPlaylistName = (textInput, playlistName) => {
 };
 
 export const prepPlaylistPayload = (playlistName, playlistSongs) => {
-  // Must delete __typename to avoid Mutation error on Backend
-  // Not the most efficient way
 
   const songsPayload = editSongList(playlistSongs);
 

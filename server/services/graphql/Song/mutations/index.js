@@ -7,8 +7,6 @@ const createSong = async (_, { input }, { models }) => {
 
   const createdSong = await Song.create(input);
 
-  console.log("createdSong ", createdSong);
-
   return createdSong;
 };
 

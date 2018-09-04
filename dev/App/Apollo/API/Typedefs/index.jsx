@@ -42,24 +42,3 @@ export const typeDefs = `
     loadPlaylistInCache(playlistArg: LoadPlaylist!)
   }
 `;
-
-/*
-  For a successful mutation to GraphQL API, 
-  
-  - input/type names on frontend & backend need to match
-  - type of every argument has to match both on the frontend and backend
-
-
-  There seems to be a mismatch in types
-  Song is used in frontend
-  CreateSong is used in backend
-
-
-  Backend CreatePlaylist input
-
-  input CreatePlaylist {
-    name: String!
-    list: [CreateSong]! 
-  }
-
-*/

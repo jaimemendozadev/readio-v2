@@ -14,8 +14,6 @@ const userResolvers = require("./User/user.resolvers");
 const songResolvers = require("./Song/song.resolvers");
 const playlistResolvers = require("./Playlist/playlist.resolvers");
 
-//we need to tell the server which types represent the root query
-//and root mutation types. We call them RootQuery and RootMutation by convention.
 const baseSchema = `
   schema {
     query: Query,

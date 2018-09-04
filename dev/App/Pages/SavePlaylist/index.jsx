@@ -73,14 +73,8 @@ class SavePlaylist extends Component {
     const { songList } = client.readQuery({ query: GET_SONG_LIST });
     const { currentUser } = client.readQuery({ query: GET_USER_ID });
 
-    // MUST DELETE __typename of each song before sending to backend
-    // else __typename will cause error in BE because __typename is
-    // not found on mutation input
-
-    // Not most optimal solution to delete __typename
     const filteredList = editSongList(songList.list);
 
-    // sanitize the playlist BEFORE submitting to DB
     const input = {
       name: escapeHtml(songList.name),
       songs: filteredList
@@ -94,15 +88,14 @@ class SavePlaylist extends Component {
 
     const { createPlaylist } = data;
 
-    // If playlist saved, reset songList cache
     if (!createPlaylist.error) {
-      // Reset songList cache with defaults
-      // NOTE: data MUST include defaultStore key
+  
       const defaultSongList = {
         songList: Object.assign({}, songList, { name: "untitled", list: [] })
       };
 
       client.writeQuery({ query: GET_SONG_LIST, data: defaultSongList });
+      
       console.log("cache after resetting ", client);
     }
   };

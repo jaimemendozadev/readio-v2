@@ -26,7 +26,6 @@ export const editSongList = songList => {
 
   const songKeys = Object.keys(songList[0]);
 
-  // Not most optimal solution to delete __typename
   songList.forEach(song => {
     const fileredSongObj = {};
     songKeys.forEach(key => {

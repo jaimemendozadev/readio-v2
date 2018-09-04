@@ -3,7 +3,6 @@ const Router = express.Router();
 const passport = require("passport");
 const { facebookAuth, googleAuth } = require("./controllers");
 
-//Must use Router.get, cannot use Router.use. Otherwise Passport Auth fails.
 Router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })

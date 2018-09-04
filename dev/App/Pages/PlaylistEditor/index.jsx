@@ -107,7 +107,6 @@ class PlaylistEditor extends Component {
   };
 
   handleSongViewRendering = (updateResponse, deleteResponse, playlistSongs) => {
-    //deletePlaylist, updatePlaylist
 
     if (updateResponse) {
       return <h1>{updateResponse.updatePlaylist.message}</h1>;
@@ -188,7 +187,6 @@ class PlaylistEditor extends Component {
   render() {
     const { setUserFromProps } = this.state;
 
-    //NOTE: Checks if we're getting currentUser for first time from props, else get from localState
     const currentUser =
       setUserFromProps == true
         ? this.state.currentUser
@@ -196,7 +194,6 @@ class PlaylistEditor extends Component {
 
     const { currentView } = this.state;
 
-    console.log("PlaylistEditor this.state before return ", this.state);
     return (
       <Mutation
         mutation={UPDATE_PLAYLIST}
@@ -217,9 +214,6 @@ class PlaylistEditor extends Component {
                     </h1>
                   </div>
                 </div>
-
-                {console.log("this.props inside PlaylistEditor ", this.props)}
-                {console.log("this.state inside PlaylistEditor ", this.state)}
 
                 {this.renderCurrentView(
                   currentView,

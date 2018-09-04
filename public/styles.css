@@ -258,13 +258,6 @@ Playlist
 https://medium.com/designer-recipes/understanding-card-flip-animation-using-css-391c40ed3136
 
 */
-/*
-Notes
--In a BIG playlist with lots of songs, seeting the back card to overflow:scroll
-makes the playlist text appear in the front of the card. Used overflow:hidden 
-as a compromise.
-
-*/
 .save-playlist-editor-main {
   min-height: 150vh;
   flex: 1;

@@ -46,7 +46,6 @@ class Home extends Component {
 
     const { currentUser } = oldState;
 
-    // Update newState key/values with getUser
     const newState = {};
     newState.id = getUser.id;
     newState.email = getUser.email;
@@ -54,7 +53,7 @@ class Home extends Component {
     newState.last_name = getUser.last_name;
     newState.playlists = getUser.playlists;
 
-    // Spread oldState and update currentUser with newState
+
     const data = {
       ...oldState,
       currentUser: Object.assign({}, currentUser, newState)

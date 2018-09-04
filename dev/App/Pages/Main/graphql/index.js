@@ -34,14 +34,3 @@ export const LOAD_SONG_IN_PLAYER = gql`
     }
   }
 `;
-
-/*
-Note:
-selectedPlaylist was originally an empty {} and 
-caused query to break. <Main /> component was 
-stuck in Loading spinner because selectedPlaylist
-keys were never specified in default state and
-query never requested any of the keys in 
-selectedPlaylist
-
-*/

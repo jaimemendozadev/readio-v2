@@ -15,7 +15,7 @@ const renderResults = (
   hasOneSong = false,
   searchView = false
 ) => {
-  //Note: Should only happen if we're in SearchView
+  
   if (songInput.length == 0 && searchView == true) {
     return (
       <div className="error-msg">
@@ -59,12 +59,6 @@ const renderResults = (
   });
 };
 
-// PROP_MUTATION can add or delete song from cache SongList
-// SearchView enables adding song to SongList
-// PlaylistEditor enables deleting song from SongList
-// searchView checks if SongView nested in Search View to use Search View styling
-// if we're not in searchView and playlist has only one song, disable delete song Icon for user.
-
 const SongView = ({
   PROP_MUTATION = null,
   songInput,
@@ -73,7 +67,7 @@ const SongView = ({
   searchView,
   hasOneSong
 }) => {
-  console.log("searchView inside SongView ", searchView);
+
   return (
     <div className={searchView == true ? "prevent-search-overflow" : ""}>
       {renderResults(

@@ -2,14 +2,12 @@ const createPlaylist = async (_, { userID, input }, { models }) => {
   const { Playlist, User } = models;
 
   try {
-    // Save playlist in DB
     const newPlaylist = await new Playlist({
       name: input.name,
       songs: input.songs
     });
     newPlaylist.save();
 
-    // Save reference to Playlist in User document
     const playlistID = newPlaylist.id;
     const foundUser = await User.findById(userID);
     foundUser.playlists.push(playlistID);
@@ -59,7 +57,6 @@ const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
 
   updatedPlaylist = await updatedPlaylist.save();
 
-  console.log("updatedPlaylist in DB is ", updatedPlaylist);
 
   return {
     error: false,
@@ -71,10 +68,8 @@ const deletePlaylist = async (_, { playlistID, userID }, { models }) => {
   const { Playlist, User } = models;
 
   try {
-    // Delete the playlist
     const deletedPlaylist = await Playlist.findByIdAndDelete(playlistID);
 
-    // Delete the playlist from User's Playlist array
     const foundUser = await User.findById(userID);
 
     const filteredPlaylists = foundUser.playlists.filter(

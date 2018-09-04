@@ -50,11 +50,9 @@
   width: $width;
   position: absolute;
   backface-visibility: hidden;
-  background-color: rgba(#E84F89, .9); // Change color?
+  background-color: rgba(#E84F89, .9);
 }
 
-
-// preventResultsOverflow prevents song item results from pushing React player to bottom of page
 @mixin prevent-overflow-container($height: 45vh) {
   height: $height;
   overflow: scroll;

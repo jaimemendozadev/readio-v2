@@ -48,24 +48,3 @@ class LandingPage extends Component {
 }
 
 export default LandingPage;
-
-/*
-
-
-checkForToken = () => {
-    let token = localStorage.getItem("token");
-
-    if (token) {
-      this.setState({
-        authenticated: true,
-        checkingAuthentication: false
-      });
-    } else {
-      //At this point, the token was never set, redirect to login
-      this.setState({
-        checkingAuthentication: false
-      });
-    }
-  };
-
-  */

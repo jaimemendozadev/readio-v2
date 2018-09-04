@@ -47,12 +47,3 @@ export const GET_STORED_PLAYLIST = gql`
     }
   }
 `;
-
-/*
-Note:
-When querying nested resolvers, you MUST tell GraphQL
-to return something. Otherwise you'll get an 
-
-`Message: Field "playlists" of type "[Playlist]!" must have a selection of subfields.`
-
-*/
