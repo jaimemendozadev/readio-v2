@@ -1,5 +1,5 @@
 import React from "react";
-const baseURL = "https://readio.herokuapp.com/api/login";
+const baseURL = "/api/login";
 
 const Login = ({ heading }) => {
   return (

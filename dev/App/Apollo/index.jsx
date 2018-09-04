@@ -4,7 +4,7 @@ import { resolvers } from "./API/resolvers/index.js";
 import { typeDefs } from "./API/typeDefs/index.js";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
+  uri: "/graphql",
   clientState: {
     resolvers,
     defaults,
