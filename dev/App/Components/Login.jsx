@@ -6,9 +6,9 @@ const Login = ({ heading }) => {
     <div className="form-container">
       <form>
         <h1>{heading}</h1>
-        <a href={`${baseURL}/facebook`} className="facebook">
+        {/* <a href={`${baseURL}/facebook`} className="facebook">
           Continue with Facebook
-        </a>
+        </a> */}
         <a href={`${baseURL}/google`} className="google">
           Continue with Google
         </a>
