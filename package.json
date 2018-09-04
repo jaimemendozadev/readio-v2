@@ -10,6 +10,9 @@
     "start": "node index.js",
     "dev:format": "prettier --write './dev/**/*.{js,jsx}' && prettier --write './server/**/*.{js, graphql}'"
   },
+  "engines": {
+    "node": "8.11.1"
+  },
   "dependencies": {
     "apollo-boost": "^0.1.6",
     "apollo-link-context": "^1.0.8",

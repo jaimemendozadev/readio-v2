@@ -15,7 +15,6 @@ const renderResults = (
   hasOneSong = false,
   searchView = false
 ) => {
-  
   if (songInput.length == 0 && searchView == true) {
     return (
       <div className="error-msg">
@@ -67,7 +66,6 @@ const SongView = ({
   searchView,
   hasOneSong
 }) => {
-
   return (
     <div className={searchView == true ? "prevent-search-overflow" : ""}>
       {renderResults(

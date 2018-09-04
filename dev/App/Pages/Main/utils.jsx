@@ -1,7 +1,6 @@
 import { GET_CURRENTLY_PLAYING_SONG } from "../../Apollo/API/graphql/index.js";
 
 export const queueNextSongInPlayer = client => {
-
   const oldState = client.readQuery({ query: GET_CURRENTLY_PLAYING_SONG });
   const { currentlyPlaying } = oldState;
 

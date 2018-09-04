@@ -89,13 +89,12 @@ class SavePlaylist extends Component {
     const { createPlaylist } = data;
 
     if (!createPlaylist.error) {
-  
       const defaultSongList = {
         songList: Object.assign({}, songList, { name: "untitled", list: [] })
       };
 
       client.writeQuery({ query: GET_SONG_LIST, data: defaultSongList });
-      
+
       console.log("cache after resetting ", client);
     }
   };

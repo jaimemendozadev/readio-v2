@@ -7,7 +7,11 @@ import {
   prepPlaylistPayload,
   resetLocalPlaylistState
 } from "./utils.jsx";
-import { UPDATE_PLAYLIST, DELETE_PLAYLIST, GET_USER_INFO } from "../../Apollo/API/graphql/index.js";
+import {
+  UPDATE_PLAYLIST,
+  DELETE_PLAYLIST,
+  GET_USER_INFO
+} from "../../Apollo/API/graphql/index.js";
 import PlaylistView from "../PlaylistView/index.jsx";
 import SongView from "../SongView/index.jsx";
 import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
@@ -107,7 +111,6 @@ class PlaylistEditor extends Component {
   };
 
   handleSongViewRendering = (updateResponse, deleteResponse, playlistSongs) => {
-
     if (updateResponse) {
       return <h1>{updateResponse.updatePlaylist.message}</h1>;
     }

@@ -31,7 +31,6 @@ export const DELETE_PLAYLIST = gql`
   }
 `;
 
-
 export const GET_CURRENT_SONG = gql`
   query CurrentlyPlaying {
     currentlyPlaying @client {
@@ -45,7 +44,6 @@ export const GET_CURRENT_SONG = gql`
     }
   }
 `;
-
 
 export const GET_CURRENTLY_PLAYING_SONG = gql`
   query GetCurrentlyPlayingSong {
@@ -72,7 +70,6 @@ export const GET_LOCAL_USER_INFO = gql`
   }
 `;
 
-
 export const GET_SONG_LIST = gql`
   query getSongList {
     songList @client {
@@ -83,7 +80,6 @@ export const GET_SONG_LIST = gql`
   }
 `;
 
-
 export const GET_STORED_PLAYLIST = gql`
   query GetStoredPlaylist {
     currentlyPlaying @client {
@@ -91,7 +87,6 @@ export const GET_STORED_PLAYLIST = gql`
     }
   }
 `;
-
 
 export const GET_USER_ID = gql`
   query getCurrentUser {
@@ -101,7 +96,6 @@ export const GET_USER_ID = gql`
     }
   }
 `;
-
 
 export const GET_USER_INFO = gql`
   query getUserInfo {
@@ -124,13 +118,11 @@ export const GET_USER_INFO = gql`
   }
 `;
 
-
 export const LOAD_PLAYLIST_IN_CACHE = gql`
   mutation($playlistArg: LoadPlaylist!) {
     loadPlaylistInCache(playlistArg: $playlistArg) @client
   }
 `;
-
 
 export const LOAD_SONG_IN_PLAYER = gql`
   mutation LoadSongInPlayer($songArg: UrlInput!) {
@@ -163,7 +155,6 @@ export const SAVE_USER_IN_CACHE = gql`
     }
   }
 `;
-
 
 export const SEARCH_SOUND_CLOUD = gql`
   mutation SearchSoundCloud($searchTerm: String!) {

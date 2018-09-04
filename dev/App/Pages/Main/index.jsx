@@ -9,7 +9,10 @@ import NavSidebar from "./NavSidebar.jsx";
 import PlaylistEditor from "../PlaylistEditor/index.jsx";
 import CustomQuery from "../../Components/CustomQuery.jsx";
 import { queueNextSongInPlayer } from "./utils.jsx";
-import { GET_CURRENTLY_PLAYING_SONG, GET_LOCAL_USER_INFO } from "../../Apollo/API/graphql/index.js";
+import {
+  GET_CURRENTLY_PLAYING_SONG,
+  GET_LOCAL_USER_INFO
+} from "../../Apollo/API/graphql/index.js";
 
 const defaultState = {
   currentUser: {},
@@ -90,7 +93,6 @@ class Main extends Component {
         {client => (
           <Query query={GET_CURRENTLY_PLAYING_SONG}>
             {({ data, loading, error }) => {
-
               if (error) {
                 this.logError(error);
               }

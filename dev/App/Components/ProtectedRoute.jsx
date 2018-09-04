@@ -20,7 +20,6 @@ class ProtectedRoute extends Component {
         checkingAuthentication: false
       });
     } else {
-      
       this.setState({
         checkingAuthentication: false
       });
@@ -28,7 +27,6 @@ class ProtectedRoute extends Component {
   };
 
   componentDidMount() {
-    
     this.checkForToken();
   }
 

@@ -4,17 +4,14 @@ import { GET_CURRENT_SONG } from "../graphql";
 export const resolvers = {
   Mutation: {
     addToSongList: (_, { songToAdd }, { cache }) => {
-      
       const oldState = cache.readQuery({ query: GET_SONG_LIST });
 
       const { list } = oldState.songList;
 
       songToAdd.__typename = "CreateSong";
 
-      
       const newState = [].concat(list, [songToAdd]);
 
-      
       const data = {
         songList: {
           ...oldState.songList,
@@ -22,7 +19,6 @@ export const resolvers = {
         }
       };
 
-      
       cache.writeQuery({ query: GET_SONG_LIST, data });
 
       return songToAdd;
@@ -75,14 +71,11 @@ export const resolvers = {
     },
 
     loadPlaylistInCache: (_, { playlistArg }, { cache }) => {
-
-      
       let localPlaylist = playlistArg.songs.slice(0);
 
       const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
       const { currentlyPlaying } = oldState;
 
-      
       const newCurrentSong = localPlaylist[0].permalink_url;
       localPlaylist.shift();
 
@@ -103,8 +96,7 @@ export const resolvers = {
 
       console.log("cache after loadPlaylistInCache ", cache);
 
-     
       return null;
     }
-  } 
+  }
 };

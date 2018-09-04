@@ -53,7 +53,6 @@ class Home extends Component {
     newState.last_name = getUser.last_name;
     newState.playlists = getUser.playlists;
 
-
     const data = {
       ...oldState,
       currentUser: Object.assign({}, currentUser, newState)

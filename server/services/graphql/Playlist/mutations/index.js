@@ -57,7 +57,6 @@ const updatePlaylist = async (_, { playlistID, updatedList }, { models }) => {
 
   updatedPlaylist = await updatedPlaylist.save();
 
-
   return {
     error: false,
     message: "You've successfully updated your playlist!"

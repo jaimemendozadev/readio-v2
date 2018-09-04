@@ -15,7 +15,6 @@ const renderPlaylistCards = (propMutation, varObjKey, playlists, callback) => {
 
 const PlaylistView = ({ propMutation, varObjKey, playlists, callback }) => (
   <div className="playlistview-container">
-
     {renderPlaylistCards(propMutation, varObjKey, playlists, callback)}
   </div>
 );

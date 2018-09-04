@@ -37,7 +37,6 @@ export const editSongList = songList => {
 
   const songKeys = Object.keys(songList[0]);
 
-
   songList.forEach(song => {
     const fileredSongObj = {};
     songKeys.forEach(key => {
@@ -60,7 +59,6 @@ export const checkPlaylistName = (textInput, playlistName) => {
 };
 
 export const prepPlaylistPayload = (playlistName, playlistSongs) => {
-
   const songsPayload = editSongList(playlistSongs);
 
   const playlistDBPayload = {
