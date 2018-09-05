@@ -1,5 +1,8 @@
 # [Read.io React Player (ver2)](https://github.com/jaimemendozadev/readio-v2)
-An updated version of my Read.io React Player with a GraphQL Backend API
+
+A personalized music player that helps you find SoundCloud music and lets you create/save your playlists!
+
+Read.io (v2) has been refactored with a GraphQL Backend API, Apollo Client on the Frontend, and Google OAuth with Passport.js.
 
 Deployed App URL: [https://readio.herokuapp.com/](https://readio.herokuapp.com/)
 
