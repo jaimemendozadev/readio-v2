@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "clear:build": "rm -rfv ./public/*.png && rm -rfv  ./public/*.css && rm -rfv  ./public/*.js",
     "dev:start": "nodemon index.js",
     "dev:build": "webpack --mode development -w",
     "prod:build": "webpack --mode production",
