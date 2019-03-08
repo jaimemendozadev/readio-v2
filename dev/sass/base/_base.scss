@@ -1,4 +1,5 @@
-*:before, *:after {
+*:before,
+*:after {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
@@ -14,12 +15,16 @@ body {
   border-radius: 50%;
   height: 100px;
   width: 100px;
-  border-top-color: transparent; 
+  border-top-color: transparent;
   animation: rotate 2s infinite linear;
-  
+
   @keyframes rotate {
-    0%    { transform: rotate(0deg);  }
-    100%  { transform: rotate(360deg);  }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 
@@ -40,7 +45,10 @@ body {
 .anchor-wrapper {
   text-decoration: none;
 
-  &:link, &:visited, &:hover, &:active {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
     text-decoration: none;
     color: white;
   }

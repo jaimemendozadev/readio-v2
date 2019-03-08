@@ -8,14 +8,9 @@
     "dev:build": "webpack --mode development -w",
     "prod:build": "webpack --mode production",
     "start": "node index.js",
-    "dev:format": "prettier --write './dev/**/*.{js,jsx}' && prettier --write './server/**/*.{js, graphql}'",
+    "dev:format": "prettier --write './dev/**/*.{js,jsx,scss}' && prettier --write './server/**/*.{js, graphql}'",
     "heroku-prebuild": "yarn install --production=false",
     "heroku-postbuild": "yarn run prod:build"
-  },
-  "engines": {
-    "node": "8.11.1",
-    "npm": "6.2.0",
-    "yarn": "1.9.4"
   },
   "dependencies": {
     "apollo-boost": "^0.1.6",

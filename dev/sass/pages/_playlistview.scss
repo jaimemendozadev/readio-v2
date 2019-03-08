@@ -5,7 +5,6 @@
   flex-wrap: wrap;
   margin-bottom: 2em;
   justify-content: center;
-  
 
   .playlistview-header {
     width: 100%;
@@ -25,7 +24,6 @@
     position: relative;
     transform-style: preserve-3d;
     transition: transform 1.5s;
-   
 
     .playlistcard-front {
       @include PlaylistCardStyling;
@@ -40,24 +38,22 @@
         height: 100px;
         margin-right: 2em;
       }
-      
+
       h3 {
-        margin: 2em auto;   
-        width: 100%;     
+        margin: 2em auto;
+        width: 100%;
       }
 
       ul li {
         list-style-type: none;
         color: white;
       }
-          
     }
 
-  
     .playlistcard-back {
       @include PlaylistCardStyling;
       transform: rotateY(-180deg);
-      
+
       overflow: hidden; // See notes
     }
 
@@ -71,7 +67,6 @@
   }
 }
 
-
 /*
 Citations
 
@@ -79,10 +74,3 @@ Playlist
 https://medium.com/designer-recipes/understanding-card-flip-animation-using-css-391c40ed3136
 
 */
-
-
-
-
-
-
-

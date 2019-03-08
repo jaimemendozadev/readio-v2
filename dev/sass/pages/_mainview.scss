@@ -1,12 +1,11 @@
 .page-container {
   display: flex;
   flex-direction: row;
-  
 
   .side-bar {
     width: 15%;
     color: grey;
-    background: linear-gradient(to bottom, black, #1B242C 10%, #55728C);
+    background: linear-gradient(to bottom, black, #1b242c 10%, #55728c);
 
     nav {
       display: flex;
@@ -24,15 +23,8 @@
         &:last-child {
           margin-top: 1em;
         }
-        
       }
-
-      
-  
-      
     }
-    
-
   }
 
   .main-content {
@@ -40,16 +32,13 @@
     flex: 1;
     color: white;
     padding: 1em;
-    background: linear-gradient(to bottom, #55728C, #1B242C, black);
+    background: linear-gradient(to bottom, #55728c, #1b242c, black);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     .react-player {
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
     }
-
   }
-
-  
 }

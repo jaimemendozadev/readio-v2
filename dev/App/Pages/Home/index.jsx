@@ -75,7 +75,8 @@ class Home extends Component {
     return (
       <div>
         <h1>
-          Your Current Playlists: Click on a playlist below to load it in the player!
+          Your Current Playlists: Click on a playlist below to load it in the
+          player!
         </h1>
         <Query query={GET_STORED_PLAYLIST}>
           {({ data, loading, error }) => (
