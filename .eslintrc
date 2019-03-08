@@ -1,0 +1,13 @@
+{
+    "parserOptions": { 
+      "ecmaVersion": 2018 
+    },
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"], 
+    "rules": {
+        "no-use-before-define": 2,
+        "no-console": "off"
+    },
+    "globals": {
+      "fetch": false
+    }
+  }
