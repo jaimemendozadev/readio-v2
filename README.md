@@ -4,8 +4,6 @@ A personalized music player that helps you find SoundCloud music and lets you cr
 
 Read.io (v2) has been refactored with a GraphQL Backend API, Apollo Client on the Frontend, and Google OAuth with Passport.js.
 
-Deployed App URL: [https://readio.herokuapp.com/](https://readio.herokuapp.com/)
-
 ## Table of contents
 
 - Initial Setup
