@@ -1,5 +1,5 @@
-const getPlaylist = async (_, { playlistID }, { models }) => {
-  const { Playlist } = models;
+const getPlaylist = async (_, {playlistID}, {models}) => {
+  const {Playlist} = models;
 
   const foundPlaylist = await Playlist.findById(playlistID);
 
@@ -7,5 +7,5 @@ const getPlaylist = async (_, { playlistID }, { models }) => {
 };
 
 module.exports = {
-  getPlaylist
+  getPlaylist,
 };

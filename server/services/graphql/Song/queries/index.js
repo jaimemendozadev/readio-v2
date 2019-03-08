@@ -1,5 +1,5 @@
-const findSong = async (_, { title }, { models }) => {
-  const { Song } = models;
+const findSong = async (_, {title}, {models}) => {
+  const {Song} = models;
   const foundSong = await Song.find(title);
 
   if (foundSong) {
@@ -10,5 +10,5 @@ const findSong = async (_, { title }, { models }) => {
 };
 
 module.exports = {
-  findSong
+  findSong,
 };

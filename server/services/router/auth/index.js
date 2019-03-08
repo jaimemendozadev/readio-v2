@@ -1,21 +1,21 @@
-const express = require("express");
+const express = require('express');
 const Router = express.Router();
-const passport = require("passport");
-const { facebookAuth, googleAuth } = require("./controllers");
+const passport = require('passport');
+const {facebookAuth, googleAuth} = require('./controllers');
 
 Router.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  '/google',
+  passport.authenticate('google', {scope: ['profile', 'email']}),
 );
 Router.get(
-  "/google/callback",
-  passport.authenticate("google", {
+  '/google/callback',
+  passport.authenticate('google', {
     session: false,
-    failureRedirect: "/login"
+    failureRedirect: '/login',
   }),
-  googleAuth
+  googleAuth,
 );
 
-Router.get("/facebook", facebookAuth);
+Router.get('/facebook', facebookAuth);
 
 module.exports = Router;

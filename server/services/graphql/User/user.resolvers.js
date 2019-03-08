@@ -1,18 +1,18 @@
-const { getUser, playlists } = require("./queries");
-const { createUser, deleteUser, updateUser } = require("./mutations");
+const {getUser, playlists} = require('./queries');
+const {createUser, deleteUser, updateUser} = require('./mutations');
 
 module.exports = {
   Query: {
-    getUser
+    getUser,
   },
 
   Mutation: {
     createUser,
     deleteUser,
-    updateUser
+    updateUser,
   },
 
   User: {
-    playlists
-  }
+    playlists,
+  },
 };

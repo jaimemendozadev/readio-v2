@@ -1,16 +1,16 @@
-const playlists = async (_parent, _args, { userID, models }) => {
-  const { User } = models;
+const playlists = async (_parent, _args, {userID, models}) => {
+  const {User} = models;
 
-  const { playlists } = await User.findById(userID).populate("playlists");
+  const {playlists} = await User.findById(userID).populate('playlists');
 
   return playlists;
 };
 
-const getUser = async (_parent, _args, { userID, models }) => {
-  const { User } = models;
+const getUser = async (_parent, _args, {userID, models}) => {
+  const {User} = models;
 
   const foundUser = await User.findById(userID);
-  const foundPlaylists = await User.findById(userID).populate("playlists");
+  const foundPlaylists = await User.findById(userID).populate('playlists');
 
   foundUser.playlists = foundPlaylists;
 
@@ -19,5 +19,5 @@ const getUser = async (_parent, _args, { userID, models }) => {
 
 module.exports = {
   playlists,
-  getUser
+  getUser,
 };

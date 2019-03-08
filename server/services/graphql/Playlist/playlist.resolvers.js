@@ -1,20 +1,20 @@
-const { getPlaylist } = require("./queries");
+const {getPlaylist} = require('./queries');
 const {
   createPlaylist,
   addSongToPlaylist,
   updatePlaylist,
-  deletePlaylist
-} = require("./mutations");
+  deletePlaylist,
+} = require('./mutations');
 
 module.exports = {
   Query: {
-    getPlaylist
+    getPlaylist,
   },
 
   Mutation: {
     createPlaylist,
     addSongToPlaylist,
     updatePlaylist,
-    deletePlaylist
-  }
+    deletePlaylist,
+  },
 };

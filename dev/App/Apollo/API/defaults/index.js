@@ -1,25 +1,25 @@
 export const defaults = {
   songList: {
-    __typename: "SongList",
-    name: "untitled",
-    list: []
+    __typename: 'SongList',
+    name: 'untitled',
+    list: [],
   },
   currentlyPlaying: {
-    __typename: "SongStack",
+    __typename: 'SongStack',
     currentSong:
-      "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
+      'https://soundcloud.com/john-dollar-1/alesso-years-original-mix',
     stack: [],
     playlistStack: [],
     storedPlaylist: [],
     userSelectedPlaylist: false,
-    playing: false
+    playing: false,
   },
   currentUser: {
-    __typename: "CurrentUser",
-    id: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    playlists: []
-  }
+    __typename: 'CurrentUser',
+    id: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    playlists: [],
+  },
 };

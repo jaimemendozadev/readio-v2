@@ -1,5 +1,5 @@
-const { findUserInDB } = require("./utils");
-const ExtractJwt = require("passport-jwt").ExtractJwt;
+const {findUserInDB} = require('./utils');
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -13,5 +13,5 @@ const getUserWithToken = async (jwt_payload, done) => {
 
 module.exports = {
   opts,
-  getUserWithToken
+  getUserWithToken,
 };

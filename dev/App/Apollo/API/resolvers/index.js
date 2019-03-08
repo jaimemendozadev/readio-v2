@@ -1,35 +1,35 @@
-import { GET_SONG_LIST } from "../graphql";
-import { GET_CURRENT_SONG } from "../graphql";
+import {GET_SONG_LIST} from '../graphql';
+import {GET_CURRENT_SONG} from '../graphql';
 
 export const resolvers = {
   Mutation: {
-    addToSongList: (_, { songToAdd }, { cache }) => {
-      const oldState = cache.readQuery({ query: GET_SONG_LIST });
+    addToSongList: (_, {songToAdd}, {cache}) => {
+      const oldState = cache.readQuery({query: GET_SONG_LIST});
 
-      const { list } = oldState.songList;
+      const {list} = oldState.songList;
 
-      songToAdd.__typename = "CreateSong";
+      songToAdd.__typename = 'CreateSong';
 
       const newState = [].concat(list, [songToAdd]);
 
       const data = {
         songList: {
           ...oldState.songList,
-          list: newState
-        }
+          list: newState,
+        },
       };
 
-      cache.writeQuery({ query: GET_SONG_LIST, data });
+      cache.writeQuery({query: GET_SONG_LIST, data});
 
       return songToAdd;
     },
 
-    deleteFromSongList: (_, { songID }, { cache }) => {
+    deleteFromSongList: (_, {songID}, {cache}) => {
       let filteredSong;
 
-      const oldState = cache.readQuery({ query: GET_SONG_LIST });
+      const oldState = cache.readQuery({query: GET_SONG_LIST});
 
-      const { list } = oldState.songList;
+      const {list} = oldState.songList;
 
       const newState = list.filter(song => {
         if (songID != song.id_user_id_identifier) {
@@ -42,39 +42,39 @@ export const resolvers = {
       const data = {
         songList: {
           ...oldState.songList,
-          list: newState
-        }
+          list: newState,
+        },
       };
 
-      cache.writeQuery({ query: GET_SONG_LIST, data });
+      cache.writeQuery({query: GET_SONG_LIST, data});
 
       return filteredSong;
     },
 
-    loadSongInPlayer: (_, { songArg }, { cache }) => {
-      const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
+    loadSongInPlayer: (_, {songArg}, {cache}) => {
+      const oldState = cache.readQuery({query: GET_CURRENT_SONG});
 
       const currentlyPlaying = Object.assign(
         {},
         oldState.currentlyPlaying,
-        songArg
+        songArg,
       );
 
       const data = {
         ...oldState,
-        currentlyPlaying
+        currentlyPlaying,
       };
 
-      cache.writeQuery({ query: GET_CURRENT_SONG, data });
+      cache.writeQuery({query: GET_CURRENT_SONG, data});
 
       return null;
     },
 
-    loadPlaylistInCache: (_, { playlistArg }, { cache }) => {
+    loadPlaylistInCache: (_, {playlistArg}, {cache}) => {
       let localPlaylist = playlistArg.songs.slice(0);
 
-      const oldState = cache.readQuery({ query: GET_CURRENT_SONG });
-      const { currentlyPlaying } = oldState;
+      const oldState = cache.readQuery({query: GET_CURRENT_SONG});
+      const {currentlyPlaying} = oldState;
 
       const newCurrentSong = localPlaylist[0].permalink_url;
       localPlaylist.shift();
@@ -84,19 +84,19 @@ export const resolvers = {
         playlistStack: localPlaylist,
         storedPlaylist: [playlistArg],
         userSelectedPlaylist: true,
-        playing: true
+        playing: true,
       };
 
       const data = {
         ...oldState,
-        currentlyPlaying: Object.assign({}, currentlyPlaying, newState)
+        currentlyPlaying: Object.assign({}, currentlyPlaying, newState),
       };
 
-      cache.writeQuery({ query: GET_CURRENT_SONG, data });
+      cache.writeQuery({query: GET_CURRENT_SONG, data});
 
-      console.log("cache after loadPlaylistInCache ", cache);
+      console.log('cache after loadPlaylistInCache ', cache);
 
       return null;
-    }
-  }
+    },
+  },
 };

@@ -1,20 +1,20 @@
-const createUser = async (_, { input }, { models }) => {
-  const { User } = models;
+const createUser = async (_, {input}, {models}) => {
+  const {User} = models;
   const newUser = await User.create(input);
 
   return newUser;
 };
 
-const deleteUser = async (_, { userID }, { models }) => {
-  const { User } = models;
+const deleteUser = async (_, {userID}, {models}) => {
+  const {User} = models;
   const deletedUser = await User.findByIdAndRemove(userID);
 
   return deletedUser;
 };
 
-const updateUser = async (_, { input }, { models }) => {
-  const { User } = models;
-  const { id, ...updates } = input;
+const updateUser = async (_, {input}, {models}) => {
+  const {User} = models;
+  const {id, ...updates} = input;
 
   const updatedUser = await User.findByIdAndUpdate(id, updates);
 
@@ -24,5 +24,5 @@ const updateUser = async (_, { input }, { models }) => {
 module.exports = {
   createUser,
   deleteUser,
-  updateUser
+  updateUser,
 };

@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import {gql} from 'apollo-boost';
 
 export const ADD_TO_SONG_LIST = gql`
   mutation AddToSongList($songToAdd: CreateSong!) {

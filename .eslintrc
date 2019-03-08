@@ -1,7 +1,9 @@
 {
-    "parserOptions": { 
-      "ecmaVersion": 2018 
-    },
+    "env": {
+        "browser": true,
+        "node": true
+      },
+    "parser": "babel-eslint",
     "extends": ["eslint:recommended", "plugin:prettier/recommended"], 
     "rules": {
         "no-use-before-define": 2,
