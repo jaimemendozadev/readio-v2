@@ -1,7 +1,10 @@
 import React from 'react';
-const baseURL = '/api/login';
-
-console.log('process is ', process.env);
+const localhost = 'http://localhost:3000';
+const API_PATH = '/api/login';
+const baseURL =
+  process.env.NODE_ENV === 'development'
+    ? `${localhost}${API_PATH}`
+    : `${API_PATH}`;
 
 const Login = ({heading}) => {
   return (
