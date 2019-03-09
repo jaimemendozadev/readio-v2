@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { Query, ApolloConsumer } from "react-apollo";
-import { Redirect } from "react-router-dom";
-import ReactPlayer from "react-player";
-import Home from "../Home/index.jsx";
-import Search from "../Search/index.jsx";
-import SavePlaylist from "../SavePlaylist/index.jsx";
-import NavSidebar from "./NavSidebar.jsx";
-import PlaylistEditor from "../PlaylistEditor/index.jsx";
-import CustomQuery from "../../Components/CustomQuery.jsx";
-import { queueNextSongInPlayer } from "./utils.jsx";
+import React, {Component} from 'react';
+import {Query, ApolloConsumer} from 'react-apollo';
+import {Redirect} from 'react-router-dom';
+import ReactPlayer from 'react-player';
+import Home from '../Home/index.jsx';
+import Search from '../Search/index.jsx';
+import SavePlaylist from '../SavePlaylist/index.jsx';
+import NavSidebar from './NavSidebar.jsx';
+import PlaylistEditor from '../PlaylistEditor/index.jsx';
+import CustomQuery from '../../Components/CustomQuery.jsx';
+import {queueNextSongInPlayer} from './utils.jsx';
 import {
   GET_CURRENTLY_PLAYING_SONG,
-  GET_LOCAL_USER_INFO
-} from "../../Apollo/API/graphql/index.js";
+  GET_LOCAL_USER_INFO,
+} from '../../Apollo/API/graphql/index.js';
 
 const defaultState = {
   currentUser: {},
-  currentSong: "https://soundcloud.com/john-dollar-1/alesso-years-original-mix",
-  currentView: "Home"
+  currentSong: 'https://soundcloud.com/john-dollar-1/alesso-years-original-mix',
+  currentView: 'Home',
 };
 
 class Main extends Component {
@@ -28,15 +28,15 @@ class Main extends Component {
 
   viewSwitch = view => {
     this.setState({
-      currentView: view
+      currentView: view,
     });
   };
 
   logError = error => {
     if (error) {
       console.log(
-        "There was an error for GET_CURRENTLY_PLAYING_SONG query ",
-        error
+        'There was an error for GET_CURRENTLY_PLAYING_SONG query ',
+        error,
       );
     }
   };
@@ -46,29 +46,29 @@ class Main extends Component {
 
     localStorage.clear();
 
-    return <Redirect to={{ pathname: "/" }} />;
+    return <Redirect to={{pathname: '/'}} />;
   };
 
   renderCurrentView = client => {
-    const { currentView } = this.state;
+    const {currentView} = this.state;
 
-    if (currentView == "Log Out") {
+    if (currentView == 'Log Out') {
       return this.handleLogOut(client);
     }
 
-    if (currentView == "Home") {
+    if (currentView == 'Home') {
       return <Home />;
     }
 
-    if (currentView == "Search") {
+    if (currentView == 'Search') {
       return <Search />;
     }
 
-    if (currentView == "Save Playlist") {
+    if (currentView == 'Save Playlist') {
       return <SavePlaylist />;
     }
 
-    if (currentView == "Playlist Editor") {
+    if (currentView == 'Playlist Editor') {
       return (
         <CustomQuery query={GET_LOCAL_USER_INFO}>
           {data => {
@@ -87,17 +87,17 @@ class Main extends Component {
   };
 
   render() {
-    const { currentSong, currentView } = this.state;
+    const {currentSong, currentView} = this.state;
     return (
       <ApolloConsumer>
         {client => (
           <Query query={GET_CURRENTLY_PLAYING_SONG}>
-            {({ data, loading, error }) => {
+            {({data, loading, error}) => {
               if (error) {
                 this.logError(error);
               }
 
-              const { currentlyPlaying } = data;
+              const {currentlyPlaying} = data;
 
               return (
                 <div className="page-container">
@@ -105,9 +105,9 @@ class Main extends Component {
 
                   <div
                     className={
-                      currentView == "Save Playlist"
-                        ? "save-playlist-editor-main"
-                        : "main-content"
+                      currentView == 'Save Playlist'
+                        ? 'save-playlist-editor-main'
+                        : 'main-content'
                     }
                   >
                     {this.renderCurrentView(client)}
@@ -127,9 +127,9 @@ class Main extends Component {
                         config={{
                           soundcloud: {
                             options: {
-                              color: "#55728C"
-                            }
-                          }
+                              color: '#55728C',
+                            },
+                          },
                         }}
                         onEnded={() => queueNextSongInPlayer(client)}
                       />

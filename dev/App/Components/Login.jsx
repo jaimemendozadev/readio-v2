@@ -1,7 +1,9 @@
-import React from "react";
-const baseURL = "/api/login";
+import React from 'react';
+const baseURL = '/api/login';
 
-const Login = ({ heading }) => {
+console.log('process is ', process.env);
+
+const Login = ({heading}) => {
   return (
     <div className="form-container">
       <form>
