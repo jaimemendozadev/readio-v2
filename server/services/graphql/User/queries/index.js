@@ -9,6 +9,8 @@ const playlists = async (_parent, _args, {userID, models}) => {
 const getUser = async (_parent, _args, {userID, models}) => {
   const {User} = models;
 
+  console.log('userID inside getUser ', userID);
+
   const foundUser = await User.findById(userID);
   const foundPlaylists = await User.findById(userID).populate('playlists');
 

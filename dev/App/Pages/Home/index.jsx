@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { Query, Mutation } from "react-apollo";
+import React, {Component} from 'react';
+import {Query, Mutation} from 'react-apollo';
 import {
   GET_USER_INFO,
   SAVE_USER_IN_CACHE,
   LOAD_PLAYLIST_IN_CACHE,
-  GET_STORED_PLAYLIST
-} from "../../Apollo/API/graphql/index.js";
-import Spinner from "../../Components/Spinner.jsx";
-import PlaylistView from "../PlaylistView/index.jsx";
-import SongView from "../SongView/index.jsx";
+  GET_STORED_PLAYLIST,
+} from '../../Apollo/API/graphql/index.js';
+import Spinner from '../../Components/Spinner.jsx';
+import PlaylistView from '../PlaylistView/index.jsx';
+import SongView from '../SongView/index.jsx';
 
 const defaultState = {
-  currentUser: {}
+  currentUser: {},
 };
 
 class Home extends Component {
@@ -22,7 +22,7 @@ class Home extends Component {
 
   checkForStoredPlaylist = (data, loading, error) => {
     if (data.currentlyPlaying.storedPlaylist.length) {
-      const { songs, name } = data.currentlyPlaying.storedPlaylist[0];
+      const {songs, name} = data.currentlyPlaying.storedPlaylist[0];
 
       return (
         <div className="stored-playlist-container">
@@ -33,7 +33,7 @@ class Home extends Component {
             PROP_MUTATION={null}
             songInput={songs}
             callback={null}
-            assetType={"none"}
+            assetType={'none'}
             searchView={false}
           />
         </div>
@@ -42,9 +42,9 @@ class Home extends Component {
   };
 
   saveFetchedUser = (getUser, client) => {
-    const oldState = client.readQuery({ query: SAVE_USER_IN_CACHE });
+    const oldState = client.readQuery({query: SAVE_USER_IN_CACHE});
 
-    const { currentUser } = oldState;
+    const {currentUser} = oldState;
 
     const newState = {};
     newState.id = getUser.id;
@@ -55,12 +55,12 @@ class Home extends Component {
 
     const data = {
       ...oldState,
-      currentUser: Object.assign({}, currentUser, newState)
+      currentUser: Object.assign({}, currentUser, newState),
     };
 
-    client.writeQuery({ query: SAVE_USER_IN_CACHE, data });
+    client.writeQuery({query: SAVE_USER_IN_CACHE, data});
 
-    console.log("client after saving getUser ", client);
+    console.log('client after saving getUser ', client);
   };
 
   renderPlaylists = playlists => {
@@ -79,7 +79,7 @@ class Home extends Component {
           player!
         </h1>
         <Query query={GET_STORED_PLAYLIST}>
-          {({ data, loading, error }) => (
+          {({data, loading, error}) => (
             <Mutation mutation={LOAD_PLAYLIST_IN_CACHE}>
               {loadPlaylistInCache => (
                 <div className="main-home-container">
@@ -87,7 +87,7 @@ class Home extends Component {
 
                   <PlaylistView
                     propMutation={loadPlaylistInCache}
-                    varObjKey={"playlistArg"}
+                    varObjKey={'playlistArg'}
                     playlists={playlists}
                     callback={null}
                   />
@@ -119,7 +119,9 @@ class Home extends Component {
     }
 
     if (data) {
-      const { getUser } = data;
+      const {getUser} = data;
+
+      console.log('current user in Home component from getUser query', getUser);
 
       this.saveFetchedUser(getUser, client);
 
@@ -140,7 +142,7 @@ class Home extends Component {
   render() {
     return (
       <Query query={GET_USER_INFO}>
-        {({ data, loading, error, client }) => {
+        {({data, loading, error, client}) => {
           return (
             <div>{this.checkRenderStatus(data, loading, error, client)}</div>
           );

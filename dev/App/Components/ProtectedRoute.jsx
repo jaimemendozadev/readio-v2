@@ -1,27 +1,29 @@
-import React, { Component } from "react";
-import { Redirect, Route } from "react-router-dom";
-import Spinner from "./Spinner.jsx";
+import React, {Component} from 'react';
+import {Redirect, Route} from 'react-router-dom';
+import Spinner from './Spinner.jsx';
 
 class ProtectedRoute extends Component {
   constructor(props) {
     super(props);
     this.state = {
       checkingAuthentication: true,
-      authenticated: false
+      authenticated: false,
     };
   }
 
   checkForToken = () => {
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem('token');
+
+    console.log('token inside checkForToken for ProtectedRoute ', token);
 
     if (token) {
       this.setState({
         authenticated: true,
-        checkingAuthentication: false
+        checkingAuthentication: false,
       });
     } else {
       this.setState({
-        checkingAuthentication: false
+        checkingAuthentication: false,
       });
     }
   };
@@ -31,15 +33,15 @@ class ProtectedRoute extends Component {
   }
 
   render() {
-    const { authenticated, checkingAuthentication } = this.state;
+    const {authenticated, checkingAuthentication} = this.state;
 
     if (!checkingAuthentication) {
       if (authenticated) {
-        const { component: Component, ...rest } = this.props;
+        const {component: Component, ...rest} = this.props;
 
         return <Route {...rest} render={props => <Component {...props} />} />;
       } else {
-        return <Redirect to={{ pathname: "/login" }} />;
+        return <Redirect to={{pathname: '/login'}} />;
       }
     }
 

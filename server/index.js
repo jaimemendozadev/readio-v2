@@ -14,18 +14,21 @@ applyMiddleware(app);
 app.use(
   '/graphql',
   passport.authenticate('jwt', {session: false}),
-  graphqlExpress(req => ({
-    schema,
-    context: {
-      req,
-      userID: req.user._id,
-      models: {
-        User,
-        Song,
-        Playlist,
+  graphqlExpress(req => {
+    console.log('req.user inside graphqlExpress and passport.jwt ', req.user);
+    return {
+      schema,
+      context: {
+        req,
+        userID: req.user._id,
+        models: {
+          User,
+          Song,
+          Playlist,
+        },
       },
-    },
-  })),
+    };
+  }),
 );
 
 app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql'}));

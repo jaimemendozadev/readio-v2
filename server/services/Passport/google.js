@@ -12,6 +12,7 @@ const googleConfig = {
 };
 
 const getGoogleProfile = async (accessToken, refreshToken, profile, cb) => {
+  console.log('profile fetched from Google ', profile);
   const userFromDB = await getCreateUser(profile);
 
   return cb(null, userFromDB);
