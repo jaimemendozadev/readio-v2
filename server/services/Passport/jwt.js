@@ -1,5 +1,6 @@
 const {findUserInDB} = require('./utils');
 const ExtractJwt = require('passport-jwt').ExtractJwt;
+const jwt = require('jsonwebtoken');
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -15,7 +16,28 @@ const getUserWithToken = async (jwt_payload, done) => {
   done(null, foundUser);
 };
 
+const verifyToken = async req => {
+  let sliced = req.headers.authorization;
+  console.log('req.headers authorization is ', req.headers.authorization);
+  sliced = sliced.slice(7);
+
+  console.log('sliced from req is ', sliced);
+
+  const secret = process.env.JWT_KEY;
+
+  // verify a token symmetric
+  const result = await jwt.verify(sliced, secret, function(err, decoded) {
+    console.log('decoded token is ', decoded);
+    if (err) {
+      console.log('err decoding JWT ', err);
+    } else {
+      return decoded;
+    }
+  });
+};
+
 module.exports = {
   opts,
   getUserWithToken,
+  verifyToken,
 };

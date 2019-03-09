@@ -8,14 +8,16 @@ const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 const indexHTML = path.resolve(__dirname, '../public/index.html');
 const applyMiddleware = require('./services/middleware');
 const passport = require('./services/Passport');
-
+const {verifyToken} = require('./services/Passport/jwt');
 applyMiddleware(app);
 
 app.use(
   '/graphql',
   passport.authenticate('jwt', {session: false}),
-  graphqlExpress(req => {
-    console.log('req.user inside graphqlExpress and passport.jwt ', req.user);
+  graphqlExpress(async req => {
+    console.log('\n');
+    console.log('Debugging token sent to GraphQL API');
+    await verifyToken(req);
     return {
       schema,
       context: {
