@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const generateToken = userID => {
   const JWT_KEY = process.env.JWT_KEY;
 
+  console.log('JWT_KEY is ', JWT_KEY);
+
   console.log('jwt.sign({userID}, JWT_KEY) is ', jwt.sign({userID}, JWT_KEY));
   const token = jwt.sign({userID}, JWT_KEY);
 
