@@ -8,7 +8,7 @@
     "dev:start": "nodemon index.js",
     "dev:build": "webpack --env.NODE_ENV=development --mode development -w",
     "lint": "eslint --fix server && eslint --fix dev",
-    "nu:clear": "yarn run clear:build && rm -rfv node_modules && rm -rfv yarn.lock",
+    "nu:clear": "yarn run clear:build && rm -rfv node_modules && rm -rfv yarn.lock && yarn install",
     "prod:build": "webpack --mode production",
     "prettier": "prettier --write '*.{js,jsx,scss,graphql}'",
     "start": "node index.js",
@@ -17,6 +17,7 @@
     "heroku-postbuild": "yarn run prod:build"
   },
   "dependencies": {
+    "@panva/jose": "^0.9.2",
     "apollo-boost": "^0.3.1",
     "apollo-client": "^2.2.3",
     "apollo-link-context": "^1.0.8",
@@ -31,6 +32,7 @@
     "graphql": "^14.1.1",
     "graphql-tag": "^2.9.2",
     "jsonwebtoken": "^8.5.0",
+    "jws": "^3.2.1",
     "lodash": "^4.17.10",
     "mongoose": "^5.1.1",
     "node-fetch": "^2.2.0",

@@ -7,13 +7,16 @@ const path = require('path');
 const schema = require('./services/graphql');
 const indexHTML = path.resolve(__dirname, '../public/index.html');
 const applyMiddleware = require('./services/middleware');
+const {verifyToken} = require('./services/Passport/jwt');
 
 applyMiddleware(app);
 
 const server = new ApolloServer({
   schema,
   context: ({req}) => {
-    console.log('req inside context ', req);
+    // console.log('req inside context ', req);
+
+    verifyToken(req);
 
     return {req};
   },
