@@ -1,10 +1,10 @@
-import styles from "../sass/index.scss";
-import React from "react";
-import { LandingPage, LoginPage, Main } from "./Pages/index.jsx";
-import ProtectedRoute from "./Components/ProtectedRoute.jsx";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { ApolloProvider } from "react-apollo";
-import client from "./Apollo/index.jsx";
+import styles from '../sass/index.scss';
+import React from 'react';
+import {LandingPage, LoginPage, Main} from './Pages/index.jsx';
+import ProtectedRoute from './Components/ProtectedRoute.jsx';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {ApolloProvider} from 'react-apollo';
+import client from './Apollo/index.jsx';
 
 const App = () => (
   <ApolloProvider client={client}>
