@@ -1,27 +1,23 @@
-const {makeExecutableSchema} = require('apollo-server-express');
-const {readFileSync} = require('fs');
-const {merge} = require('lodash');
-const path = require('path');
-const baseSchema = path.resolve(__dirname, './Base/base.graphql');
-const userSchemaPath = path.resolve(__dirname, './User/user.graphql');
-const songSchemaPath = path.resolve(__dirname, './Song/song.graphql');
-const playlistSchemaPath = path.resolve(
-  __dirname,
-  './Playlist/playlist.graphql',
-);
+const {ApolloServer} = require('apollo-server-express');
+const {User, Song, Playlist} = require('../../DB/Schemas');
+const schema = require('./BuildSchema');
 
-const userResolvers = require('./User/user.resolvers');
-const songResolvers = require('./Song/song.resolvers');
-const playlistResolvers = require('./Playlist/playlist.resolvers');
+const server = new ApolloServer({
+  schema,
+  context: ({req}) => {
+    // req will container user found in Passport jwt auth strategy
+    const userID = req.user._id;
 
-const schema = makeExecutableSchema({
-  typeDefs: [
-    readFileSync(baseSchema, 'utf-8'),
-    readFileSync(userSchemaPath, 'utf-8'),
-    readFileSync(songSchemaPath, 'utf-8'),
-    readFileSync(playlistSchemaPath, 'utf-8'),
-  ],
-  resolvers: merge({}, userResolvers, songResolvers, playlistResolvers),
+    return {
+      req,
+      userID,
+      models: {
+        User,
+        Song,
+        Playlist,
+      },
+    };
+  },
 });
 
-module.exports = schema;
+module.exports = server;
