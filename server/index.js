@@ -15,11 +15,18 @@ applyMiddleware(app);
 const server = new ApolloServer({
   schema,
   context: ({req}) => {
-    console.log('req.user inside context ', req.user);
+    // req will container user found in Passport jwt auth strategy
+    const userID = req.user._id;
 
-    verifyToken(req);
-
-    return {req};
+    return {
+      req,
+      userID,
+      models: {
+        User,
+        Song,
+        Playlist,
+      },
+    };
   },
 });
 

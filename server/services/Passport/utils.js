@@ -28,10 +28,13 @@ const getCreateUser = async ({_json}) => {
 
 const findUserInDB = async ({userID}) => {
   try {
-    let userInDB = await User.find({id: userID});
+    console.log('userID inside findUserInDB ', userID);
+    let userInDB = await User.findById(userID);
 
-    if (userInDB.length) {
-      return userInDB.pop();
+    console.log('userInDB inside findUserInDB ', userInDB);
+
+    if (userInDB) {
+      return userInDB;
     }
   } catch (error) {
     console.log('error finding Google User in DB ', error);
