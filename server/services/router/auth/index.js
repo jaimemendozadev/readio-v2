@@ -7,6 +7,7 @@ Router.get(
   '/google',
   passport.authenticate('google', {scope: ['profile', 'email']}),
 );
+
 Router.get(
   '/google/callback',
   passport.authenticate('google', {
