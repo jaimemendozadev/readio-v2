@@ -28,10 +28,7 @@ const getCreateUser = async ({_json}) => {
 
 const findUserInDB = async ({userID}) => {
   try {
-    console.log('userID inside findUserInDB ', userID);
     let userInDB = await User.findById(userID);
-
-    console.log('userInDB inside findUserInDB ', userInDB);
 
     if (userInDB) {
       return userInDB;
