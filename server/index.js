@@ -9,6 +9,7 @@ const indexHTML = path.resolve(__dirname, '../public/index.html');
 const applyMiddleware = require('./services/middleware');
 const passport = require('./services/Passport');
 const {verifyToken} = require('./services/Passport/jwt');
+
 applyMiddleware(app);
 
 app.use(
