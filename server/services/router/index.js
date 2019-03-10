@@ -1,16 +1,11 @@
 const express = require('express');
 const Router = express.Router();
-const passport = require('passport');
-const authRouter = require('./auth');
+const {authRouter, graphqlAuthRouter} = require('./auth');
 
 const applyRouterMiddlware = app => {
   Router.use('/login', authRouter);
-  app.use(
-    '/graphql',
-    passport.authenticate('jwt', {session: false}),
-    (_req, _res, next) => next(),
-  );
-
+  // Must attach graphqlAuthRouter directly to app, else it won't work
+  app.use('/graphql', graphqlAuthRouter);
   app.use('/api', Router);
 };
 
