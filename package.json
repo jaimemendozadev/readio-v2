@@ -17,12 +17,10 @@
     "heroku-postbuild": "yarn run prod:build"
   },
   "dependencies": {
-    "@panva/jose": "^0.9.2",
     "apollo-boost": "^0.3.1",
     "apollo-client": "^2.2.3",
     "apollo-link-context": "^1.0.8",
     "apollo-server-express": "^2.4.8",
-    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
     "dotenv": "^5.0.1",
@@ -32,9 +30,8 @@
     "graphql": "^14.1.1",
     "graphql-tag": "^2.9.2",
     "jsonwebtoken": "^8.5.0",
-    "jws": "^3.2.1",
     "lodash": "^4.17.10",
-    "mongoose": "^5.1.1",
+    "mongoose": "^5.4.18",
     "node-fetch": "^2.2.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
