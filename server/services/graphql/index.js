@@ -1,5 +1,4 @@
-const {makeExecutableSchema} = require('apollo-server');
-
+const {makeExecutableSchema} = require('apollo-server-express');
 const {readFileSync} = require('fs');
 const {merge} = require('lodash');
 const path = require('path');

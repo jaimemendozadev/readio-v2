@@ -4,6 +4,7 @@ const authRouter = require('./auth');
 
 const applyRouterMiddlware = app => {
   Router.use('/login', authRouter);
+
   app.use('/api', Router);
 };
 
