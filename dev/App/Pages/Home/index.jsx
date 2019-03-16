@@ -9,6 +9,7 @@ import {
 import Spinner from '../../Components/Spinner.jsx';
 import PlaylistView from '../PlaylistView/index.jsx';
 import SongView from '../SongView/index.jsx';
+import CustomQuery from '../../Components/CustomQuery.jsx';
 
 const defaultState = {
   currentUser: {},
@@ -100,24 +101,7 @@ class Home extends Component {
     );
   };
 
-  checkRenderStatus = (data, loading, error, client) => {
-    if (loading) {
-      return (
-        <div className="home-loading-container">
-          <h1>Loading...</h1>
-          <Spinner />
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <div className="error-msg">
-          Sorry, there was an error processing your request...
-        </div>
-      );
-    }
-
+  checkRenderStatus = (data, client) => {
     if (data) {
       const {getUser} = data;
 
@@ -141,13 +125,11 @@ class Home extends Component {
 
   render() {
     return (
-      <Query query={GET_USER_INFO}>
-        {({data, loading, error, client}) => {
-          return (
-            <div>{this.checkRenderStatus(data, loading, error, client)}</div>
-          );
+      <CustomQuery query={GET_USER_INFO}>
+        {(data, client) => {
+          return <div>{this.checkRenderStatus(data, client)}</div>;
         }}
-      </Query>
+      </CustomQuery>
     );
   }
 }
