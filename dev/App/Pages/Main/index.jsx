@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Query, ApolloConsumer} from 'react-apollo';
 import {Redirect} from 'react-router-dom';
-import ReactPlayer from 'react-player';
 import Home from '../Home/index.jsx';
 import Search from '../Search/index.jsx';
 import SavePlaylist from '../SavePlaylist/index.jsx';
@@ -111,7 +110,7 @@ class Main extends Component {
               >
                 {this.renderCurrentView(client)}
 
-                <div className="react-player">
+                {/* <div className="react-player">
                   <ReactPlayer
                     url={
                       currentlyPlaying
@@ -132,7 +131,7 @@ class Main extends Component {
                     }}
                     onEnded={() => queueNextSongInPlayer(client)}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           );
