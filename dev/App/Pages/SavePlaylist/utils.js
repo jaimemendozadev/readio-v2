@@ -1,3 +1,4 @@
+/* eslint no-useless-escape: "off" */
 import {GET_SONG_LIST, GET_USER_ID} from '../../Apollo/API/graphql/index.js';
 
 const entityMap = {
