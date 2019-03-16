@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
-import SongView from "../SongView/index.jsx";
-import { escapeHtml } from "./utils";
+import React, {Component} from 'react';
+import {Mutation} from 'react-apollo';
+import SongView from '../SongView/index.jsx';
+import {escapeHtml} from './utils';
 import {
   SEARCH_SOUND_CLOUD,
-  ADD_TO_SONG_LIST
-} from "../../Apollo/API/graphql/index.js";
-import Spinner from "../../Components/Spinner.jsx";
+  ADD_TO_SONG_LIST,
+} from '../../Apollo/API/graphql/index.js';
+import CustomMutation from '../../Components/CustomMutation.jsx';
 
 const defaultState = {
-  currentQuery: "Start typing...",
+  currentQuery: 'Start typing...',
   searchResults: [],
-  startSearch: false
+  startSearch: false,
 };
 
 class Search extends Component {
@@ -21,10 +21,10 @@ class Search extends Component {
   }
 
   clearInput = event => {
-    const { currentQuery } = this.state;
+    const {currentQuery} = this.state;
     if (currentQuery.length) {
       this.setState({
-        currentQuery: ""
+        currentQuery: '',
       });
     }
   };
@@ -33,7 +33,7 @@ class Search extends Component {
     event.preventDefault();
 
     this.setState({
-      currentQuery: event.target.value
+      currentQuery: event.target.value,
     });
   };
 
@@ -41,55 +41,43 @@ class Search extends Component {
     event.preventDefault();
     const currentQuery = escapeHtml(this.state.currentQuery);
 
-    searchSoundCloud({ variables: { searchTerm: currentQuery } });
+    searchSoundCloud({variables: {searchTerm: currentQuery}});
 
     this.setState({
-      startSearch: true
+      startSearch: true,
     });
   };
 
-  handleSongView = (startSearch, data, loading, error) => {
+  handleSongView = (startSearch, data) => {
     if (!startSearch) {
       return null;
     }
 
-    if (loading) {
-      return <Spinner />;
-    }
-
-    if (error) {
-      console.log("error querying SC mutation on BE ", error);
-
-      return (
-        <div className="error-msg">
-          Whoops! There was an error processing your request. Try again later.
-        </div>
-      );
-    }
-
     if (data) {
-      const { searchSoundCloud } = data;
+      const {searchSoundCloud} = data;
       return (
         <Mutation mutation={ADD_TO_SONG_LIST}>
-          {addToSongList => (
-            <SongView
-              PROP_MUTATION={addToSongList}
-              songInput={searchSoundCloud}
-              callback={null}
-              assetType="playlist"
-              searchView={true}
-            />
-          )}
+          {(addToSongList, mutationResult) => {
+            return (
+              <SongView
+                PROP_MUTATION={addToSongList}
+                songInput={searchSoundCloud}
+                callback={null}
+                assetType="playlist"
+                searchView={true}
+              />
+            );
+          }}
         </Mutation>
       );
     }
   };
 
   render() {
-    const { searchResults, startSearch } = this.state;
+    const {searchResults, startSearch} = this.state;
     return (
-      <Mutation mutation={SEARCH_SOUND_CLOUD}>
-        {(searchSoundCloud, { data, loading, error }) => (
+      <CustomMutation mutation={SEARCH_SOUND_CLOUD}>
+        {(searchSoundCloud, {data}) => (
           <div className="search-page">
             <div>
               <h1>
@@ -107,10 +95,10 @@ class Search extends Component {
                 />
               </form>
             </div>
-            {this.handleSongView(startSearch, data, loading, error)}
+            {this.handleSongView(startSearch, data)}
           </div>
         )}
-      </Mutation>
+      </CustomMutation>
     );
   }
 }
