@@ -23,7 +23,7 @@ class CurrentView extends Component {
   };
 
   render() {
-    const {client, currentView} = this.props;
+    const {client, currentView, viewSwitchCB} = this.props;
 
     if (currentView == 'Log Out') {
       return this.handleLogOut(client);
@@ -40,7 +40,7 @@ class CurrentView extends Component {
           {data => {
             return (
               <PlaylistEditor
-                viewSwitchCB={this.viewSwitch}
+                viewSwitchCB={viewSwitchCB}
                 currentUser={data.currentUser}
               />
             );
@@ -52,9 +52,5 @@ class CurrentView extends Component {
     return null;
   }
 }
-
-// const CurrentView = ({client, currentView}) => (
-
-// )
 
 export default CurrentView;

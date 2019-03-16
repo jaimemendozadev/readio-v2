@@ -57,7 +57,11 @@ class Main extends Component {
                     : 'main-content'
                 }
               >
-                <CurrentView client={client} currentView={currentView} />
+                <CurrentView
+                  client={client}
+                  currentView={currentView}
+                  viewSwitchCB={this.viewSwitch}
+                />
 
                 <Player
                   client={client}
