@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
-import {Mutation} from 'react-apollo';
-import SongView from '../SongView/index.jsx';
-import {escapeHtml} from './utils';
-import {
-  SEARCH_SOUND_CLOUD,
-  ADD_TO_SONG_LIST,
-} from '../../Apollo/API/graphql/index.js';
+import SearchResults from './SearchResults.jsx';
 import CustomMutation from '../../Components/CustomMutation.jsx';
+import {SEARCH_SOUND_CLOUD} from '../../Apollo/API/graphql/index.js';
+import {escapeHtml} from './utils';
 
 const defaultState = {
   currentQuery: 'Start typing...',
-  searchResults: [],
   startSearch: false,
 };
 
@@ -20,7 +15,7 @@ class Search extends Component {
     this.state = defaultState;
   }
 
-  clearInput = event => {
+  clearInput = () => {
     const {currentQuery} = this.state;
     if (currentQuery.length) {
       this.setState({
@@ -48,36 +43,11 @@ class Search extends Component {
     });
   };
 
-  handleSongView = (startSearch, data) => {
-    if (!startSearch) {
-      return null;
-    }
-
-    if (data) {
-      const {searchSoundCloud} = data;
-      return (
-        <Mutation mutation={ADD_TO_SONG_LIST}>
-          {(addToSongList, mutationResult) => {
-            return (
-              <SongView
-                PROP_MUTATION={addToSongList}
-                songInput={searchSoundCloud}
-                callback={null}
-                assetType="playlist"
-                searchView={true}
-              />
-            );
-          }}
-        </Mutation>
-      );
-    }
-  };
-
   render() {
-    const {searchResults, startSearch} = this.state;
+    const {startSearch} = this.state;
     return (
       <CustomMutation mutation={SEARCH_SOUND_CLOUD}>
-        {(searchSoundCloud, {data}) => (
+        {(searchSoundCloud, mutationResult) => (
           <div className="search-page">
             <div>
               <h1>
@@ -95,7 +65,11 @@ class Search extends Component {
                 />
               </form>
             </div>
-            {this.handleSongView(startSearch, data)}
+
+            <SearchResults
+              startSearch={startSearch}
+              mutationResultObj={mutationResult}
+            />
           </div>
         )}
       </CustomMutation>
