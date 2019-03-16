@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import {Query, ApolloConsumer} from 'react-apollo';
+import {Query} from 'react-apollo';
 import Player from './Player.jsx';
 import CurrentView from './CurrentView.jsx';
 
 import NavSidebar from './NavSidebar.jsx';
 import {queueNextSongInPlayer} from './utils.jsx';
-import {
-  GET_CURRENTLY_PLAYING_SONG,
-  GET_LOCAL_USER_INFO,
-} from '../../Apollo/API/graphql/index.js';
+import {GET_CURRENTLY_PLAYING_SONG} from '../../Apollo/API/graphql/index.js';
 
 const defaultState = {
   currentUser: {},
