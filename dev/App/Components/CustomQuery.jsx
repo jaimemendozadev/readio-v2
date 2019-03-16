@@ -1,10 +1,10 @@
-import React from "react";
-import { Query } from "react-apollo";
-import Spinner from "./Spinner.jsx";
+import React from 'react';
+import {Query} from 'react-apollo';
+import Spinner from './Spinner.jsx';
 
-const CustomQuery = ({ children, ...props }) => (
+const CustomQuery = ({children, ...props}) => (
   <Query {...props}>
-    {({ data, loading, error }) => {
+    {({data, loading, error, client}) => {
       if (loading) {
         return <Spinner />;
       }
@@ -17,7 +17,7 @@ const CustomQuery = ({ children, ...props }) => (
         );
       }
 
-      return children(data);
+      return children(data, client);
     }}
   </Query>
 );

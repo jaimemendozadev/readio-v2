@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {Query} from 'react-apollo';
 import Player from './Player.jsx';
 import CurrentView from './CurrentView.jsx';
-
 import NavSidebar from './NavSidebar.jsx';
 import {queueNextSongInPlayer} from './utils.jsx';
 import {GET_CURRENTLY_PLAYING_SONG} from '../../Apollo/API/graphql/index.js';
+import CustomQuery from '../../Components/CustomQuery.jsx';
 
 const defaultState = {
   currentUser: {},
@@ -37,13 +36,8 @@ class Main extends Component {
   render() {
     const {currentSong, currentView} = this.state;
     return (
-      <Query query={GET_CURRENTLY_PLAYING_SONG}>
-        {({data, loading, error, client}) => {
-          console.log('client is ', client);
-          if (error) {
-            this.logError(error);
-          }
-
+      <CustomQuery query={GET_CURRENTLY_PLAYING_SONG}>
+        {(data, client) => {
           const {currentlyPlaying} = data;
 
           return (
@@ -73,7 +67,7 @@ class Main extends Component {
             </div>
           );
         }}
-      </Query>
+      </CustomQuery>
     );
   }
 }
