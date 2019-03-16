@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import {Query, ApolloConsumer} from 'react-apollo';
-import {Redirect} from 'react-router-dom';
 import Player from './Player.jsx';
-import Home from '../Home/index.jsx';
-import Search from '../Search/index.jsx';
-import SavePlaylist from '../SavePlaylist/index.jsx';
+import CurrentView from './CurrentView.jsx';
+
 import NavSidebar from './NavSidebar.jsx';
-import PlaylistEditor from '../PlaylistEditor/index.jsx';
-import CustomQuery from '../../Components/CustomQuery.jsx';
 import {queueNextSongInPlayer} from './utils.jsx';
 import {
   GET_CURRENTLY_PLAYING_SONG,
@@ -41,51 +37,6 @@ class Main extends Component {
     }
   };
 
-  handleLogOut = client => {
-    client.resetStore();
-
-    localStorage.clear();
-
-    return <Redirect to={{pathname: '/'}} />;
-  };
-
-  renderCurrentView = client => {
-    const {currentView} = this.state;
-
-    if (currentView == 'Log Out') {
-      return this.handleLogOut(client);
-    }
-
-    if (currentView == 'Home') {
-      return <Home />;
-    }
-
-    if (currentView == 'Search') {
-      return <Search />;
-    }
-
-    if (currentView == 'Save Playlist') {
-      return <SavePlaylist />;
-    }
-
-    if (currentView == 'Playlist Editor') {
-      return (
-        <CustomQuery query={GET_LOCAL_USER_INFO}>
-          {data => {
-            return (
-              <PlaylistEditor
-                viewSwitchCB={this.viewSwitch}
-                currentUser={data.currentUser}
-              />
-            );
-          }}
-        </CustomQuery>
-      );
-    }
-
-    return null;
-  };
-
   render() {
     const {currentSong, currentView} = this.state;
     return (
@@ -109,7 +60,7 @@ class Main extends Component {
                     : 'main-content'
                 }
               >
-                {this.renderCurrentView(client)}
+                <CurrentView client={client} currentView={currentView} />
 
                 <Player
                   client={client}
