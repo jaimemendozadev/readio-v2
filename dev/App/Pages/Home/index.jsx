@@ -101,33 +101,30 @@ class Home extends Component {
     );
   };
 
-  checkRenderStatus = (data, client) => {
-    if (data) {
-      const {getUser} = data;
-
-      console.log('current user in Home component from getUser query', getUser);
-
-      this.saveFetchedUser(getUser, client);
-
-      return (
-        <div>
-          <h1>
-            {getUser
-              ? `Welcome to Read.io ${getUser.first_name}!`
-              : `Read.io - Home Page`}
-          </h1>
-
-          {this.renderPlaylists(getUser.playlists)}
-        </div>
-      );
-    }
-  };
-
   render() {
     return (
       <CustomQuery query={GET_USER_INFO}>
         {(data, client) => {
-          return <div>{this.checkRenderStatus(data, client)}</div>;
+          const {getUser} = data;
+
+          console.log(
+            'current user in Home component from getUser query',
+            getUser,
+          );
+
+          this.saveFetchedUser(getUser, client);
+
+          return (
+            <div>
+              <h1>
+                {getUser
+                  ? `Welcome to Read.io ${getUser.first_name}!`
+                  : `Read.io - Home Page`}
+              </h1>
+
+              {this.renderPlaylists(getUser.playlists)}
+            </div>
+          );
         }}
       </CustomQuery>
     );
