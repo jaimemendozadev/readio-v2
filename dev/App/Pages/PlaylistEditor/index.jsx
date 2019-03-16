@@ -1,29 +1,33 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import React, {Component} from 'react';
+import {Mutation} from 'react-apollo';
+
+import CustomMutation from '../../Components/CustomMutation.jsx';
+
+import {
+  UPDATE_PLAYLIST,
+  DELETE_PLAYLIST,
+  GET_USER_INFO,
+} from '../../Apollo/API/graphql/index.js';
+import PlaylistView from '../PlaylistView/index.jsx';
+import SongView from '../SongView/index.jsx';
+import PlaylistEditorControls from './PlaylistEditorControls.jsx';
+
 import {
   setLocalState,
   escapeHtml,
   checkPlaylistName,
   prepPlaylistPayload,
-  resetLocalPlaylistState
-} from "./utils.jsx";
-import {
-  UPDATE_PLAYLIST,
-  DELETE_PLAYLIST,
-  GET_USER_INFO
-} from "../../Apollo/API/graphql/index.js";
-import PlaylistView from "../PlaylistView/index.jsx";
-import SongView from "../SongView/index.jsx";
-import PlaylistEditorControls from "./PlaylistEditorControls.jsx";
+  resetLocalPlaylistState,
+} from './utils.jsx';
 
 const defaultState = {
-  currentView: "Edit Playlist",
-  textInput: "",
+  currentView: 'Edit Playlist',
+  textInput: '',
   setUserFromProps: false,
   playlistToEdit: {},
-  playlistID: "",
-  playlistName: "",
-  playlistSongs: []
+  playlistID: '',
+  playlistName: '',
+  playlistSongs: [],
 };
 
 class PlaylistEditor extends Component {
@@ -33,17 +37,17 @@ class PlaylistEditor extends Component {
   }
 
   sendToHomeView = () => {
-    const { viewSwitchCB } = this.props;
-    viewSwitchCB("Home");
+    const {viewSwitchCB} = this.props;
+    viewSwitchCB('Home');
   };
 
   clearFormInput = () => {
-    const { textInput } = this.state;
+    const {textInput} = this.state;
     if (textInput.length) {
       this.setState({
-        textInput: "",
+        textInput: '',
         pageError: false,
-        pageErrorMsg: ""
+        pageErrorMsg: '',
       });
     }
   };
@@ -52,7 +56,7 @@ class PlaylistEditor extends Component {
     event.preventDefault();
 
     this.setState({
-      textInput: event.target.value
+      textInput: event.target.value,
     });
   };
 
@@ -62,26 +66,26 @@ class PlaylistEditor extends Component {
       playlistID: playlist.id,
       playlistName: playlist.name,
       playlistSongs: playlist.songs,
-      currentView: "Song View"
+      currentView: 'Song View',
     });
   };
 
   deleteSongFromPlaylist = playlistSong => {
-    const { playlistSongs } = this.state;
+    const {playlistSongs} = this.state;
 
-    const { id_user_id_identifier } = playlistSong;
+    const {id_user_id_identifier} = playlistSong;
 
     const filteredList = playlistSongs.filter(
-      song => song.id_user_id_identifier != id_user_id_identifier
+      song => song.id_user_id_identifier != id_user_id_identifier,
     );
 
     this.setState({
-      playlistSongs: filteredList
+      playlistSongs: filteredList,
     });
   };
 
   performDBUpdate = async saveToDBMutation => {
-    const { textInput, playlistID, playlistName, playlistSongs } = this.state;
+    const {textInput, playlistID, playlistName, playlistSongs} = this.state;
 
     const nameInput = checkPlaylistName(textInput, playlistName);
 
@@ -90,24 +94,24 @@ class PlaylistEditor extends Component {
     const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
 
     const result = await saveToDBMutation({
-      variables: { playlistID, updatedList }
+      variables: {playlistID, updatedList},
     });
 
-    console.log("result from DB after updating playlist ", result);
+    console.log('result from DB after updating playlist ', result);
   };
 
   deleteFromDB = async deletePlaylistMutation => {
-    const { currentUser, playlistID } = this.state;
+    const {currentUser, playlistID} = this.state;
 
     const result = await deletePlaylistMutation({
-      variables: { playlistID, userID: currentUser.id }
+      variables: {playlistID, userID: currentUser.id},
     });
 
     const resetState = resetLocalPlaylistState();
 
     this.setState(resetState);
 
-    console.log("message from deletePlaylist mutation ", result);
+    console.log('message from deletePlaylist mutation ', result);
   };
 
   handleSongViewRendering = (updateResponse, deleteResponse, playlistSongs) => {
@@ -124,24 +128,25 @@ class PlaylistEditor extends Component {
         PROP_MUTATION={null}
         songInput={playlistSongs}
         callback={this.deleteSongFromPlaylist}
-        assetType={"trash"}
+        assetType={'trash'}
         searchView={false}
         hasOneSong={playlistSongs.length == 1 ? true : false}
       />
     );
   };
 
-  renderCurrentView = (
-    currentView,
-    currentUser,
-    updatePlaylistMutation,
-    deletePlaylistMutation,
-    updatePlaylistResponse,
-    deletePlaylistResponse
-  ) => {
-    const { textInput, playlistName } = this.state;
+  renderCurrentView = (currentView, currentUser, gqlMutateObj) => {
+    const {textInput, playlistName} = this.state;
 
-    if (currentView == "Edit Playlist") {
+    const {
+      deleteMutation,
+      updateMutation,
+      deleteResponse,
+      updatePlaylistResponse,
+    } = gqlMutateObj;
+    console.log('currentView in PlaylistEditor is ', currentView);
+
+    if (currentView == 'Edit Playlist') {
       return (
         <PlaylistView
           propMutation={null}
@@ -152,8 +157,8 @@ class PlaylistEditor extends Component {
       );
     }
 
-    if (currentView == "Song View") {
-      const { playlistSongs } = this.state;
+    if (currentView == 'Song View') {
+      const {playlistSongs} = this.state;
 
       return (
         <div>
@@ -164,15 +169,15 @@ class PlaylistEditor extends Component {
             deleteFromDB={this.deleteFromDB}
             handleNameChange={this.handleNameChange}
             clearFormInput={this.clearFormInput}
-            deleteMutation={deletePlaylistMutation}
-            updateMutation={updatePlaylistMutation}
+            deleteMutation={deleteMutation}
+            updateMutation={updateMutation}
             sendToHomeView={this.sendToHomeView}
           />
 
           {this.handleSongViewRendering(
             updatePlaylistResponse,
-            deletePlaylistResponse,
-            playlistSongs
+            deleteResponse,
+            playlistSongs,
           )}
         </div>
       );
@@ -180,7 +185,7 @@ class PlaylistEditor extends Component {
   };
 
   componentDidMount = () => {
-    const { currentUser } = this.props;
+    const {currentUser} = this.props;
 
     const state = setLocalState(currentUser);
 
@@ -188,49 +193,56 @@ class PlaylistEditor extends Component {
   };
 
   render() {
-    const { setUserFromProps } = this.state;
+    const {setUserFromProps} = this.state;
 
     const currentUser =
       setUserFromProps == true
         ? this.state.currentUser
         : this.props.currentUser;
 
-    const { currentView } = this.state;
+    const {currentView} = this.state;
 
     return (
-      <Mutation
+      <CustomMutation
         mutation={UPDATE_PLAYLIST}
-        refetchQueries={() => [{ query: GET_USER_INFO }]}
+        refetchQueries={() => [{query: GET_USER_INFO}]}
       >
-        {(updatePlaylistMutation, { data: updatePlaylistResponse }) => (
-          <Mutation
+        {(updatePlaylistMutation, {data: updatePlaylistResponse}) => (
+          <CustomMutation
             mutation={DELETE_PLAYLIST}
-            refetchQueries={() => [{ query: GET_USER_INFO }]}
+            refetchQueries={() => [{query: GET_USER_INFO}]}
           >
-            {(deletePlaylistMutation, { data: deletePlaylistResponse }) => (
-              <div id="top" className="playlist-editor">
-                <div className="playlist-editor-header-container">
-                  <div>
-                    <h1>
-                      Click on a playlist to update or delete it from your
-                      account!
-                    </h1>
-                  </div>
-                </div>
+            {(deletePlaylistMutation, {data: deletePlaylistResponse}) => {
+              const gqlMutateObj = {};
+              gqlMutateObj.deleteMutation = deletePlaylistMutation;
+              gqlMutateObj.updateMutation = updatePlaylistMutation;
+              gqlMutateObj.deleteResponse = deletePlaylistResponse;
+              gqlMutateObj.updateResponse = updatePlaylistResponse;
 
-                {this.renderCurrentView(
-                  currentView,
-                  currentUser,
-                  updatePlaylistMutation,
-                  deletePlaylistMutation,
-                  updatePlaylistResponse,
-                  deletePlaylistResponse
-                )}
-              </div>
-            )}
-          </Mutation>
+              console.log('gqlMutateObj is ', gqlMutateObj);
+
+              return (
+                <div id="top" className="playlist-editor">
+                  <div className="playlist-editor-header-container">
+                    <div>
+                      <h1>
+                        Click on a playlist to update or delete it from your
+                        account!
+                      </h1>
+                    </div>
+                  </div>
+
+                  {this.renderCurrentView(
+                    currentView,
+                    currentUser,
+                    gqlMutateObj,
+                  )}
+                </div>
+              );
+            }}
+          </CustomMutation>
         )}
-      </Mutation>
+      </CustomMutation>
     );
   }
 }
