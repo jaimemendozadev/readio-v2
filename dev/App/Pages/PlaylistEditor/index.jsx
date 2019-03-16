@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import {Mutation} from 'react-apollo';
 import EditorContainer from './EditorContainer.jsx';
 import CustomMutation from '../../Components/CustomMutation.jsx';
-
+import PlaylistView from '../PlaylistView/index.jsx';
+import SongView from '../SongView/index.jsx';
+import PlaylistEditorControls from './PlaylistEditorControls.jsx';
 import {
   UPDATE_PLAYLIST,
   DELETE_PLAYLIST,
   GET_USER_INFO,
 } from '../../Apollo/API/graphql/index.js';
-import PlaylistView from '../PlaylistView/index.jsx';
-import SongView from '../SongView/index.jsx';
-import PlaylistEditorControls from './PlaylistEditorControls.jsx';
-
 import {
   setLocalState,
   escapeHtml,
@@ -137,8 +134,6 @@ class PlaylistEditor extends Component {
 
   componentDidMount = () => {
     const {currentUser} = this.props;
-
-    console.log('this.props inside PlaylistEditor CDM ', this.props);
 
     const state = setLocalState(currentUser);
 
