@@ -4,22 +4,32 @@ import {GET_CURRENT_SONG} from '../graphql';
 export const resolvers = {
   Mutation: {
     addToSongList: (_, {songToAdd}, {cache}) => {
+      let alreadyAdded = false;
+      const {id_user_id_identifier} = songToAdd;
       const oldState = cache.readQuery({query: GET_SONG_LIST});
 
       const {list} = oldState.songList;
 
-      songToAdd.__typename = 'CreateSong';
+      // Only perform a write to clientState if it's a new song
+      list.forEach(songObj => {
+        if (songObj['id_user_id_identifier'] === id_user_id_identifier) {
+          alreadyAdded = true;
+        }
+      });
 
-      const newState = [].concat(list, [songToAdd]);
+      if (alreadyAdded !== true) {
+        songToAdd.__typename = 'CreateSong';
+        const newState = [].concat(list, [songToAdd]);
 
-      const data = {
-        songList: {
-          ...oldState.songList,
-          list: newState,
-        },
-      };
+        const data = {
+          songList: {
+            ...oldState.songList,
+            list: newState,
+          },
+        };
 
-      cache.writeQuery({query: GET_SONG_LIST, data});
+        cache.writeQuery({query: GET_SONG_LIST, data});
+      }
 
       return songToAdd;
     },
