@@ -8,7 +8,7 @@
   background: linear-gradient(to bottom, #55728c, #1b242c, black);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   .react-player {
     margin-bottom: 0.5em;
@@ -19,14 +19,17 @@
   margin-top: 1em;
   height: 20%;
 
+  border: 1px solid pink;
+
   input {
     @include inputStyling;
   }
 }
 
 .save-playlist-btn-container {
-  @include buttonContainerStyling;
+  @include buttonContainerStyling(0, 1em, auto);
 
+  border: 1px solid maroon;
   .save-playlist-btn-header {
     width: 50%;
   }
@@ -39,6 +42,9 @@
 .playlist-songs-container {
   margin-top: 5em;
   height: 40%;
+  overflow: scroll;
+
+  border: 1px solid yellow;
 
   .playlist-name-container {
     margin-bottom: 2em;
