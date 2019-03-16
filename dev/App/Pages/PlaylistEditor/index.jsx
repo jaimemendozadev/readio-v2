@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Mutation} from 'react-apollo';
-
+import EditorContainer from './EditorContainer.jsx';
 import CustomMutation from '../../Components/CustomMutation.jsx';
 
 import {
@@ -221,23 +221,44 @@ class PlaylistEditor extends Component {
 
               console.log('gqlMutateObj is ', gqlMutateObj);
 
-              return (
-                <div id="top" className="playlist-editor">
-                  <div className="playlist-editor-header-container">
-                    <div>
-                      <h1>
-                        Click on a playlist to update or delete it from your
-                        account!
-                      </h1>
-                    </div>
-                  </div>
+              // if (currentView == 'Edit Playlist') {
+              //   return (
+              //     <PlaylistView
+              //       propMutation={null}
+              //       varObjKey={null}
+              //       playlists={currentUser.playlists}
+              //       callback={this.selectPlaylistToEdit}
+              //     />
+              //   );
+              // }
 
+              // return (
+              //   <div id="top" className="playlist-editor">
+              //     <div className="playlist-editor-header-container">
+              //       <div>
+              //         <h1>
+              //           Click on a playlist to update or delete it from your
+              //           account!
+              //         </h1>
+              //       </div>
+              //     </div>
+
+              //     {this.renderCurrentView(
+              //       currentView,
+              //       currentUser,
+              //       gqlMutateObj,
+              //     )}
+              //   </div>
+              // );
+
+              return (
+                <EditorContainer>
                   {this.renderCurrentView(
                     currentView,
                     currentUser,
                     gqlMutateObj,
                   )}
-                </div>
+                </EditorContainer>
               );
             }}
           </CustomMutation>
