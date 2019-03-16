@@ -1,18 +1,18 @@
-import React from "react";
-import { Mutation } from "react-apollo";
-import Spinner from "../../Components/Spinner.jsx";
-import SongView from "../SongView/index.jsx";
-import { DELETE_FROM_SONG_LIST } from "../../Apollo/API/graphql/index.js";
+import React from 'react';
+import {Mutation} from 'react-apollo';
+import Spinner from '../../Components/Spinner.jsx';
+import SongView from '../SongView/index.jsx';
+import {DELETE_FROM_SONG_LIST} from '../../Apollo/API/graphql/index.js';
 
 const entityMap = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#39;",
-  "/": "&#x2F;",
-  "`": "&#x60;",
-  "=": "&#x3D;"
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+  '/': '&#x2F;',
+  '`': '&#x60;',
+  '=': '&#x3D;',
 };
 
 export const escapeHtml = string => {
@@ -29,7 +29,7 @@ export const editSongList = songList => {
   songList.forEach(song => {
     const fileredSongObj = {};
     songKeys.forEach(key => {
-      if (key != "__typename") {
+      if (key != '__typename') {
         fileredSongObj[key] = song[key];
       }
     });
@@ -41,26 +41,10 @@ export const editSongList = songList => {
 
 export const handlePlaylistEditorView = (
   data,
-  loading,
-  error,
   mutationData,
   pageError,
-  pageErrorMsg
+  pageErrorMsg,
 ) => {
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    console.log("Error querying cache mutation for songList ", error);
-
-    return (
-      <div className="error-msg">
-        Whoops! There was an error processing your request. Try again later.
-      </div>
-    );
-  }
-
   if (mutationData) {
     return <h1>{mutationData.createPlaylist.message}</h1>;
   }
@@ -69,7 +53,7 @@ export const handlePlaylistEditorView = (
     return <div className="error-msg">{pageErrorMsg}</div>;
   }
 
-  if (data.songList.name == "untitled" && data.songList.list.length == 0) {
+  if (data.songList.name == 'untitled' && data.songList.list.length == 0) {
     return (
       <div className="error-msg">
         You haven't saved any songs in your playlist. Go SEARCH for a song!
