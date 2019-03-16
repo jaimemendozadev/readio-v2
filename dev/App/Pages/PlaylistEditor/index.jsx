@@ -135,57 +135,10 @@ class PlaylistEditor extends Component {
     );
   };
 
-  renderCurrentView = (currentView, currentUser, gqlMutateObj) => {
-    const {textInput, playlistName} = this.state;
-
-    const {
-      deleteMutation,
-      updateMutation,
-      deleteResponse,
-      updatePlaylistResponse,
-    } = gqlMutateObj;
-    console.log('currentView in PlaylistEditor is ', currentView);
-
-    if (currentView == 'Edit Playlist') {
-      return (
-        <PlaylistView
-          propMutation={null}
-          varObjKey={null}
-          playlists={currentUser.playlists}
-          callback={this.selectPlaylistToEdit}
-        />
-      );
-    }
-
-    if (currentView == 'Song View') {
-      const {playlistSongs} = this.state;
-
-      return (
-        <div>
-          <PlaylistEditorControls
-            textInput={textInput}
-            playlistName={playlistName}
-            performDBUpdate={this.performDBUpdate}
-            deleteFromDB={this.deleteFromDB}
-            handleNameChange={this.handleNameChange}
-            clearFormInput={this.clearFormInput}
-            deleteMutation={deleteMutation}
-            updateMutation={updateMutation}
-            sendToHomeView={this.sendToHomeView}
-          />
-
-          {this.handleSongViewRendering(
-            updatePlaylistResponse,
-            deleteResponse,
-            playlistSongs,
-          )}
-        </div>
-      );
-    }
-  };
-
   componentDidMount = () => {
     const {currentUser} = this.props;
+
+    console.log('this.props inside PlaylistEditor CDM ', this.props);
 
     const state = setLocalState(currentUser);
 
@@ -193,7 +146,8 @@ class PlaylistEditor extends Component {
   };
 
   render() {
-    const {setUserFromProps} = this.state;
+    const {setUserFromProps, textInput, playlistName} = this.state;
+    console.log('this.props on PlaylistEditor render ', this.props);
 
     const currentUser =
       setUserFromProps == true
@@ -213,53 +167,44 @@ class PlaylistEditor extends Component {
             refetchQueries={() => [{query: GET_USER_INFO}]}
           >
             {(deletePlaylistMutation, {data: deletePlaylistResponse}) => {
-              const gqlMutateObj = {};
-              gqlMutateObj.deleteMutation = deletePlaylistMutation;
-              gqlMutateObj.updateMutation = updatePlaylistMutation;
-              gqlMutateObj.deleteResponse = deletePlaylistResponse;
-              gqlMutateObj.updateResponse = updatePlaylistResponse;
+              if (currentView == 'Edit Playlist') {
+                return (
+                  <EditorContainer>
+                    <PlaylistView
+                      propMutation={null}
+                      varObjKey={null}
+                      playlists={currentUser.playlists}
+                      callback={this.selectPlaylistToEdit}
+                    />
+                  </EditorContainer>
+                );
+              }
 
-              console.log('gqlMutateObj is ', gqlMutateObj);
+              if (currentView == 'Song View') {
+                const {playlistSongs} = this.state;
 
-              // if (currentView == 'Edit Playlist') {
-              //   return (
-              //     <PlaylistView
-              //       propMutation={null}
-              //       varObjKey={null}
-              //       playlists={currentUser.playlists}
-              //       callback={this.selectPlaylistToEdit}
-              //     />
-              //   );
-              // }
+                return (
+                  <EditorContainer>
+                    <PlaylistEditorControls
+                      textInput={textInput}
+                      playlistName={playlistName}
+                      performDBUpdate={this.performDBUpdate}
+                      deleteFromDB={this.deleteFromDB}
+                      handleNameChange={this.handleNameChange}
+                      clearFormInput={this.clearFormInput}
+                      deleteMutation={deletePlaylistMutation}
+                      updateMutation={updatePlaylistMutation}
+                      sendToHomeView={this.sendToHomeView}
+                    />
 
-              // return (
-              //   <div id="top" className="playlist-editor">
-              //     <div className="playlist-editor-header-container">
-              //       <div>
-              //         <h1>
-              //           Click on a playlist to update or delete it from your
-              //           account!
-              //         </h1>
-              //       </div>
-              //     </div>
-
-              //     {this.renderCurrentView(
-              //       currentView,
-              //       currentUser,
-              //       gqlMutateObj,
-              //     )}
-              //   </div>
-              // );
-
-              return (
-                <EditorContainer>
-                  {this.renderCurrentView(
-                    currentView,
-                    currentUser,
-                    gqlMutateObj,
-                  )}
-                </EditorContainer>
-              );
+                    {this.handleSongViewRendering(
+                      updatePlaylistResponse,
+                      deletePlaylistResponse,
+                      playlistSongs,
+                    )}
+                  </EditorContainer>
+                );
+              }
             }}
           </CustomMutation>
         )}
