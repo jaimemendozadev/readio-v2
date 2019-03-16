@@ -1,12 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 
-const ReactPlayer = ({
-  client,
-  currentSong,
-  currentlyPlaying,
-  queueNextSong,
-}) => (
+const Player = ({client, currentSong, currentlyPlaying, queueNextSong}) => (
   <div className="react-player">
     <ReactPlayer
       url={currentlyPlaying ? currentlyPlaying.currentSong : currentSong}
@@ -25,4 +20,4 @@ const ReactPlayer = ({
   </div>
 );
 
-export default ReactPlayer;
+export default Player;

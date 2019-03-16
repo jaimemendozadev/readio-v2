@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Query, ApolloConsumer} from 'react-apollo';
 import {Redirect} from 'react-router-dom';
+import Player from './Player.jsx';
 import Home from '../Home/index.jsx';
 import Search from '../Search/index.jsx';
 import SavePlaylist from '../SavePlaylist/index.jsx';
@@ -110,28 +111,12 @@ class Main extends Component {
               >
                 {this.renderCurrentView(client)}
 
-                {/* <div className="react-player">
-                  <ReactPlayer
-                    url={
-                      currentlyPlaying
-                        ? currentlyPlaying.currentSong
-                        : currentSong
-                    }
-                    playing={
-                      currentlyPlaying ? currentlyPlaying.playing : false
-                    }
-                    width="100%"
-                    height="100%"
-                    config={{
-                      soundcloud: {
-                        options: {
-                          color: '#55728C',
-                        },
-                      },
-                    }}
-                    onEnded={() => queueNextSongInPlayer(client)}
-                  />
-                </div> */}
+                <Player
+                  client={client}
+                  currentSong={currentSong}
+                  currentlyPlaying={currentlyPlaying}
+                  queueNextSong={queueNextSongInPlayer}
+                />
               </div>
             </div>
           );
