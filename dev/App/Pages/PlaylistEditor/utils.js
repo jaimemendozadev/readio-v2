@@ -1,26 +1,20 @@
 const entityMap = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#39;",
-  "/": "&#x2F;",
-  "`": "&#x60;",
-  "=": "&#x3D;"
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+  '/': '&#x2F;',
+  '`': '&#x60;',
+  '=': '&#x3D;',
 };
 
 export const setLocalState = currentUser => {
-  let currUser = currentUser ? currentUser : null;
-
   const state = {
     currentUser: {
-      id: currUser ? currUser.id : currUser,
-      first_name: currUser ? currUser.first_name : currUser,
-      last_name: currUser ? currUser.last_name : currUser,
-      email: currUser ? currUser.email : currUser,
-      playlists: currUser ? currUser.playlists : []
+      ...currentUser,
     },
-    setUserFromProps: true
+    setUserFromProps: true,
   };
 
   return state;
@@ -40,7 +34,7 @@ export const editSongList = songList => {
   songList.forEach(song => {
     const fileredSongObj = {};
     songKeys.forEach(key => {
-      if (key != "__typename") {
+      if (key != '__typename') {
         fileredSongObj[key] = song[key];
       }
     });
@@ -63,7 +57,7 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
 
   const playlistDBPayload = {
     name: playlistName,
-    songs: songsPayload
+    songs: songsPayload,
   };
 
   return playlistDBPayload;
@@ -71,9 +65,9 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
 
 export const resetLocalPlaylistState = () => {
   return {
-    playlistID: "",
-    playlistName: "",
+    playlistID: '',
+    playlistName: '',
     playlistToEdit: {},
-    playlistSongs: []
+    playlistSongs: [],
   };
 };

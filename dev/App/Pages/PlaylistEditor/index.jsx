@@ -18,7 +18,7 @@ import {
   checkPlaylistName,
   prepPlaylistPayload,
   resetLocalPlaylistState,
-} from './utils.jsx';
+} from './utils.js';
 
 const defaultState = {
   currentView: 'Edit Playlist',
@@ -148,7 +148,10 @@ class PlaylistEditor extends Component {
   render() {
     const {setUserFromProps, textInput, playlistName} = this.state;
     console.log('this.props on PlaylistEditor render ', this.props);
+    console.log('this.state on PlaylistEditor render ', this.state);
 
+    // On first render, we use currentUser from props
+    // then on CDM, we save the currentUser in local state
     const currentUser =
       setUserFromProps == true
         ? this.state.currentUser
