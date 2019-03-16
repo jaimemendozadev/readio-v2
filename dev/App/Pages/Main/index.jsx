@@ -89,58 +89,55 @@ class Main extends Component {
   render() {
     const {currentSong, currentView} = this.state;
     return (
-      <ApolloConsumer>
-        {client => (
-          <Query query={GET_CURRENTLY_PLAYING_SONG}>
-            {({data, loading, error}) => {
-              if (error) {
-                this.logError(error);
-              }
+      <Query query={GET_CURRENTLY_PLAYING_SONG}>
+        {({data, loading, error, client}) => {
+          console.log('client is ', client);
+          if (error) {
+            this.logError(error);
+          }
 
-              const {currentlyPlaying} = data;
+          const {currentlyPlaying} = data;
 
-              return (
-                <div className="page-container">
-                  <NavSidebar callback={this.viewSwitch} />
+          return (
+            <div className="page-container">
+              <NavSidebar callback={this.viewSwitch} />
 
-                  <div
-                    className={
-                      currentView == 'Save Playlist'
-                        ? 'save-playlist-editor-main'
-                        : 'main-content'
+              <div
+                className={
+                  currentView == 'Save Playlist'
+                    ? 'save-playlist-editor-main'
+                    : 'main-content'
+                }
+              >
+                {this.renderCurrentView(client)}
+
+                <div className="react-player">
+                  <ReactPlayer
+                    url={
+                      currentlyPlaying
+                        ? currentlyPlaying.currentSong
+                        : currentSong
                     }
-                  >
-                    {this.renderCurrentView(client)}
-
-                    <div className="react-player">
-                      <ReactPlayer
-                        url={
-                          currentlyPlaying
-                            ? currentlyPlaying.currentSong
-                            : currentSong
-                        }
-                        playing={
-                          currentlyPlaying ? currentlyPlaying.playing : false
-                        }
-                        width="100%"
-                        height="100%"
-                        config={{
-                          soundcloud: {
-                            options: {
-                              color: '#55728C',
-                            },
-                          },
-                        }}
-                        onEnded={() => queueNextSongInPlayer(client)}
-                      />
-                    </div>
-                  </div>
+                    playing={
+                      currentlyPlaying ? currentlyPlaying.playing : false
+                    }
+                    width="100%"
+                    height="100%"
+                    config={{
+                      soundcloud: {
+                        options: {
+                          color: '#55728C',
+                        },
+                      },
+                    }}
+                    onEnded={() => queueNextSongInPlayer(client)}
+                  />
                 </div>
-              );
-            }}
-          </Query>
-        )}
-      </ApolloConsumer>
+              </div>
+            </div>
+          );
+        }}
+      </Query>
     );
   }
 }
