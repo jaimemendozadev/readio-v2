@@ -24,15 +24,6 @@ class Main extends Component {
     });
   };
 
-  logError = error => {
-    if (error) {
-      console.log(
-        'There was an error for GET_CURRENTLY_PLAYING_SONG query ',
-        error,
-      );
-    }
-  };
-
   render() {
     const {currentSong, currentView} = this.state;
     return (
