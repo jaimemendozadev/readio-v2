@@ -13,44 +13,40 @@ const components = {
   'Save Playlist': SavePlaylist,
 };
 
-class CurrentView extends Component {
-  handleLogOut = client => {
-    client.resetStore();
+const handleLogOut = client => {
+  client.resetStore();
 
-    localStorage.clear();
+  localStorage.clear();
 
-    return <Redirect to={{pathname: '/'}} />;
-  };
+  return <Redirect to={{pathname: '/'}} />;
+};
 
-  render() {
-    const {client, currentView, viewSwitchCB} = this.props;
-
-    if (currentView == 'Log Out') {
-      return this.handleLogOut(client);
-    }
-
-    if (components[currentView]) {
-      const Component = components[currentView];
-      return <Component />;
-    }
-
-    if (currentView === 'Playlist Editor') {
-      return (
-        <CustomQuery query={GET_LOCAL_USER_INFO}>
-          {data => {
-            return (
-              <PlaylistEditor
-                viewSwitchCB={viewSwitchCB}
-                currentUser={data.currentUser}
-              />
-            );
-          }}
-        </CustomQuery>
-      );
-    }
-
-    return null;
+const CurrentView = ({client, currentView, viewSwitchCB}) => {
+  if (currentView == 'Log Out') {
+    return handleLogOut(client);
   }
-}
+
+  if (components[currentView]) {
+    const Component = components[currentView];
+    return <Component />;
+  }
+
+  if (currentView === 'Playlist Editor') {
+    return (
+      <CustomQuery query={GET_LOCAL_USER_INFO}>
+        {data => {
+          return (
+            <PlaylistEditor
+              viewSwitchCB={viewSwitchCB}
+              currentUser={data.currentUser}
+            />
+          );
+        }}
+      </CustomQuery>
+    );
+  }
+
+  return null;
+};
 
 export default CurrentView;
