@@ -123,7 +123,7 @@ class Main extends Component {
                           currentlyPlaying ? currentlyPlaying.playing : false
                         }
                         width="100%"
-                        height="20%"
+                        height="100%"
                         config={{
                           soundcloud: {
                             options: {
