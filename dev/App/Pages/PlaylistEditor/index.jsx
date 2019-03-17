@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import EditorContainer from './EditorContainer.jsx';
 import CustomMutation from '../../Components/CustomMutation.jsx';
+import CustomQuery from '../../Components/CustomQuery.jsx';
 import PlaylistView from '../PlaylistView/index.jsx';
 import UpdatePanel from './UpdatePanel.jsx';
 import {
   UPDATE_PLAYLIST,
   DELETE_PLAYLIST,
   GET_USER_INFO,
+  GET_LOCAL_USER_INFO,
 } from '../../Apollo/API/graphql/index.js';
-
-import CustomQuery from '../../Components/CustomQuery.jsx';
-import {GET_LOCAL_USER_INFO} from '../../Apollo/API/graphql/index.js';
 
 const defaultState = {
   currentView: 'Edit Playlist',
@@ -87,58 +86,65 @@ class PlaylistEditor extends Component {
     const {currentView} = this.state;
 
     return (
-      <CustomMutation
-        mutation={UPDATE_PLAYLIST}
-        refetchQueries={() => [{query: GET_USER_INFO}]}
+      <CustomQuery
+        query={GET_LOCAL_USER_INFO}
+        onCompleted={data => console.log('data from query on complete ', data)}
       >
-        {(updatePlaylistMutation, {data: updatePlaylistResponse}) => (
+        {({currentUser}) => (
           <CustomMutation
-            mutation={DELETE_PLAYLIST}
+            mutation={UPDATE_PLAYLIST}
             refetchQueries={() => [{query: GET_USER_INFO}]}
           >
-            {(deletePlaylistMutation, {data: deletePlaylistResponse}) => {
-              const mutationsProps = {
-                delete: deletePlaylistMutation,
-                update: updatePlaylistMutation,
-              };
+            {(updatePlaylistMutation, {data: updatePlaylistResponse}) => (
+              <CustomMutation
+                mutation={DELETE_PLAYLIST}
+                refetchQueries={() => [{query: GET_USER_INFO}]}
+              >
+                {(deletePlaylistMutation, {data: deletePlaylistResponse}) => {
+                  const mutationsProps = {
+                    delete: deletePlaylistMutation,
+                    update: updatePlaylistMutation,
+                  };
 
-              if (currentView == 'Edit Playlist') {
-                return (
-                  <EditorContainer>
-                    <PlaylistView
-                      propMutation={null}
-                      varObjKey={null}
-                      playlists={currentUser.playlists}
-                      callback={this.selectPlaylistToEdit}
-                    />
-                  </EditorContainer>
-                );
-              }
+                  if (currentView == 'Edit Playlist') {
+                    return (
+                      <EditorContainer>
+                        <PlaylistView
+                          propMutation={null}
+                          varObjKey={null}
+                          playlists={currentUser.playlists}
+                          callback={this.selectPlaylistToEdit}
+                        />
+                      </EditorContainer>
+                    );
+                  }
 
-              if (currentView == 'Song View') {
-                const {selectedPlaylist} = this.state;
+                  if (currentView == 'Song View') {
+                    const {selectedPlaylist} = this.state;
 
-                return (
-                  <EditorContainer>
-                    <UpdatePanel
-                      currentUser={currentUser}
-                      selectedPlaylist={selectedPlaylist}
-                      mutationsProp={mutationsProps}
-                      sendToHomeView={this.sendToHomeView}
-                    />
+                    return (
+                      <EditorContainer>
+                        <UpdatePanel
+                          currentUser={currentUser}
+                          selectedPlaylist={selectedPlaylist}
+                          mutationsProp={mutationsProps}
+                          sendToHomeView={this.sendToHomeView}
+                        />
 
-                    {this.handleSongViewRendering(
-                      updatePlaylistResponse,
-                      deletePlaylistResponse,
-                      selectedPlaylist.playlistSongs,
-                    )}
-                  </EditorContainer>
-                );
-              }
-            }}
+                        {this.handleSongViewRendering(
+                          updatePlaylistResponse,
+                          deletePlaylistResponse,
+                          selectedPlaylist.playlistSongs,
+                        )}
+                      </EditorContainer>
+                    );
+                  }
+                }}
+              </CustomMutation>
+            )}
           </CustomMutation>
         )}
-      </CustomMutation>
+      </CustomQuery>
     );
   }
 }
