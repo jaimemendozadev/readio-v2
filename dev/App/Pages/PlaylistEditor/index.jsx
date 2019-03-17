@@ -46,17 +46,20 @@ class PlaylistEditor extends Component {
   };
 
   deleteSongFromPlaylist = playlistSong => {
-    const {playlistSongs} = this.state;
+    console.log('playlistSong inside delete song from playlist ', playlistSong);
+    // const {selectedPlaylist} = this.state;
 
-    const {id_user_id_identifier} = playlistSong;
+    // const {playlistSongs} = selectedPlaylist;
 
-    const filteredList = playlistSongs.filter(
-      song => song.id_user_id_identifier != id_user_id_identifier,
-    );
+    // const {id_user_id_identifier} = playlistSong;
 
-    this.setState({
-      playlistSongs: filteredList,
-    });
+    // const filteredList = playlistSongs.filter(
+    //   song => song.id_user_id_identifier != id_user_id_identifier,
+    // );
+
+    // this.setState({
+    //   playlistSongs: filteredList,
+    // });
   };
 
   render() {
