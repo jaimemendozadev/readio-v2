@@ -1,5 +1,3 @@
-/* eslint no-useless-escape: "off" */
-
 const entityMap = {
   '&': '&amp;',
   '<': '&lt;',

@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import EditorContainer from './EditorContainer.jsx';
 import CustomMutation from '../../Components/CustomMutation.jsx';
 import PlaylistView from '../PlaylistView/index.jsx';
-import SongView from '../SongView/index.jsx';
 import UpdatePanel from './UpdatePanel.jsx';
 import {
   UPDATE_PLAYLIST,
   DELETE_PLAYLIST,
   GET_USER_INFO,
 } from '../../Apollo/API/graphql/index.js';
+
+import CustomQuery from '../../Components/CustomQuery.jsx';
+import {GET_LOCAL_USER_INFO} from '../../Apollo/API/graphql/index.js';
 
 const defaultState = {
   currentView: 'Edit Playlist',
