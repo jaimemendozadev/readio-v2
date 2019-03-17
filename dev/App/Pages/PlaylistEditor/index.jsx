@@ -3,14 +3,7 @@ import EditorContainer from './EditorContainer.jsx';
 import PlaylistView from '../PlaylistView/index.jsx';
 import UpdatePanel from './UpdatePanel.jsx';
 import SongView from '../SongView/index.jsx';
-import CustomMutation from '../../Components/CustomMutation.jsx';
 import ServerMessage from '../../Components/ServerMessage.jsx';
-
-import {
-  UPDATE_PLAYLIST,
-  DELETE_PLAYLIST,
-  GET_USER_INFO,
-} from '../../Apollo/API/graphql/index.js';
 
 import {performUpdate} from './utils.js';
 
@@ -52,12 +45,13 @@ class PlaylistEditor extends Component {
     this.setState(newState);
   };
 
-  deleteSongFromPlaylist = (playlistSong, updateMutation) => {
+  deleteSongFromPlaylist = playlistSong => {
     console.log('playlistSong inside delete song from playlist ', playlistSong);
 
-    const {selectedPlaylist} = this.state;
+    const {selectedPlaylist, mutationsProp} = this.state;
+    const updateMutation = mutationsProp.update;
 
-    const {playlistSongs} = selectedPlaylist;
+    const {playlistSongs, playlistName} = selectedPlaylist;
 
     const {id_user_id_identifier} = playlistSong;
 
@@ -65,26 +59,41 @@ class PlaylistEditor extends Component {
       song => song.id_user_id_identifier != id_user_id_identifier,
     );
 
-    /*
-
-    updateMutation,
-  textInput = '',
-  selectedPlaylist,
-
-  */
+    const updatedState = Object.assign({}, selectedPlaylist, {
+      playlistSongs: filteredList,
+    });
 
     this.setState(
       {
-        playlistSongs: filteredList,
+        selectedPlaylist: updatedState,
+        currentView: 'Song View',
       },
-      () => performUpdate(),
+      () => performUpdate(updateMutation, playlistName, updatedState),
     );
   };
 
-  componentDidMount = () => {
-    const {currentUser} = this.props;
+  checkServerResponses = serverResponses => {
+    const updateResponse = serverResponses.update;
+    const deleteResponse = serverResponses.delete;
 
-    this.setState({currentUser});
+    console.log('updateResponse is ', updateResponse);
+    console.log('deleteResponse is ', deleteResponse);
+
+    if (updateResponse) {
+      return <ServerMessage message={updateResponse.updatePlaylist.message} />;
+    }
+
+    if (deleteResponse) {
+      return <ServerMessage message={deleteResponse.deletePlaylist.message} />;
+    }
+
+    return null;
+  };
+
+  componentDidMount = () => {
+    const {currentUser, mutationsProp} = this.props;
+
+    this.setState({currentUser, mutationsProp});
   };
 
   render() {
@@ -93,79 +102,49 @@ class PlaylistEditor extends Component {
       : this.state.currentUser;
     const {currentView} = this.state;
 
-    return (
-      <CustomMutation
-        mutation={UPDATE_PLAYLIST}
-        refetchQueries={() => [{query: GET_USER_INFO}]}
-      >
-        {(updatePlaylistMutation, {data: updateServerResponse}) => (
-          <CustomMutation
-            mutation={DELETE_PLAYLIST}
-            refetchQueries={() => [{query: GET_USER_INFO}]}
-          >
-            {(deletePlaylistMutation, {data: deleteServerResponse}) => {
-              const mutationsProp = {
-                delete: deletePlaylistMutation,
-                update: updatePlaylistMutation,
-              };
+    const {mutationsProp, serverResponses} = this.props;
 
-              const serverResponses = {
-                delete: deleteServerResponse,
-                update: updateServerResponse,
-              };
+    if (currentView == 'Edit Playlist') {
+      return (
+        <EditorContainer>
+          <PlaylistView
+            propMutation={null}
+            varObjKey={null}
+            playlists={currentUser.playlists}
+            callback={this.selectPlaylistToEdit}
+          />
+        </EditorContainer>
+      );
+    }
 
-              if (currentView == 'Edit Playlist') {
-                return (
-                  <EditorContainer>
-                    <PlaylistView
-                      propMutation={null}
-                      varObjKey={null}
-                      playlists={currentUser.playlists}
-                      callback={this.selectPlaylistToEdit}
-                    />
-                  </EditorContainer>
-                );
-              }
+    if (currentView == 'Song View') {
+      const {selectedPlaylist} = this.state;
+      const {playlistSongs} = selectedPlaylist;
 
-              if (currentView == 'Song View') {
-                const {selectedPlaylist} = this.state;
-                const {playlistSongs} = selectedPlaylist;
+      return (
+        <EditorContainer>
+          <UpdatePanel
+            currentUser={currentUser}
+            selectedPlaylist={selectedPlaylist}
+            mutationsProp={mutationsProp}
+            sendToHomeView={this.sendToHomeView}
+            serverResponses={serverResponses}
+            resetState={this.resetState}
+          />
 
-                return (
-                  <EditorContainer>
-                    <UpdatePanel
-                      currentUser={currentUser}
-                      selectedPlaylist={selectedPlaylist}
-                      mutationsProp={mutationsProp}
-                      sendToHomeView={this.sendToHomeView}
-                      serverResponses={serverResponses}
-                      resetState={this.resetState}
-                    />
+          {this.checkServerResponses(serverResponses)}
 
-                    <ServerMessage
-                      message={updateServerResponse.updatePlaylist.message}
-                    />
-
-                    <ServerMessage
-                      message={deleteServerResponse.deletePlaylist.message}
-                    />
-
-                    <SongView
-                      PROP_MUTATION={null}
-                      songInput={playlistSongs}
-                      callback={this.deleteSongFromPlaylist}
-                      assetType={'trash'}
-                      searchView={false}
-                      hasOneSong={playlistSongs.length == 1 ? true : false}
-                    />
-                  </EditorContainer>
-                );
-              }
-            }}
-          </CustomMutation>
-        )}
-      </CustomMutation>
-    );
+          <SongView
+            PROP_MUTATION={null}
+            songInput={playlistSongs}
+            callback={this.deleteSongFromPlaylist}
+            assetType={'trash'}
+            searchView={false}
+            hasOneSong={playlistSongs.length == 1 ? true : false}
+          />
+        </EditorContainer>
+      );
+    }
   }
 }
 

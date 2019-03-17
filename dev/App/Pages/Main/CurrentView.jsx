@@ -5,6 +5,14 @@ import Search from '../Search/index.jsx';
 import SavePlaylist from '../SavePlaylist/index.jsx';
 import PlaylistEditor from '../PlaylistEditor/index.jsx';
 import CustomQuery from '../../Components/CustomQuery.jsx';
+import CustomMutation from '../../Components/CustomMutation.jsx';
+
+import {
+  UPDATE_PLAYLIST,
+  DELETE_PLAYLIST,
+  GET_USER_INFO,
+  GET_LOCAL_USER_INFO,
+} from '../../Apollo/API/graphql/index.js';
 
 const components = {
   Home,
@@ -36,10 +44,41 @@ const CurrentView = ({client, currentView, viewSwitchCB}) => {
         query={GET_LOCAL_USER_INFO}
         onCompleted={data => console.log('data from query on complete ', data)}
       >
-      {({currentUser}) => (
-        <PlaylistEditor currentUser={currentUser} viewSwitchCB={viewSwitchCB} />
-      )}
-    </CustomQuery>
+        {({currentUser}) => (
+          <CustomMutation
+            mutation={UPDATE_PLAYLIST}
+            refetchQueries={() => [{query: GET_USER_INFO}]}
+          >
+            {(updatePlaylistMutation, {data: updateServerResponse}) => (
+              <CustomMutation
+                mutation={DELETE_PLAYLIST}
+                refetchQueries={() => [{query: GET_USER_INFO}]}
+              >
+                {(deletePlaylistMutation, {data: deleteServerResponse}) => {
+                  const mutationsProp = {
+                    delete: deletePlaylistMutation,
+                    update: updatePlaylistMutation,
+                  };
+
+                  const serverResponses = {
+                    delete: deleteServerResponse,
+                    update: updateServerResponse,
+                  };
+                  return (
+                    <PlaylistEditor
+                      currentUser={currentUser}
+                      mutationsProp={mutationsProp}
+                      serverResponses={serverResponses}
+                      viewSwitchCB={viewSwitchCB}
+                    />
+                  );
+                }}
+              </CustomMutation>
+            )}
+          </CustomMutation>
+        )}
+      </CustomQuery>
+    );
   }
 
   return null;
