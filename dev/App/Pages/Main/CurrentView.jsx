@@ -4,6 +4,7 @@ import Home from '../Home/index.jsx';
 import Search from '../Search/index.jsx';
 import SavePlaylist from '../SavePlaylist/index.jsx';
 import PlaylistEditor from '../PlaylistEditor/index.jsx';
+import CustomQuery from '../../Components/CustomQuery.jsx';
 
 const components = {
   Home,
@@ -30,7 +31,15 @@ const CurrentView = ({client, currentView, viewSwitchCB}) => {
   }
 
   if (currentView === 'Playlist Editor') {
-    return <PlaylistEditor viewSwitchCB={viewSwitchCB} />;
+    return (
+      <CustomQuery
+        query={GET_LOCAL_USER_INFO}
+        onCompleted={data => console.log('data from query on complete ', data)}
+      >
+      {({currentUser}) => (
+        <PlaylistEditor currentUser={currentUser} viewSwitchCB={viewSwitchCB} />
+      )}
+    </CustomQuery>
   }
 
   return null;

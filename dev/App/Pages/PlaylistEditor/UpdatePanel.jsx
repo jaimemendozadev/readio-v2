@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
-import SongViewSection from './SongViewSection.jsx';
 import SaveIcon from '../assets/savesonglist.png';
 import DeleteIcon from '../assets/deletesonglist.png';
 import BackIcon from '../assets/back.png';
-
-import {
-  escapeHtml,
-  checkPlaylistName,
-  prepPlaylistPayload,
-  resetLocalPlaylistState,
-} from './utils.js';
+import {performDelete, performUpdate} from './utils.js';
 
 const defaultState = {
   textInput: '',
+  currentPlaylist: {},
+  currentUser: {},
 };
 
 class UpdatePanel extends Component {
@@ -40,36 +35,18 @@ class UpdatePanel extends Component {
     });
   };
 
-  performDBUpdate = async saveToDBMutation => {
-    const {textInput, selectedPlaylist} = this.state;
-    const {playlistID, playlistName, playlistSongs} = selectedPlaylist;
-
-    const nameInput = checkPlaylistName(textInput, playlistName);
-
-    const sanitizedName = escapeHtml(nameInput);
-
-    const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
-
-    const result = await saveToDBMutation({
-      variables: {playlistID, updatedList},
-    });
-
-    console.log('result from DB after updating playlist ', result);
-  };
-
-  deleteFromDB = async deletePlaylistMutation => {
+  triggerReset = event => {
+    event.preventDefault();
     const {currentUser, selectedPlaylist} = this.state;
-    const {playlistID} = selectedPlaylist;
+    const {resetState, mutationsProp} = this.props;
 
-    const result = await deletePlaylistMutation({
-      variables: {playlistID, userID: currentUser.id},
-    });
+    const newState = performDelete(
+      mutationsProp.delete,
+      currentUser,
+      selectedPlaylist,
+    );
 
-    const resetState = resetLocalPlaylistState();
-
-    this.setState({selectedPlaylist: resetState});
-
-    console.log('message from deletePlaylist mutation ', result);
+    resetState(newState);
   };
 
   componentDidMount = () => {
@@ -79,7 +56,7 @@ class UpdatePanel extends Component {
   };
 
   render() {
-    const {textInput} = this.state;
+    const {textInput, selectedPlaylist} = this.state;
     const {mutationsProp, sendToHomeView} = this.props;
 
     // playlistName comes as props from selectedPlaylist,
@@ -114,11 +91,15 @@ class UpdatePanel extends Component {
               <img src={BackIcon} />
               Back to Home
             </button>
-            <button onClick={() => this.performDBUpdate(mutationsProp.update)}>
+            <button
+              onClick={() =>
+                performUpdate(mutationsProp.update, textInput, selectedPlaylist)
+              }
+            >
               <img src={SaveIcon} />
               Update
             </button>
-            <button onClick={() => this.deleteFromDB(mutationsProp.delete)}>
+            <button onClick={this.triggerReset}>
               <img src={DeleteIcon} />
               Delete
             </button>

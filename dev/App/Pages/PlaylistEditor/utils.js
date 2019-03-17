@@ -44,7 +44,7 @@ export const editSongList = songList => {
   return filteredList;
 };
 
-export const checkPlaylistName = (textInput, playlistName) => {
+export const checkPlaylistName = (textInput = '', playlistName) => {
   if (textInput != playlistName && textInput.length > 0) {
     return textInput;
   }
@@ -64,16 +64,22 @@ export const prepPlaylistPayload = (playlistName, playlistSongs) => {
 };
 
 export const resetLocalPlaylistState = () => {
-  return {
+  const selectedPlaylist = {
     playlistID: '',
     playlistName: '',
     playlistToEdit: {},
     playlistSongs: [],
   };
+  const currentView = 'Edit Playlist';
+
+  return {selectedPlaylist, currentView};
 };
 
-export const performDBUpdate = async saveToDBMutation => {
-  const {textInput, selectedPlaylist} = this.state;
+export const performUpdate = async (
+  updateMutation,
+  textInput = '',
+  selectedPlaylist,
+) => {
   const {playlistID, playlistName, playlistSongs} = selectedPlaylist;
 
   const nameInput = checkPlaylistName(textInput, playlistName);
@@ -82,24 +88,25 @@ export const performDBUpdate = async saveToDBMutation => {
 
   const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
 
-  const result = await saveToDBMutation({
+  const result = await updateMutation({
     variables: {playlistID, updatedList},
   });
 
   console.log('result from DB after updating playlist ', result);
 };
 
-export const deleteFromDB = async deletePlaylistMutation => {
-  const {currentUser, selectedPlaylist} = this.state;
+export const performDelete = async (
+  deleteMutation,
+  currentUser,
+  selectedPlaylist,
+) => {
   const {playlistID} = selectedPlaylist;
 
-  const result = await deletePlaylistMutation({
+  await deleteMutation({
     variables: {playlistID, userID: currentUser.id},
   });
 
   const resetState = resetLocalPlaylistState();
 
   return resetState;
-
-  console.log('message from deletePlaylist mutation ', result);
 };

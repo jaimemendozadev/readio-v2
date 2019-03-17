@@ -1,19 +1,19 @@
-import React from "react";
-import { Mutation } from "react-apollo";
+import React from 'react';
+import {Mutation} from 'react-apollo';
 
-import { LOAD_SONG_IN_PLAYER } from "../../Apollo/API/graphql/index.js";
-import { getAssetPath } from "./utils.jsx";
-import { prepSongObject } from "./utils.jsx";
-import { handleLoadMutation } from "./utils.jsx";
-import { renderIcon } from "./utils.jsx";
+import {LOAD_SONG_IN_PLAYER} from '../../Apollo/API/graphql/index.js';
+import {getAssetPath} from './utils.jsx';
+import {prepSongObject} from './utils.jsx';
+import {handleLoadMutation} from './utils.jsx';
+import {renderIcon} from './utils.jsx';
 
 const renderResults = (
   propMutation = null,
   songInput,
   callback = null,
-  assetType = "none",
+  assetType = 'none',
   hasOneSong = false,
-  searchView = false
+  searchView = false,
 ) => {
   if (songInput.length == 0 && searchView == true) {
     return (
@@ -37,9 +37,7 @@ const renderResults = (
         {loadSongInPlayer => (
           <div className="song-item">
             <div
-              onClick={() =>
-                loadSongInPlayer({ variables: { songArg: loadSong } })
-              }
+              onClick={() => loadSongInPlayer({variables: {songArg: loadSong}})}
               className="song-image-container"
             >
               <img src={result.artwork_url} />
@@ -47,8 +45,8 @@ const renderResults = (
             </div>
 
             <div className="playlist-icon-container">
-              {(hasOneSong == true && !searchView) || assetType == "none"
-                ? ""
+              {(hasOneSong == true && !searchView) || assetType == 'none'
+                ? ''
                 : renderIcon(propMutation, assetType, newSong, asset, callback)}
             </div>
           </div>
@@ -62,19 +60,19 @@ const SongView = ({
   PROP_MUTATION = null,
   songInput,
   callback = null,
-  assetType = "none",
+  assetType = 'none',
   searchView,
-  hasOneSong
+  hasOneSong,
 }) => {
   return (
-    <div className={searchView == true ? "prevent-search-overflow" : ""}>
+    <div className={searchView == true ? 'prevent-search-overflow' : ''}>
       {renderResults(
         PROP_MUTATION,
         songInput,
         callback,
         assetType,
         hasOneSong,
-        searchView
+        searchView,
       )}
     </div>
   );
