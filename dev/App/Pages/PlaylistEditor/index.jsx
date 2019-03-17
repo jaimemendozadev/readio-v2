@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import EditorContainer from './EditorContainer.jsx';
-import CustomMutation from '../../Components/CustomMutation.jsx';
-import CustomQuery from '../../Components/CustomQuery.jsx';
 import PlaylistView from '../PlaylistView/index.jsx';
 import UpdatePanel from './UpdatePanel.jsx';
+import SongView from '../SongView/index.jsx';
+
+import CustomMutation from '../../Components/CustomMutation.jsx';
+import CustomQuery from '../../Components/CustomQuery.jsx';
+
 import {
   UPDATE_PLAYLIST,
   DELETE_PLAYLIST,
@@ -79,9 +82,6 @@ class PlaylistEditor extends Component {
   render() {
     console.log('this.props on PlaylistEditor render ', this.props);
     console.log('this.state on PlaylistEditor render ', this.state);
-
-    // On first render, we use currentUser from props
-    const {currentUser} = this.props;
 
     const {currentView} = this.state;
 
