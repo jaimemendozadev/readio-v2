@@ -45,7 +45,7 @@ class PlaylistEditor extends Component {
     this.setState(newState);
   };
 
-  deleteSongFromPlaylist = playlistSong => {
+  deleteSongFromPlaylist = async playlistSong => {
     console.log('playlistSong inside delete song from playlist ', playlistSong);
 
     const {selectedPlaylist, mutationsProp} = this.state;
@@ -63,13 +63,11 @@ class PlaylistEditor extends Component {
       playlistSongs: filteredList,
     });
 
-    this.setState(
-      {
-        selectedPlaylist: updatedState,
-        currentView: 'Song View',
-      },
-      () => performUpdate(updateMutation, playlistName, updatedState),
-    );
+    await performUpdate(updateMutation, playlistName, updatedState);
+
+    this.setState({
+      selectedPlaylist: updatedState,
+    });
   };
 
   checkServerResponses = serverResponses => {
@@ -103,6 +101,8 @@ class PlaylistEditor extends Component {
     const {currentView} = this.state;
 
     const {mutationsProp, serverResponses} = this.props;
+
+    console.log('this.props inside PlaylistEditor ', this.props);
 
     if (currentView == 'Edit Playlist') {
       return (
