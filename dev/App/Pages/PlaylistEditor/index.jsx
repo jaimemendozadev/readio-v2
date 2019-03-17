@@ -3,28 +3,18 @@ import EditorContainer from './EditorContainer.jsx';
 import CustomMutation from '../../Components/CustomMutation.jsx';
 import PlaylistView from '../PlaylistView/index.jsx';
 import SongView from '../SongView/index.jsx';
-import PlaylistEditorControls from './PlaylistEditorControls.jsx';
+import UpdatePanel from './UpdatePanel.jsx';
 import {
   UPDATE_PLAYLIST,
   DELETE_PLAYLIST,
   GET_USER_INFO,
 } from '../../Apollo/API/graphql/index.js';
-import {
-  setLocalState,
-  escapeHtml,
-  checkPlaylistName,
-  prepPlaylistPayload,
-  resetLocalPlaylistState,
-} from './utils.js';
+
+import UpdatePanel from './UpdatePanel.jsx';
 
 const defaultState = {
   currentView: 'Edit Playlist',
-  textInput: '',
-  setUserFromProps: false,
-  playlistToEdit: {},
-  playlistID: '',
-  playlistName: '',
-  playlistSongs: [],
+  selectedPlaylist: {},
 };
 
 class PlaylistEditor extends Component {
@@ -38,32 +28,17 @@ class PlaylistEditor extends Component {
     viewSwitchCB('Home');
   };
 
-  clearFormInput = () => {
-    const {textInput} = this.state;
-    if (textInput.length) {
-      this.setState({
-        textInput: '',
-        pageError: false,
-        pageErrorMsg: '',
-      });
-    }
-  };
-
-  handleNameChange = event => {
-    event.preventDefault();
-
-    this.setState({
-      textInput: event.target.value,
-    });
-  };
-
   selectPlaylistToEdit = playlist => {
-    this.setState({
+    const selectedPlaylist = {
       playlistToEdit: playlist,
       playlistID: playlist.id,
       playlistName: playlist.name,
       playlistSongs: playlist.songs,
       currentView: 'Song View',
+    };
+
+    this.setState({
+      selectedPlaylist,
     });
   };
 
@@ -79,36 +54,6 @@ class PlaylistEditor extends Component {
     this.setState({
       playlistSongs: filteredList,
     });
-  };
-
-  performDBUpdate = async saveToDBMutation => {
-    const {textInput, playlistID, playlistName, playlistSongs} = this.state;
-
-    const nameInput = checkPlaylistName(textInput, playlistName);
-
-    const sanitizedName = escapeHtml(nameInput);
-
-    const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
-
-    const result = await saveToDBMutation({
-      variables: {playlistID, updatedList},
-    });
-
-    console.log('result from DB after updating playlist ', result);
-  };
-
-  deleteFromDB = async deletePlaylistMutation => {
-    const {currentUser, playlistID} = this.state;
-
-    const result = await deletePlaylistMutation({
-      variables: {playlistID, userID: currentUser.id},
-    });
-
-    const resetState = resetLocalPlaylistState();
-
-    this.setState(resetState);
-
-    console.log('message from deletePlaylist mutation ', result);
   };
 
   handleSongViewRendering = (updateResponse, deleteResponse, playlistSongs) => {
@@ -132,25 +77,12 @@ class PlaylistEditor extends Component {
     );
   };
 
-  componentDidMount = () => {
-    const {currentUser} = this.props;
-
-    const state = setLocalState(currentUser);
-
-    this.setState(state);
-  };
-
   render() {
-    const {setUserFromProps, textInput, playlistName} = this.state;
     console.log('this.props on PlaylistEditor render ', this.props);
     console.log('this.state on PlaylistEditor render ', this.state);
 
     // On first render, we use currentUser from props
-    // then on CDM, we save the currentUser in local state
-    const currentUser =
-      setUserFromProps == true
-        ? this.state.currentUser
-        : this.props.currentUser;
+    const {currentUser} = this.props;
 
     const {currentView} = this.state;
 
@@ -165,6 +97,11 @@ class PlaylistEditor extends Component {
             refetchQueries={() => [{query: GET_USER_INFO}]}
           >
             {(deletePlaylistMutation, {data: deletePlaylistResponse}) => {
+              const mutationsProps = {
+                delete: deletePlaylistMutation,
+                update: updatePlaylistMutation,
+              };
+
               if (currentView == 'Edit Playlist') {
                 return (
                   <EditorContainer>
@@ -179,26 +116,21 @@ class PlaylistEditor extends Component {
               }
 
               if (currentView == 'Song View') {
-                const {playlistSongs} = this.state;
+                const {selectedPlaylist} = this.state;
 
                 return (
                   <EditorContainer>
-                    <PlaylistEditorControls
-                      textInput={textInput}
-                      playlistName={playlistName}
-                      performDBUpdate={this.performDBUpdate}
-                      deleteFromDB={this.deleteFromDB}
-                      handleNameChange={this.handleNameChange}
-                      clearFormInput={this.clearFormInput}
-                      deleteMutation={deletePlaylistMutation}
-                      updateMutation={updatePlaylistMutation}
+                    <UpdatePanel
+                      currentUser={currentUser}
+                      selectedPlaylist={selectedPlaylist}
+                      mutationsProp={mutationsProps}
                       sendToHomeView={this.sendToHomeView}
                     />
 
                     {this.handleSongViewRendering(
                       updatePlaylistResponse,
                       deletePlaylistResponse,
-                      playlistSongs,
+                      selectedPlaylist.playlistSongs,
                     )}
                   </EditorContainer>
                 );
