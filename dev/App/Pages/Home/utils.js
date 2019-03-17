@@ -18,6 +18,4 @@ export const saveFetchedUser = (getUser, client) => {
   };
 
   client.writeQuery({query: SAVE_USER_IN_CACHE, data});
-
-  console.log('client after saving getUser ', client);
 };

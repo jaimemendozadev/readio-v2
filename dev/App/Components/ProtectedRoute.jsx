@@ -14,8 +14,6 @@ class ProtectedRoute extends Component {
   checkForToken = () => {
     let token = localStorage.getItem('token');
 
-    console.log('token inside checkForToken for ProtectedRoute ', token);
-
     if (token) {
       this.setState({
         authenticated: true,

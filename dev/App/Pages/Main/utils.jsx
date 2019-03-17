@@ -1,8 +1,8 @@
-import { GET_CURRENTLY_PLAYING_SONG } from "../../Apollo/API/graphql/index.js";
+import {GET_CURRENTLY_PLAYING_SONG} from '../../Apollo/API/graphql/index.js';
 
 export const queueNextSongInPlayer = client => {
-  const oldState = client.readQuery({ query: GET_CURRENTLY_PLAYING_SONG });
-  const { currentlyPlaying } = oldState;
+  const oldState = client.readQuery({query: GET_CURRENTLY_PLAYING_SONG});
+  const {currentlyPlaying} = oldState;
 
   const currentPlaylistStack = currentlyPlaying.playlistStack.slice();
   const currentStack = currentlyPlaying.stack.slice();
@@ -17,7 +17,7 @@ export const queueNextSongInPlayer = client => {
 
   const newState = {};
 
-  newState.currentSong = !songToQueue ? "" : songToQueue.permalink_url;
+  newState.currentSong = !songToQueue ? '' : songToQueue.permalink_url;
   newState.playing = !songToQueue ? false : true;
 
   newState.storedPlaylist =
@@ -31,10 +31,8 @@ export const queueNextSongInPlayer = client => {
 
   const data = {
     ...oldState,
-    currentlyPlaying: Object.assign({}, currentlyPlaying, newState)
+    currentlyPlaying: Object.assign({}, currentlyPlaying, newState),
   };
 
-  client.writeQuery({ query: GET_CURRENTLY_PLAYING_SONG, data });
-
-  console.log("client after loading new song in player ", client);
+  client.writeQuery({query: GET_CURRENTLY_PLAYING_SONG, data});
 };

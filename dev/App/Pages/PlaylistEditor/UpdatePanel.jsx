@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SongViewSection from './SongViewSection.jsx';
 import SaveIcon from '../assets/savesonglist.png';
 import DeleteIcon from '../assets/deletesonglist.png';
 import BackIcon from '../assets/back.png';
@@ -86,6 +87,8 @@ class UpdatePanel extends Component {
     const playlistName = this.props.selectedPlaylist
       ? this.props.selectedPlaylist.playlistName
       : this.state.selectedPlaylist.playlistName;
+
+    console.log('this.state on UpdatePanel render ', this.state);
 
     return (
       <div>

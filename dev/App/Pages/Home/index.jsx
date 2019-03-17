@@ -9,8 +9,6 @@ const Home = () => (
     {(data, client) => {
       const {getUser} = data;
 
-      console.log('current user in Home component from getUser query', getUser);
-
       saveFetchedUser(getUser, client);
 
       return (
