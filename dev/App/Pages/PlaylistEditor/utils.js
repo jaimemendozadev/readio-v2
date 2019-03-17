@@ -71,3 +71,35 @@ export const resetLocalPlaylistState = () => {
     playlistSongs: [],
   };
 };
+
+export const performDBUpdate = async saveToDBMutation => {
+  const {textInput, selectedPlaylist} = this.state;
+  const {playlistID, playlistName, playlistSongs} = selectedPlaylist;
+
+  const nameInput = checkPlaylistName(textInput, playlistName);
+
+  const sanitizedName = escapeHtml(nameInput);
+
+  const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
+
+  const result = await saveToDBMutation({
+    variables: {playlistID, updatedList},
+  });
+
+  console.log('result from DB after updating playlist ', result);
+};
+
+export const deleteFromDB = async deletePlaylistMutation => {
+  const {currentUser, selectedPlaylist} = this.state;
+  const {playlistID} = selectedPlaylist;
+
+  const result = await deletePlaylistMutation({
+    variables: {playlistID, userID: currentUser.id},
+  });
+
+  const resetState = resetLocalPlaylistState();
+
+  return resetState;
+
+  console.log('message from deletePlaylist mutation ', result);
+};
