@@ -10,8 +10,6 @@ import {
   GET_USER_INFO,
 } from '../../Apollo/API/graphql/index.js';
 
-import UpdatePanel from './UpdatePanel.jsx';
-
 const defaultState = {
   currentView: 'Edit Playlist',
   selectedPlaylist: {},
@@ -34,11 +32,11 @@ class PlaylistEditor extends Component {
       playlistID: playlist.id,
       playlistName: playlist.name,
       playlistSongs: playlist.songs,
-      currentView: 'Song View',
     };
 
     this.setState({
       selectedPlaylist,
+      currentView: 'Song View',
     });
   };
 
