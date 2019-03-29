@@ -77,8 +77,6 @@ class PlaylistEditor extends Component {
       : this.state.currentUser;
     const {currentView} = this.state;
 
-    console.log('this.props inside PlaylistEditor ', this.props);
-
     if (currentView == 'Edit Playlist') {
       return (
         <EditorContainer>
