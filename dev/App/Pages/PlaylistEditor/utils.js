@@ -110,3 +110,17 @@ export const performDelete = async (
 
   return resetState;
 };
+
+export const filterPlaylist = (selectedPlaylist, playlistSong) => {
+  const {playlistSongs} = selectedPlaylist;
+
+  const {id_user_id_identifier} = playlistSong;
+
+  const filteredList = playlistSongs.filter(
+    song => song.id_user_id_identifier != id_user_id_identifier,
+  );
+
+  return Object.assign({}, selectedPlaylist, {
+    playlistSongs: filteredList,
+  });
+};

@@ -55,6 +55,8 @@ class UpdatePanel extends Component {
 
     const {playlistName, playlistSongs} = this.props.selectedPlaylist;
 
+    console.log('this.props inside UpdatePanel CDU ', this.props);
+
     if (
       oldName !== playlistName ||
       oldPlaylistSongs.length !== playlistSongs.length
@@ -81,6 +83,8 @@ class UpdatePanel extends Component {
   render() {
     const {textInput, selectedPlaylist} = this.state;
     const {mutationsProp, sendToHomeView} = this.props;
+
+    console.log('this.props inside UpdatePanel ', this.props);
 
     // playlistName comes as props from selectedPlaylist,
     // will be saved in local state on CDM and CDU

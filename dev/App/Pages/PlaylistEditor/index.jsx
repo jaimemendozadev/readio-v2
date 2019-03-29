@@ -5,6 +5,7 @@ import UpdatePanel from './UpdatePanel.jsx';
 import UpdateContainer from './UpdateContainer.jsx';
 import SongView from '../SongView/index.jsx';
 import ServerMessage from '../../Components/ServerMessage.jsx';
+import {filterPlaylist} from './utils';
 
 const defaultState = {
   currentView: 'Edit Playlist',
@@ -16,11 +17,6 @@ class PlaylistEditor extends Component {
     super(props);
     this.state = defaultState;
   }
-
-  sendToHomeView = () => {
-    const {viewSwitchCB} = this.props;
-    viewSwitchCB('Home');
-  };
 
   selectPlaylistToEdit = playlist => {
     const selectedPlaylist = {
@@ -45,21 +41,9 @@ class PlaylistEditor extends Component {
   };
 
   selectSongForDeletion = playlistSong => {
-    console.log('playlistSong inside delete song from playlist ', playlistSong);
-
     const {selectedPlaylist} = this.state;
 
-    const {playlistSongs} = selectedPlaylist;
-
-    const {id_user_id_identifier} = playlistSong;
-
-    const filteredList = playlistSongs.filter(
-      song => song.id_user_id_identifier != id_user_id_identifier,
-    );
-
-    const updatedState = Object.assign({}, selectedPlaylist, {
-      playlistSongs: filteredList,
-    });
+    const updatedState = filterPlaylist(selectedPlaylist, playlistSong);
 
     this.setState({
       selectedPlaylist: updatedState,
@@ -122,7 +106,7 @@ class PlaylistEditor extends Component {
                     currentUser={currentUser}
                     selectedPlaylist={selectedPlaylist}
                     mutationsProp={mutationsProp}
-                    sendToHomeView={this.sendToHomeView}
+                    sendToHomeView={() => this.props.viewSwitchCB('Home')}
                     serverResponses={serverResponses}
                     resetState={this.resetState}
                   />
