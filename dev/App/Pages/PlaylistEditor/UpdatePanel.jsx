@@ -49,6 +49,29 @@ class UpdatePanel extends Component {
     resetState(newState);
   };
 
+  componentDidUpdate = prevProps => {
+    const oldName = prevProps.selectedPlaylist.playlistName;
+    const oldPlaylistSongs = prevProps.selectedPlaylist.playlistSongs;
+
+    const {playlistName, playlistSongs} = this.props.selectedPlaylist;
+
+    if (
+      oldName !== playlistName ||
+      oldPlaylistSongs.length !== playlistSongs.length
+    ) {
+      const updatedSelection = this.props.selectedPlaylist;
+      const selectedPlaylist = Object.assign(
+        {},
+        prevProps.selectedPlaylist,
+        updatedSelection,
+      );
+
+      this.setState({
+        selectedPlaylist,
+      });
+    }
+  };
+
   componentDidMount = () => {
     const {currentUser, selectedPlaylist} = this.props;
 
@@ -60,12 +83,10 @@ class UpdatePanel extends Component {
     const {mutationsProp, sendToHomeView} = this.props;
 
     // playlistName comes as props from selectedPlaylist,
-    // will be saved in local state on CDM
+    // will be saved in local state on CDM and CDU
     const playlistName = this.props.selectedPlaylist
       ? this.props.selectedPlaylist.playlistName
       : this.state.selectedPlaylist.playlistName;
-
-    console.log('this.state on UpdatePanel render ', this.state);
 
     return (
       <div>

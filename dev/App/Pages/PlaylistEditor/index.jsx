@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
+import React, {Fragment, Component} from 'react';
 import EditorContainer from './EditorContainer.jsx';
 import PlaylistView from '../PlaylistView/index.jsx';
 import UpdatePanel from './UpdatePanel.jsx';
+import UpdateContainer from './UpdateContainer.jsx';
 import SongView from '../SongView/index.jsx';
 import ServerMessage from '../../Components/ServerMessage.jsx';
-
-import {performUpdate} from './utils.js';
 
 const defaultState = {
   currentView: 'Edit Playlist',
@@ -45,13 +44,12 @@ class PlaylistEditor extends Component {
     this.setState(newState);
   };
 
-  deleteSongFromPlaylist = async playlistSong => {
+  selectSongForDeletion = playlistSong => {
     console.log('playlistSong inside delete song from playlist ', playlistSong);
 
-    const {selectedPlaylist, mutationsProp} = this.state;
-    const updateMutation = mutationsProp.update;
+    const {selectedPlaylist} = this.state;
 
-    const {playlistSongs, playlistName} = selectedPlaylist;
+    const {playlistSongs} = selectedPlaylist;
 
     const {id_user_id_identifier} = playlistSong;
 
@@ -63,8 +61,6 @@ class PlaylistEditor extends Component {
       playlistSongs: filteredList,
     });
 
-    await performUpdate(updateMutation, playlistName, updatedState);
-
     this.setState({
       selectedPlaylist: updatedState,
     });
@@ -73,9 +69,6 @@ class PlaylistEditor extends Component {
   checkServerResponses = serverResponses => {
     const updateResponse = serverResponses.update;
     const deleteResponse = serverResponses.delete;
-
-    console.log('updateResponse is ', updateResponse);
-    console.log('deleteResponse is ', deleteResponse);
 
     if (updateResponse) {
       return <ServerMessage message={updateResponse.updatePlaylist.message} />;
@@ -89,9 +82,9 @@ class PlaylistEditor extends Component {
   };
 
   componentDidMount = () => {
-    const {currentUser, mutationsProp} = this.props;
+    const {currentUser} = this.props;
 
-    this.setState({currentUser, mutationsProp});
+    this.setState({currentUser});
   };
 
   render() {
@@ -99,8 +92,6 @@ class PlaylistEditor extends Component {
       ? this.props.currentUser
       : this.state.currentUser;
     const {currentView} = this.state;
-
-    const {mutationsProp, serverResponses} = this.props;
 
     console.log('this.props inside PlaylistEditor ', this.props);
 
@@ -123,25 +114,35 @@ class PlaylistEditor extends Component {
 
       return (
         <EditorContainer>
-          <UpdatePanel
-            currentUser={currentUser}
-            selectedPlaylist={selectedPlaylist}
-            mutationsProp={mutationsProp}
-            sendToHomeView={this.sendToHomeView}
-            serverResponses={serverResponses}
-            resetState={this.resetState}
-          />
+          <UpdateContainer>
+            {(mutationsProp, serverResponses) => {
+              return (
+                <Fragment>
+                  <UpdatePanel
+                    currentUser={currentUser}
+                    selectedPlaylist={selectedPlaylist}
+                    mutationsProp={mutationsProp}
+                    sendToHomeView={this.sendToHomeView}
+                    serverResponses={serverResponses}
+                    resetState={this.resetState}
+                  />
 
-          {this.checkServerResponses(serverResponses)}
+                  {this.checkServerResponses(serverResponses)}
 
-          <SongView
-            PROP_MUTATION={null}
-            songInput={playlistSongs}
-            callback={this.deleteSongFromPlaylist}
-            assetType={'trash'}
-            searchView={false}
-            hasOneSong={playlistSongs.length == 1 ? true : false}
-          />
+                  <SongView
+                    PROP_MUTATION={null}
+                    songInput={playlistSongs}
+                    callback={playlistSong =>
+                      this.selectSongForDeletion(playlistSong)
+                    }
+                    assetType={'trash'}
+                    searchView={false}
+                    hasOneSong={playlistSongs.length == 1 ? true : false}
+                  />
+                </Fragment>
+              );
+            }}
+          </UpdateContainer>
         </EditorContainer>
       );
     }
