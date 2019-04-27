@@ -4,6 +4,7 @@ const Header = ({
   client,
   songListCount,
   onSubmit,
+  onBlur,
   onClick,
   onChange,
   playlistName,
@@ -18,6 +19,7 @@ const Header = ({
 
     <form onSubmit={event => onSubmit(event, client, songListCount)}>
       <input
+        onBlur={onBlur}
         onClick={onClick}
         onChange={onChange}
         type="text"

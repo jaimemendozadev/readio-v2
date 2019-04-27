@@ -35,6 +35,10 @@ class SavePlaylist extends Component {
     }
   };
 
+  resetInput = () => {
+    this.setState(defaultState);
+  };
+
   handleChange = event => {
     event.preventDefault();
 
@@ -85,6 +89,7 @@ class SavePlaylist extends Component {
                     client={client}
                     songListCount={songListCount}
                     onSubmit={this.handleSubmit}
+                    onBlur={this.resetInput}
                     onClick={this.clearInput}
                     onChange={this.handleChange}
                     playlistName={playlistName}
