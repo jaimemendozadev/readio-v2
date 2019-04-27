@@ -24,6 +24,10 @@ class Search extends Component {
     }
   };
 
+  resetInput = () => {
+    this.setState({currentQuery: 'Start typing...'});
+  };
+
   handleChange = event => {
     event.preventDefault();
 
@@ -59,6 +63,7 @@ class Search extends Component {
               >
                 <input
                   onClick={this.clearInput}
+                  onBlur={this.resetInput}
                   onChange={this.handleChange}
                   type="text"
                   value={this.state.currentQuery}
