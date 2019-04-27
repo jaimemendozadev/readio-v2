@@ -6,6 +6,7 @@ import {getAssetPath} from './utils.jsx';
 import {prepSongObject} from './utils.jsx';
 import {handleLoadMutation} from './utils.jsx';
 import {renderIcon} from './utils.jsx';
+import ErrorMessage from '../../Components/ErrorMessage.jsx';
 
 const renderResults = (
   propMutation = null,
@@ -16,12 +17,10 @@ const renderResults = (
   searchView = false,
 ) => {
   if (songInput.length == 0 && searchView == true) {
-    return (
-      <div className="error-msg">
-        Whoops! We couldn't find any results for your search. Try something
-        else.
-      </div>
-    );
+    const errorMessage =
+      "Whoops! We couldn't find any results for your search. Try something else.";
+
+    return <ErrorMessage errorMessage={errorMessage} />;
   }
 
   return songInput.map(result => {
