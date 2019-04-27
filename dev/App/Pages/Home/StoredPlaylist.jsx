@@ -7,7 +7,7 @@ const StoredPlaylist = ({data}) => {
 
     return (
       <div className="stored-playlist-container">
-        <h2>Or pick a song from your currently selected playlist!</h2>
+        <h2>Pick any song from your currently selected playlist!</h2>
 
         <h3>Playlist Name: {name}</h3>
         <SongView

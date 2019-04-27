@@ -20,7 +20,7 @@ const PlaylistSection = ({playlists}) => {
   return (
     <div>
       <h1>
-        Your Current Playlists: Click on a playlist below to load it in the
+        Your Saved Playlists: Click on a playlist below to load it in the
         player!
       </h1>
       <CustomQuery query={GET_STORED_PLAYLIST}>

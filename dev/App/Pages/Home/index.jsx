@@ -9,6 +9,7 @@ const Home = () => (
     {(data, client) => {
       const {getUser} = data;
 
+      // Save fetched user in Apollo clientState
       saveFetchedUser(getUser, client);
 
       return (
