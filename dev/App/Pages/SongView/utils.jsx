@@ -1,24 +1,24 @@
-import React from "react";
-import Playlist from "../assets/playlist.png";
-import Trash from "../assets/trash.png";
+import React from 'react';
+import Playlist from '../assets/playlist.png';
+import Trash from '../assets/trash.png';
 
 export const getAssetPath = assetType => {
-  if (assetType == "playlist") {
+  if (assetType == 'playlist') {
     return Playlist;
   }
 
-  if (assetType == "trash") {
+  if (assetType == 'trash') {
     return Trash;
   }
 };
 
 export const prepSongObject = result => {
-  const { title, permalink_url, artwork_url, id_user_id_identifier } = result;
+  const {title, permalink_url, artwork_url, id_user_id_identifier} = result;
   const newSong = {
     title,
     permalink_url,
     artwork_url,
-    id_user_id_identifier
+    id_user_id_identifier,
   };
 
   return newSong;
@@ -27,7 +27,7 @@ export const prepSongObject = result => {
 export const handleLoadMutation = url => {
   const playSong = {
     currentSong: url,
-    playing: true
+    playing: true,
   };
 
   return playSong;
@@ -38,7 +38,7 @@ export const renderIcon = (
   assetType,
   newSong,
   asset,
-  callback
+  callback,
 ) => {
   return (
     <img
@@ -54,12 +54,12 @@ export const renderIcon = (
 };
 
 const invokeMutation = (propMutation, newSong, assetType) => {
-  const { id_user_id_identifier } = newSong;
+  const {id_user_id_identifier} = newSong;
 
   const variables =
-    assetType == "playlist"
-      ? { songToAdd: newSong }
-      : { songID: id_user_id_identifier };
+    assetType == 'playlist'
+      ? {songToAdd: newSong}
+      : {songID: id_user_id_identifier};
 
-  propMutation({ variables });
+  propMutation({variables});
 };
