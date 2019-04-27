@@ -1,6 +1,7 @@
 import React from 'react';
 import {Mutation} from 'react-apollo';
 import Spinner from './Spinner.jsx';
+import ErrorMessage from './ErrorMessage.jsx';
 
 const CustomMutation = ({children, ...props}) => (
   <Mutation {...props}>
@@ -16,9 +17,11 @@ const CustomMutation = ({children, ...props}) => (
 
       if (error) {
         return (
-          <div className="error-msg">
-            Sorry, there was an error processing your request...
-          </div>
+          <ErrorMessage
+            errorMessage={
+              'Sorry, there was an error processing your request...'
+            }
+          />
         );
       }
 

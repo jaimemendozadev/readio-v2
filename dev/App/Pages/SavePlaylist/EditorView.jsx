@@ -1,5 +1,6 @@
 import React from 'react';
 import SongView from '../SongView/index.jsx';
+import ErrorMessage from '../../Components/ErrorMessage.jsx';
 import CustomMutation from '../../Components/CustomMutation.jsx';
 import {DELETE_FROM_SONG_LIST} from '../../Apollo/API/graphql/index.js';
 
@@ -9,18 +10,17 @@ const EditorView = ({queryData, mutationData, pageError, pageErrorMsg}) => {
   }
 
   if (pageError) {
-    return <div className="error-msg">{pageErrorMsg}</div>;
+    return <ErrorMessage errorMessage={pageErrorMsg} />;
   }
 
   if (
     queryData.songList.name == 'untitled' &&
     queryData.songList.list.length == 0
   ) {
-    return (
-      <div className="error-msg">
-        You haven't saved any songs in your playlist. Go SEARCH for a song!
-      </div>
-    );
+    const errorText =
+      "You haven't saved any songs in your playlist. Go SEARCH for a song!";
+
+    return <ErrorMessage errorMessage={errorText} />;
   }
 
   if (queryData) {

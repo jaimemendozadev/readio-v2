@@ -1,7 +1,7 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import Spinner from './Spinner.jsx';
-
+import ErrorMessage from './ErrorMessage.jsx';
 const CustomQuery = ({children, ...props}) => (
   <Query {...props}>
     {({data, loading, error, client}) => {
@@ -16,9 +16,11 @@ const CustomQuery = ({children, ...props}) => (
 
       if (error) {
         return (
-          <div className="error-msg">
-            Sorry, there was an error processing your request...
-          </div>
+          <ErrorMessage
+            errorMessage={
+              'Sorry, there was an error processing your request...'
+            }
+          />
         );
       }
 
