@@ -35,18 +35,26 @@ class UpdatePanel extends Component {
     });
   };
 
-  triggerReset = event => {
+  triggerReset = async event => {
     event.preventDefault();
     const {currentUser, selectedPlaylist} = this.state;
     const {resetState, mutationsProp} = this.props;
 
-    const newState = performDelete(
+    const serverResponse = await performDelete(
       mutationsProp.delete,
       currentUser,
       selectedPlaylist,
     );
 
-    resetState(newState);
+    if (serverResponse) {
+      const {
+        data: {deletePlaylist},
+      } = serverResponse;
+
+      const {message} = deletePlaylist;
+      const updatedState = {serverResponse: {deleteResponse: message}};
+      resetState(updatedState);
+    }
   };
 
   componentDidUpdate = prevProps => {

@@ -10,6 +10,7 @@ import {filterPlaylist} from './utils';
 const defaultState = {
   currentView: 'Edit Playlist',
   selectedPlaylist: {},
+  serverResponse: {updateResponse: '', deleteResponse: ''},
 };
 
 class PlaylistEditor extends Component {
@@ -50,16 +51,17 @@ class PlaylistEditor extends Component {
     });
   };
 
-  checkServerResponses = serverResponses => {
-    const updateResponse = serverResponses.update;
-    const deleteResponse = serverResponses.delete;
+  checkServerResponses = () => {
+    const {
+      serverResponse: {updateResponse, deleteResponse},
+    } = this.state;
 
     if (updateResponse) {
-      return <ServerMessage message={updateResponse.updatePlaylist.message} />;
+      return <ServerMessage message={updateResponse} />;
     }
 
     if (deleteResponse) {
-      return <ServerMessage message={deleteResponse.deletePlaylist.message} />;
+      return <ServerMessage message={deleteResponse} />;
     }
 
     return null;
@@ -97,7 +99,7 @@ class PlaylistEditor extends Component {
       return (
         <EditorContainer>
           <UpdateContainer>
-            {(mutationsProp, serverResponses) => {
+            {mutationsProp => {
               return (
                 <Fragment>
                   <UpdatePanel
@@ -105,11 +107,10 @@ class PlaylistEditor extends Component {
                     selectedPlaylist={selectedPlaylist}
                     mutationsProp={mutationsProp}
                     sendToHomeView={() => this.props.viewSwitchCB('Home')}
-                    serverResponses={serverResponses}
                     resetState={this.resetState}
                   />
 
-                  {this.checkServerResponses(serverResponses)}
+                  {this.checkServerResponses()}
 
                   <SongView
                     PROP_MUTATION={null}
