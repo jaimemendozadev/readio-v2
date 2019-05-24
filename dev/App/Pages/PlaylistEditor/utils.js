@@ -88,13 +88,15 @@ export const performUpdate = async (
 
   const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
 
-  const serverResponse = await updateMutation({
-    variables: {playlistID, updatedList},
-  });
+  try {
+    const serverResponse = await updateMutation({
+      variables: {playlistID, updatedList},
+    });
 
-  //Should return deletion message from server
-
-  console.log('result from DB after updating playlist ', result);
+    return serverResponse;
+  } catch (error) {
+    console.log('There was an error updating the Playlist ', error);
+  }
 };
 
 export const performDelete = async (
