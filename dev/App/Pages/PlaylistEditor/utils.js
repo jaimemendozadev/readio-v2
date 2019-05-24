@@ -88,9 +88,11 @@ export const performUpdate = async (
 
   const updatedList = prepPlaylistPayload(sanitizedName, playlistSongs);
 
-  const result = await updateMutation({
+  const serverResponse = await updateMutation({
     variables: {playlistID, updatedList},
   });
+
+  //Should return deletion message from server
 
   console.log('result from DB after updating playlist ', result);
 };
@@ -102,13 +104,17 @@ export const performDelete = async (
 ) => {
   const {playlistID} = selectedPlaylist;
 
-  await deleteMutation({
-    variables: {playlistID, userID: currentUser.id},
-  });
+  try {
+    const serverResponse = await deleteMutation({
+      variables: {playlistID, userID: currentUser.id},
+    });
 
-  const resetState = resetLocalPlaylistState();
+    return serverResponse;
+  } catch (error) {
+    console.log('There was an error trying to delete the Playlist ', error);
+  }
 
-  return resetState;
+  // const resetState = resetLocalPlaylistState();
 };
 
 export const filterPlaylist = (selectedPlaylist, playlistSong) => {

@@ -11,22 +11,22 @@ const UpdateContainer = ({children}) => (
     mutation={UPDATE_PLAYLIST}
     refetchQueries={() => [{query: GET_USER_INFO}]}
   >
-    {(updatePlaylistMutation, {data: updateServerResponse}) => (
+    {updatePlaylistMutation => (
       <CustomMutation
         mutation={DELETE_PLAYLIST}
         refetchQueries={() => [{query: GET_USER_INFO}]}
       >
-        {(deletePlaylistMutation, {data: deleteServerResponse}) => {
+        {deletePlaylistMutation => {
           const mutationsProp = {
             delete: deletePlaylistMutation,
             update: updatePlaylistMutation,
           };
 
-          const serverResponses = {
-            delete: deleteServerResponse,
-            update: updateServerResponse,
-          };
-          return children(mutationsProp, serverResponses);
+          // const serverResponses = {
+          //   delete: deleteServerResponse,
+          //   update: updateServerResponse,
+          // };
+          return children(mutationsProp);
         }}
       </CustomMutation>
     )}
