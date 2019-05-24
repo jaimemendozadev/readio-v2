@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import SaveIcon from '../assets/savesonglist.png';
 import DeleteIcon from '../assets/deletesonglist.png';
 import BackIcon from '../assets/back.png';
-import {performDelete, performUpdate} from './utils.js';
+import {
+  performDelete,
+  performUpdate,
+  resetLocalPlaylistState,
+} from './utils.js';
 
 const defaultState = {
   textInput: '',
@@ -74,8 +78,13 @@ class UpdatePanel extends Component {
         data: {deletePlaylist},
       } = serverResponse;
 
+      const resetPlaylist = resetLocalPlaylistState();
+
       const {message} = deletePlaylist;
-      const updatedState = {serverResponse: {deleteResponse: message}};
+      const updatedState = {
+        selectedPlaylist: resetPlaylist,
+        serverResponse: {deleteResponse: message},
+      };
       resetState(updatedState);
     }
   };
