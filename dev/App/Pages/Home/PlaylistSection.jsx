@@ -23,7 +23,6 @@ const PlaylistSection = ({playlists}) => {
         Your Saved Playlists: Click on a playlist below to load it in the
         player!
       </h1>
-      {/* TODO: Need to fix GET_STORED_PLAYLIST when saving or updating */}
       <CustomQuery query={GET_STORED_PLAYLIST}>
         {data => (
           <Mutation mutation={LOAD_PLAYLIST_IN_CACHE}>

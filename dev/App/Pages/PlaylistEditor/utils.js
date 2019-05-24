@@ -114,8 +114,6 @@ export const performDelete = async (
   } catch (error) {
     console.log('There was an error trying to delete the Playlist ', error);
   }
-
-  // const resetState = resetLocalPlaylistState();
 };
 
 export const filterPlaylist = (selectedPlaylist, playlistSong) => {
