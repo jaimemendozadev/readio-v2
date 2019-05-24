@@ -35,6 +35,29 @@ class UpdatePanel extends Component {
     });
   };
 
+  triggerUpdate = async event => {
+    event.preventDefault();
+
+    const {textInput, selectedPlaylist} = this.state;
+    const {resetState, mutationsProp} = this.props;
+
+    const serverResponse = await performUpdate(
+      mutationsProp.update,
+      textInput,
+      selectedPlaylist,
+    );
+
+    if (serverResponse) {
+      const {
+        data: {updatePlaylist},
+      } = serverResponse;
+      const {message} = updatePlaylist;
+
+      const updatedState = {serverResponse: {updateResponse: message}};
+      resetState(updatedState);
+    }
+  };
+
   triggerReset = async event => {
     event.preventDefault();
     const {currentUser, selectedPlaylist} = this.state;
@@ -87,8 +110,8 @@ class UpdatePanel extends Component {
   };
 
   render() {
-    const {textInput, selectedPlaylist} = this.state;
-    const {mutationsProp, sendToHomeView} = this.props;
+    const {textInput} = this.state;
+    const {sendToHomeView} = this.props;
 
     // playlistName comes as props from selectedPlaylist,
     // will be saved in local state on CDM and CDU
@@ -120,11 +143,7 @@ class UpdatePanel extends Component {
               <img src={BackIcon} />
               Back to Home
             </button>
-            <button
-              onClick={() =>
-                performUpdate(mutationsProp.update, textInput, selectedPlaylist)
-              }
-            >
+            <button onClick={this.triggerUpdate}>
               <img src={SaveIcon} />
               Update
             </button>
