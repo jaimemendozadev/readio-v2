@@ -21,11 +21,6 @@ const UpdateContainer = ({children}) => (
             delete: deletePlaylistMutation,
             update: updatePlaylistMutation,
           };
-
-          // const serverResponses = {
-          //   delete: deleteServerResponse,
-          //   update: updateServerResponse,
-          // };
           return children(mutationsProp);
         }}
       </CustomMutation>

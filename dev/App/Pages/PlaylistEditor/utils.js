@@ -70,9 +70,8 @@ export const resetLocalPlaylistState = () => {
     playlistToEdit: {},
     playlistSongs: [],
   };
-  const currentView = 'Edit Playlist';
 
-  return {selectedPlaylist, currentView};
+  return selectedPlaylist;
 };
 
 export const performUpdate = async (
