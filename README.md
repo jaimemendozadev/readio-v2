@@ -14,7 +14,7 @@ Read.io (v2) has been refactored with a GraphQL Backend API, Apollo Client on th
 
 ## Initial Setup
 
-Open up your terminal and clone the repo locally to your computer by running the following command at the target destination: `$ git clone https://github.com/jaimemendozadev/jaimemendoza_v2.git`
+Open up your terminal and clone the repo locally to your computer by running the following command at the target destination: `$ git clone https://github.com/jaimemendozadev/readio-v2`
 
 ## Create a `.env` File
 
