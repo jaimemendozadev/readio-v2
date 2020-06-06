@@ -22,7 +22,7 @@
     "apollo-boost": "^0.4.4",
     "apollo-client": "^2.6.4",
     "apollo-link-context": "^1.0.19",
-    "apollo-server-express": "^2.9.13",
+    "apollo-server-express": "^2.14.2",
     "body-parser": "^1.18.3",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.5.5",
